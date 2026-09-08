@@ -14,7 +14,7 @@ print("*        Your goal is to explore all important rooms in the school.      
 print("*    You may need to solve challenges to collect items and unlock rooms.   *")
 print("*               Once you've visited all rooms, you win!                    *")
 print("****************************************************************************")
-
+print("test!")
 state = {
     "current_room": "corridor",
     "previous_room": "corridor",
