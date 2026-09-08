@@ -15,6 +15,7 @@ print("*    You may need to solve challenges to collect items and unlock rooms. 
 print("*               Once you've visited all rooms, you win!                    *")
 print("****************************************************************************")
 
+print('test drive')
 state = {
     "current_room": "corridor",
     "previous_room": "corridor",
