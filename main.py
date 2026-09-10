@@ -3,10 +3,10 @@
 # ACS School Project - Simple Maze Example
 # Organization: THUAS (The Hague University of Applied Sciences)
 # Location: Delft
-# Date: July 2025
+# Date: September 2026
 # -----------------------------------------------------------------------------
 
-from rooms import enterCorridor, enterStudyLandscape, enterClassroom2015, enterProjectRoom3, enterLab2001
+from rooms import enterNSCorridor, enterClassroom2031, enterClassroom2035, enterStairExit, enterTeachersRoom4
 
 print("****************************************************************************")
 print("*                      Welcome to the School Maze!                         *")
@@ -16,12 +16,13 @@ print("*               Once you've visited all rooms, you win!                  
 print("****************************************************************************")
 
 state = {
-    "current_room": "corridor",
+    "current_room": "nscorridor",
     "previous_room": "corridor",
     "visited": {
-        "classroom2015": False,
-        "projectroom3": False,
-        "lab2001": False,
+        "classroom2031": False,
+        "classroom2035": False,
+        "stairexit": False,
+        "teachersroom4": False,
     },
     "inventory": []
 }
@@ -29,20 +30,20 @@ state = {
 while True:
     current = state["current_room"]
 
-    if current == "corridor":
-        state["current_room"] = enterCorridor(state)
+    if current == "nscorridor":
+        state["current_room"] = enterNSCorridor(state)
 
-    elif current == "studylandscape":
-        state["current_room"] = enterStudyLandscape(state)
+    elif current == "classroom2031":
+        state["current_room"] = enterClassroom2031(state)
 
-    elif current == "classroom2015":
-        state["current_room"] = enterClassroom2015(state)
+    elif current == "classroom2035":
+        state["current_room"] = enterClassroom2035(state)
 
-    elif current == "projectroom3":
-        state["current_room"] = enterProjectRoom3(state)
+    elif current == "stairexit":
+        state["current_room"] = enterStairExit(state)
 
-    elif current == "lab2001":
-        state["current_room"] = enterLab2001(state)
+    elif current == "teachersroom4":
+        state["current_room"] = enterTeachersRoom4(state)
 
     else:
         print("Unknown room. Exiting game.")
