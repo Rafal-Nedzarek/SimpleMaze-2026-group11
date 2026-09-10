@@ -1,37 +1,31 @@
-# -----------------------------------------------------------------------------
-# File: corridor.py
-# ACS School Project - Simple Maze Example
-# Organization: THUAS (The Hague University of Applied Sciences)
-# Location: Delft
-# Date: July 2025
-# -----------------------------------------------------------------------------
-
-import sys
-from .utils import chooseNextRoom
-
-def enterCorridor(state):
-    print("\n🚶 You are standing in the school's main corridor.")
-    print("You see a long corridor with many doors and glass walls on both side. Behind these door are rooms, waiting to be explored.")
+def enterNSCorridor(state):
+    print("\nYou step through the interdimensional door and you are standing in a long corridor.")
+    print("The floor and walls are covered in dried blood. The air is heavy and the corridor looks worn down.")
 
     # --- List of accessible rooms from here ---
-    available_rooms = ["classroom2015", "projectroom3", "studylandscape", "lab2001", "nscorridor"]
+    available_rooms = ["stairexit", "teachersroom4", "classroom2031","classroom2035"]
 
     # --- Command handlers ---
 
     def handle_look():
         """Describe the corridor and show where the player can go."""
         print("\nYou take a look around.")
-        print("Students and teachers are walking in both directions along the corridor. You see several labeled doors.")
+        print("There are stains of blood on the wall and ground, and the corridor looks abandoned")
+        print("You can see some torn off books, papers and some schools supplies on the ground")
+        print("3 meters from you, lies skeleton with missing upper part of the body")
+        print("You can see 4 doors to Stair Exit, Teachers Room 4, Classroom 2031 and Classroom 2035")
         print(f"- Possible doors: {', '.join(available_rooms)}")
-        print("- You current inventory:", state["inventory"])
+        print("- Your current inventory:", state["inventory"])
 
     def handle_help():
         """List available commands and explain navigation."""
         print("\nAvailable commands:")
         print("- look around         : See what's in the corridor and where you can go.")
-        print("- go <room name>      : Move to another room. Example: go classroom2015")
+        print("- go <room name>      : Move to another room.")
         print("- ?                   : Show this help message.")
         print("- quit                : Quit the game.")
+        print(f"- Possible doors: {', '.join(available_rooms)}")
+        print("- Your current inventory:", state["inventory"])
 
     def handle_go(room_name):
         """Move to a listed room."""
