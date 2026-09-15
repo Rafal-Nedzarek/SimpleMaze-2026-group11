@@ -43,21 +43,20 @@ def enterStairExit(state):
             return None
 
     # --- Main command loop ---
-    opened_chest = False
     while True:
         command = input("\n> ").strip().lower()
 
         if command == "look around":
             handle_look()
 
-        elif command == "open chest" and opened_chest == False:
+        elif command == "open chest" and state["room_states"]["stairexit"]["opened_chest"] == False:
             print("\nYou open the chest and you have received bandages")
             print("When you use bandages you will gain 4 hearts")
             state["inventory"].append("bandages")
             print("- Your current inventory:", state["inventory"])
-            opened_chest = True
+            state["room_states"]["stairexit"]["opened_chest"] = True
 
-        elif command == "open chest" and opened_chest == True:
+        elif command == "open chest" and state["room_states"]["stairexit"]["opened_chest"]:
             print("\nYou have already opened this chest")
 
         elif command == "?":

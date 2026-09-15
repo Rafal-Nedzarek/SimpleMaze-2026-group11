@@ -28,6 +28,11 @@ state = {
         "stairexit": False,
         # "teachersroom4": False,
     },
+    "room_states": {
+        "stairexit": {
+          "opened_chest": False,
+        },
+    },
     "inventory": []
 }
 
