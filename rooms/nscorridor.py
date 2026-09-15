@@ -3,7 +3,7 @@ def enterNSCorridor(state):
     print("The floor and walls are covered in dried blood. The air is heavy and the corridor looks worn down.")
 
     # --- List of accessible rooms from here ---
-    available_rooms = ["stairexit", "teachersroom4", "classroom2031","classroom2035"]
+    available_rooms = ["stairexit", "teachersroom4", "classroom2031","classroom2035", "corridor"]
 
     # --- Command handlers ---
 
