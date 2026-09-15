@@ -6,7 +6,7 @@
 # Date: September 2026
 # -----------------------------------------------------------------------------
 
-from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001
+from rooms import enterNSCorridor, enterClassroom2031, enterClassroom2035, enterStairExit, enterTeachersRoom4
 
 print("****************************************************************************")
 print("*                      Welcome to the School Maze!                         *")
@@ -16,53 +16,270 @@ print("*               Once you've visited all rooms, you win!                  
 print("****************************************************************************")
 
 state = {
-    "current_room": "corridor",
+    "current_room": "nscorridor",
     "previous_room": "corridor",
+
     "visited": {
-        # "classroom2031": False,
-        # "classroom2035": False,
+        "nscorridor" : False,
+        "classroom2031": False,
+        "classroom2035": False,
+        "stairexit": False,
+        "teachersroom4": False,
+    },
+
+    "looked_around": {
+        "classroom2031": False,
+        "classroom2035": False,
+        "stairexit": False,
+        "teachersroom4": False,
         "classroom2015": False,
         "projectroom3": False,
         "lab2001": False,
-        "nscorridor": False,
-        "stairexit": False,
-        # "teachersroom4": False,
     },
+
     "room_states": {
         "stairexit": {
-          "opened_chest": False,
+            "chest_opened": False,
+        },
+        "classroom2035": {
+            "folder" : False,
+            "manifest" : False,
+            "desk" : False,
+            "board" : False,
+            "game_over" : False,
+            "football" : False,
+            "crucifix" : False,
+            "wrong_guess" : 0,
+            "guessed_letters" : []
+        },
+        "teachersroom4": {
+            "safe" : False,
+            "safe_opened" : False,
+            "mug" : False,
+            "calendar" : False,
+            "clock" : False,
+        },
+        "classroom2031": {
+            "playing cards" : False,
+            "dog picture" : False,
+            "photo camera" : False,
+            "football" : False,
+            "notebook" : False,
+            "make-up" : False,
+            "ghost discovered" : False
         },
     },
-    "inventory": []
+    "health" : 10,
+    "inventory": ["playing cards", "notebook"],
+    "hangman_words" : ["ghost", "haunt", "death", "skull", "grave", "night", "spook", "demon", "witch", "scary","dread",
+                       "creep", "curse", "shade", "blood", "decay", "crypt", "ghoul", "abyss", "omens", "stalk", "burial",
+                       "casket", "chills", "corpse", "creepy", "fright", "hollow", "horror", "lurker", "menace", "rotten",
+                       "scream", "shadow", "shriek", "spider", "undead", "wicked", "zombie", "dungeon","haunted", "monster",
+                       "ominous", "phantom", "possess", "severed", "stalker", "vampire", "whisper", "gloomy"],
+    "manifest" : {
+        "dominik" : {
+            "age" : 21,
+            "gender" : "male",
+            "item1" : "playing cards",
+            "item2" : "dog picture",
+            "item3" : "photo camera"
+        },
+        "martin" : {
+            "age" : 20,
+            "gender" : "male",
+            "item1" : "dog picture",
+            "item2" : "playing cards",
+            "item3" : "football"
+        },
+        "daniel" : {
+            "age" : 21,
+            "gender" : "male",
+            "item1" : "playing cards",
+            "item2" : "dog picture",
+            "item3" : "football"
+        },
+        "vin": {
+            "age": 20,
+            "gender": "male",
+            "item1": "notebook",
+            "item2": "playing cards",
+            "item3": "football"
+        },
+        "gabriel": {
+            "age": 20,
+            "gender": "male",
+            "item1": "notebook",
+            "item2": "dog picture",
+            "item3": "football"
+        },
+        "johannes": {
+            "age": 21,
+            "gender": "male",
+            "item1": "dog picture",
+            "item2": "playing cards",
+            "item3": "notebook"
+        },
+        "joseph": {
+            "age": 21,
+            "gender": "male",
+            "item1": "dog picture",
+            "item2": "photo camera",
+            "item3": "notebook"
+        },
+        "david": {
+            "age": 20,
+            "gender": "male",
+            "item1": "photo camera",
+            "item2": "playing cards",
+            "item3": "football"
+        },
+        "connor": {
+            "age": 21,
+            "gender": "male",
+            "item1": "dog picture",
+            "item2": "playing cards",
+            "item3": "football"
+        },
+        "leon": {
+            "age": 21,
+            "gender": "male",
+            "item1": "dog picture",
+            "item2": "photo camera",
+            "item3": "football"
+        },
+        "nick": {
+            "age": 20,
+            "gender": "male",
+            "item1": "notebook",
+            "item2": "photo camera",
+            "item3": "football"
+        },
+        "damian": {
+            "age": 20,
+            "gender": "male",
+            "item1": "notebook",
+            "item2": "dog picture",
+            "item3": "playing cards"
+        },
+        "stuart": {
+            "age": 21,
+            "gender": "male",
+            "item1": "photo camera",
+            "item2": "notebook",
+            "item3": "football"
+        },
+        "mark": {
+            "age": 21,
+            "gender": "male",
+            "item1": "notebook",
+            "item2": "playing cards",
+            "item3": "football"
+        },
+        "anett": {
+            "age": 20,
+            "gender": "female",
+            "item1": "photo camera",
+            "item2": "playing cards",
+            "item3": "make-up"
+        },
+        "miina": {
+            "age": 20,
+            "gender": "female",
+            "item1": "dog picture",
+            "item2": "playing cards",
+            "item3": "make-up"
+        },
+        "lisa": {
+            "age": 20,
+            "gender": "female",
+            "item1": "playing cards",
+            "item2": "notebook",
+            "item3": "make-up"
+        },
+        "aria": {
+            "age": 20,
+            "gender": "female",
+            "item1": "dog picture",
+            "item2": "notebook",
+            "item3": "make-up"
+        },
+        "veronika": {
+            "age": 21,
+            "gender": "female",
+            "item1": "dog picture",
+            "item2": "make-up",
+            "item3": "playing cards"
+        },
+        "shelby": {
+            "age": 21,
+            "gender": "female",
+            "item1": "notebook",
+            "item2": "dog picture",
+            "item3": "make-up"
+        },
+        "amy": {
+            "age": 20,
+            "gender": "female",
+            "item1": "photo camera",
+            "item2": "dog picture",
+            "item3": "make-up"
+        },
+        "ashley": {
+            "age": 21,
+            "gender": "female",
+            "item1": "photo camera",
+            "item2": "notebook",
+            "item3": "make-up"
+        },
+        "sara": {
+            "age": 20,
+            "gender": "female",
+            "item1": "photo camera",
+            "item2": "notebook",
+            "item3": "playing cards"
+        },
+        "olivia": {
+            "age": 21,
+            "gender": "female",
+            "item1": "photo camera",
+            "item2": "dog picture",
+            "item3": "make-up"
+        },
+        "elizabeth": {
+            "age": 21,
+            "gender": "female",
+            "item1": "notebook",
+            "item2": "photo camera",
+            "item3": "make-up"
+        },
+        "kamila": {
+            "age": 21,
+            "gender": "female",
+            "item1": "notebook",
+            "item2": "dog picture",
+            "item3": "playing cards"
+        },
+
+    },
 }
 
 while True:
     current = state["current_room"]
 
-    if current == "corridor":
-        state["current_room"] = enterCorridor(state)
-
-    elif current == "nscorridor":
+    if current == "nscorridor":
         state["current_room"] = enterNSCorridor(state)
 
-    # elif current == "classroom2031":
-    #     state["current_room"] = enterClassroom2031(state)
-    #
-    # elif current == "classroom2035":
-    #     state["current_room"] = enterClassroom2035(state)
+    elif current == "classroom2031":
+        state["current_room"] = enterClassroom2031(state)
+
+    elif current == "classroom2035":
+        state["current_room"] = enterClassroom2035(state)
 
     elif current == "stairexit":
         state["current_room"] = enterStairExit(state)
 
-    # elif current == "teachersroom4":
-    #     state["current_room"] = enterTeachersRoom4(state)
-
-    elif current == "classroom2015":
-        state["current_room"] = enterClassroom2015(state)
-
-    elif current == "lab2001":
-        state["current_room"] = enterLab2001(state)
-
+    elif current == "teachersroom4":
+        state["current_room"] = enterTeachersRoom4(state)
 
     else:
         print("Unknown room. Exiting game.")
