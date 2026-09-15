@@ -32,8 +32,6 @@ state = {
         "stairexit": {
           "opened_chest": False,
         },
-    },
-    "room_states": {
         "enchanted_library":{
             "clue1_solved": False,
             "clue2_solved": False,
