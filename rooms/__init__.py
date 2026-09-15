@@ -12,3 +12,4 @@ from .classroom2015 import enterClassroom2015
 from .projectroom3 import enterProjectRoom3
 from .lab2001 import enterLab2001
 from .utils import chooseNextRoom
+from .enachanted_library import enterEnchantedLibrary
