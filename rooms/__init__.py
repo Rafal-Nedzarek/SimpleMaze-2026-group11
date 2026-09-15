@@ -16,3 +16,7 @@ from .classroom2015 import enterClassroom2015
 from .lab2001 import enterLab2001
 from .utils import chooseNextRoom
 from .enachanted_library import enterEnchantedLibrary
+from .teacherroom1 import enterteacherroom1
+
+
+
