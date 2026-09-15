@@ -28,6 +28,7 @@ state = {
         "stairexit": False,
         # "teachersroom4": False,
     },
+    # dictionary for tracking room-specific states
     "room_states": {
         "stairexit": {
           "opened_chest": False,
@@ -38,6 +39,26 @@ state = {
             "clue3_solved": False,
             "spellbook_unlocked": False,
         },
+        "lab2001": {
+            "workbench_examined": False,
+            "notebook_examined": False,
+            "laser_broken": False,
+            "resistance_setting": 0,
+            "given_voltage": 230,
+            "key_shards_placed": {
+                "key shard 1": False,
+                "key shard 2": False,
+                "key shard 3": False,
+                "key shard 4": False,
+            },
+            "final_key_forged": False,
+        },
+    },
+    # TODO: consider moving this to room_states
+    "looked_around": {
+        "classroom2015": False,
+        "projectroom3": False,
+        "lab2001": False,
     },
     "inventory": []
 }
