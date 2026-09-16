@@ -49,7 +49,7 @@ def enterNSCorridor(state):
         room = room_name.lower()
         if room in available_rooms:
             print(f"You walk toward the door to {room}.")
-            state["previous_room"] = "nscorridor"
+            state["previous_room"] = "corridor"
             return room
         else:
             print(f"'{room_name}' is not a valid exit. Use 'look around' to see available options.")
