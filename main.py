@@ -6,7 +6,7 @@
 # Date: September 2026
 # -----------------------------------------------------------------------------
 
-from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary
+from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary, enterteacherroom1
 
 print("****************************************************************************")
 print("*                      Welcome to the School Maze!                         *")
@@ -28,6 +28,14 @@ state = {
         "nscorridor": False,
         "stairexit": False,
         # "teachersroom4": False,
+        "teacherroom1": False,
+    },
+    # TODO: consider moving this to room_states
+    "looked_around": {
+        "classroom2015": False,
+        "projectroom3": False,
+        "lab2001": False,
+        "teacherroom1": False,
     },
     # TODO: consider moving this to room_states
     "looked_around": {
@@ -105,6 +113,9 @@ while True:
 
     elif current == "enchanted_library":
         state["current_room"] = enterEnchantedLibrary(state)
+
+    elif current == "teacherroom1":
+        state["current_room"] = enterteacherroom1(state)
 
     else:
         print("Unknown room. Exiting game.")
