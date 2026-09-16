@@ -7,13 +7,13 @@ def enterLab2003(state):
         if "final key" not in state["inventory"]:
             print("\n🚪 The door to Lab 2003 is locked.")
             print("The door looks robust and high-tech. You might need a special key...")
-            return "corridor"
+            return "lobby"
         else:
             print("\nYou insert the final key into the lock and turn it.")
             print("WIP: description upon entering the room.")
             state["room_states"]["lab2003"]["door_unlocked"] = True
     else:
-        print("WIP: description when you re-enter from corridor")
+        print("WIP: description when you re-enter from lobby")
         # TODO: make it depend on lights on
 
     def handle_look():
@@ -23,7 +23,7 @@ def enterLab2003(state):
             print("WIP: description of the room when looking around.\n"
                   "You notice a person sitting at one of the desks...")
             state["looked_around"]["lab2001"] = True
-        print("- Possible exits: corridor")
+        print("- Possible exits: lobby")
         print("- Your current inventory:", state["inventory"])
         # TODO: update new actions after looking
         if state["room_states"]["lab2003"]["lights_on"]:
@@ -38,14 +38,14 @@ def enterLab2003(state):
             print("- lights on                : Turn on the lights.")
         elif state["looked_around"]["lab2001"]:
             print("- approach the person                : See if the person is okay.")
-        print("- go corridor / back  : Leave the room and return to the corridor.")
+        print("- go lobby / back  : Leave the room and return to the lobby.")
         print("- ?                   : Show this help message.")
         print("- quit                : Quit the game entirely.")
 
     def handle_go(destination):
-        if destination in ["corridor", "back"]:
-            print("🚪 You open the door and step back into the corridor.")
-            return "corridor"
+        if destination in ["lobby", "back"]:
+            print("🚪 You open the door and step back into the lobby.")
+            return "lobby"
         else:
             print(f"❌ You can't go to '{destination}' from here.")
             return None

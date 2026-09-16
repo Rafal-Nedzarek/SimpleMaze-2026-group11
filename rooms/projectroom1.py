@@ -99,7 +99,7 @@ def enterProjectRoom1(state):
             if result:
                 return result
 
-        elif command.startswith("answer "):
+        elif command.startswith("action "):
             answer = command[7:].strip()
             result = handle_answer(answer)
             if result:

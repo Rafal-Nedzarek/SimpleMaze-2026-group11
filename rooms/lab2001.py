@@ -24,14 +24,14 @@ def enterLab2001(state):
                   "- replace laser               : Replace the laser if it's broken.\n"
                   )
         # display take when the final key is ready
-        print("- go corridor / back  : Leave the room and return to the corridor.")
+        print("- go lobby / back  : Leave the room and return to the corridor.")
         print("- ?                   : Show this help message.")
         print("- quit                : Quit the game entirely.")
 
     def handle_go(destination):
-        if destination in ["corridor", "back"]:
+        if destination in ["lobby", "back"]:
             print("🚪 You open the door and step back into the corridor.")
-            return "corridor"
+            return "lobby"
         else:
             print(f"❌ You can't go to '{destination}' from here.")
             return None
