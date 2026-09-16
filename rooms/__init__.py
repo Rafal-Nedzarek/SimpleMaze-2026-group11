@@ -6,6 +6,7 @@
 # Date: September 2026
 # -----------------------------------------------------------------------------
 
+from .corridor import enterCorridor
 from .nscorridor import enterNSCorridor
 from .stairexit import enterStairExit
 from .classroom2031 import enterClassroom2031
