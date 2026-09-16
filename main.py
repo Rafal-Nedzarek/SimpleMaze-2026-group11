@@ -6,7 +6,7 @@
 # Date: September 2026
 # -----------------------------------------------------------------------------
 
-from rooms import enterNSCorridor, enterClassroom2031, enterClassroom2035, enterStairExit, enterTeachersRoom4
+from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary, enterteacherroom1, enterClassroom2031, enterClassroom2035, enterTeachersRoom4
 
 print("****************************************************************************")
 print("*                      Welcome to the School Maze!                         *")
@@ -35,8 +35,27 @@ state = {
         "classroom2015": False,
         "projectroom3": False,
         "lab2001": False,
+        "lab2003": False,
+        "nscorridor": False,
+        "stairexit": False,
+        # "teachersroom4": False,
+        "teacherroom1": False,
     },
-
+    # TODO: consider moving this to room_states
+    "looked_around": {
+        "classroom2015": False,
+        "projectroom3": False,
+        "lab2001": False,
+        "teacherroom1": False,
+    },
+    # TODO: consider moving this to room_states
+    "looked_around": {
+        "classroom2015": False,
+        "projectroom3": False,
+        "lab2001": False,
+        "lab2003": False,
+    },
+    # dictionary for tracking room-specific states
     "room_states": {
         "stairexit": {
             "chest_opened": False,
@@ -67,6 +86,33 @@ state = {
             "notebook" : False,
             "make-up" : False,
             "ghost discovered" : False
+        },
+        "enchanted_library":{
+            "clue1_solved": False,
+            "clue2_solved": False,
+            "clue3_solved": False,
+            "spellbook_unlocked": False,
+        },
+        "lab2001": {
+            "workbench_examined": False,
+            "notebook_examined": False,
+            "laser_broken": False,
+            "resistance_setting": 0,
+            "given_voltage": 230,
+            "key_shards_placed": {
+                "key shard 1": False,
+                "key shard 2": False,
+                "key shard 3": False,
+                "key shard 4": False,
+            },
+            "final_key_forged": False,
+        },
+        "lab2003": {
+            "door_unlocked": False,
+            "lights_on": False,
+            "boss_fight_active": False,
+            "player_health": 10,
+            "boss_health": 100,
         },
     },
     "health" : 10,
@@ -266,7 +312,10 @@ state = {
 while True:
     current = state["current_room"]
 
-    if current == "nscorridor":
+    if current == "corridor":
+        state["current_room"] = enterNSCorridor(state)
+        
+    elif current == "nscorridor":
         state["current_room"] = enterNSCorridor(state)
 
     elif current == "classroom2031":
@@ -280,6 +329,22 @@ while True:
 
     elif current == "teachersroom4":
         state["current_room"] = enterTeachersRoom4(state)
+
+    elif current == "classroom2015":
+        state["current_room"] = enterClassroom2015(state)
+
+    elif current == "lab2001":
+        state["current_room"] = enterLab2001(state)
+
+    # TODO: for all these calls, might be wasteful to send the whole state
+    elif current == "lab2003":
+        state["current_room"] = enterLab2003(state)
+
+    elif current == "enchanted_library":
+        state["current_room"] = enterEnchantedLibrary(state)
+
+    elif current == "teacherroom1":
+        state["current_room"] = enterteacherroom1(state)
 
     else:
         print("Unknown room. Exiting game.")
