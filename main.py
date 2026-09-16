@@ -37,23 +37,7 @@ state = {
         "lab2001": False,
         "lab2003": False,
         "nscorridor": False,
-        "stairexit": False,
-        # "teachersroom4": False,
         "teacherroom1": False,
-    },
-    # TODO: consider moving this to room_states
-    "looked_around": {
-        "classroom2015": False,
-        "projectroom3": False,
-        "lab2001": False,
-        "teacherroom1": False,
-    },
-    # TODO: consider moving this to room_states
-    "looked_around": {
-        "classroom2015": False,
-        "projectroom3": False,
-        "lab2001": False,
-        "lab2003": False,
     },
     # dictionary for tracking room-specific states
     "room_states": {
