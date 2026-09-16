@@ -16,7 +16,7 @@ print("*               Once you've visited all rooms, you win!                  
 print("****************************************************************************")
 
 state = {
-    "current_room": "nscorridor",
+    "current_room": "corridor",
     "previous_room": "corridor",
 
     "visited": {
