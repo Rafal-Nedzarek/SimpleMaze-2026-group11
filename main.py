@@ -6,7 +6,7 @@
 # Date: September 2026
 # -----------------------------------------------------------------------------
 
-from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterEnchantedLibrary, enterteacherroom1
+from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary, enterteacherroom1
 
 print("****************************************************************************")
 print("*                      Welcome to the School Maze!                         *")
@@ -24,6 +24,7 @@ state = {
         "classroom2015": False,
         "projectroom3": False,
         "lab2001": False,
+        "lab2003": False,
         "nscorridor": False,
         "stairexit": False,
         # "teachersroom4": False,
@@ -35,6 +36,13 @@ state = {
         "projectroom3": False,
         "lab2001": False,
         "teacherroom1": False,
+    },
+    # TODO: consider moving this to room_states
+    "looked_around": {
+        "classroom2015": False,
+        "projectroom3": False,
+        "lab2001": False,
+        "lab2003": False,
     },
     # dictionary for tracking room-specific states
     "room_states": {
@@ -60,6 +68,13 @@ state = {
                 "key shard 4": False,
             },
             "final_key_forged": False,
+        },
+        "lab2003": {
+            "door_unlocked": False,
+            "lights_on": False,
+            "boss_fight_active": False,
+            "player_health": 10,
+            "boss_health": 100,
         },
     },
     "inventory": []
@@ -91,6 +106,10 @@ while True:
 
     elif current == "lab2001":
         state["current_room"] = enterLab2001(state)
+
+    # TODO: for all these calls, might be wasteful to send the whole state
+    elif current == "lab2003":
+        state["current_room"] = enterLab2003(state)
 
     elif current == "enchanted_library":
         state["current_room"] = enterEnchantedLibrary(state)
