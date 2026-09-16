@@ -116,6 +116,7 @@ state = {
         },
     },
     "health" : 10,
+    # TODO: make sure we have those items in other rooms, then clear inventory
     "inventory": ["playing cards", "notebook"],
     "hangman_words" : ["ghost", "haunt", "death", "skull", "grave", "night", "spook", "demon", "witch", "scary","dread",
                        "creep", "curse", "shade", "blood", "decay", "crypt", "ghoul", "abyss", "omens", "stalk", "burial",
@@ -313,7 +314,7 @@ while True:
     current = state["current_room"]
 
     if current == "corridor":
-        state["current_room"] = enterNSCorridor(state)
+        state["current_room"] = enterCorridor(state)
         
     elif current == "nscorridor":
         state["current_room"] = enterNSCorridor(state)
