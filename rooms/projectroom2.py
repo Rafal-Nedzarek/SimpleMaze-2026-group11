@@ -17,6 +17,7 @@ def enterProjectRoom2(state):
             print("You see two groups of squid looking aliens. A larger and a smaller group.")
             #print("\"What is 7 * 6?\"")
             print('Which group do you target?')
+            state["looked_around"]["projectroom2"] = True
         else:
             #print("The teacher sighs: You again? You already solved the challenge.")
             if "key" not in state["inventory"]:
@@ -30,9 +31,9 @@ def enterProjectRoom2(state):
     def handle_help():
         print("\nAvailable commands:")
         print("- look around         : Examine the room and its contents.")
-        if not state["visited"]["projectroom2"]:
+        if state["looked_around"]["projectroom2"] and not state["visited"]["projectroom2"]:
             print("- target <group>     : Target the 'larger' or 'smaller' group.")
-        if state["visited"]["projectroom2"] and "key" not in state["inventory"]:
+        if state["visited"]["projectroom2"] and "tentacle" not in state["inventory"]:
             print("- take tentacle            : Pick up the key once it's revealed.")
         print("- go lobby / back  : Leave the room and return to the lobby.")
         print("- ?                   : Show this help message.")
@@ -43,12 +44,12 @@ def enterProjectRoom2(state):
         if item == "tentacle":
             if not state["visited"]["projectroom2"]:
                 print("❌ There's no key visible yet. Maybe solving the puzzle will reveal more.")
-            elif "key" in state["inventory"]:
+            elif item in state["inventory"]:
                 print("You already have the key in your backpack.")
             else:
                 print("🔑 You extract the part from the broken viewport.")
                 print("You take it and tuck it safely into your backpack.")
-                state["inventory"].append("tentacle")
+                state["inventory"].append(item)
         else:
             print(f"There is no '{item}' here to take.")
 

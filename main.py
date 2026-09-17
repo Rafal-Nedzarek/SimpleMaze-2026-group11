@@ -34,7 +34,7 @@ state = {
         "stairexit": False,
         "teachersroom4": False,
         "classroom2015": False,
-        "projectroom3": False,
+        "projectroom2": False,
         "lab2001": False,
         "lab2003": False,
         "nscorridor": False,
