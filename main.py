@@ -21,6 +21,7 @@ from rooms import (
     enterLobby,
     enterProjectRoom1,
     enterProjectRoom2,
+    enterProjectRoom3,
     enterTheExit
 )
 
@@ -347,6 +348,9 @@ while True:
 
     elif current == "projectroom2":
         state["current_room"] = enterProjectRoom2(state)
+
+    elif current == "projectroom3":
+        state["current_room"] = enterProjectRoom3(state)
 
     elif current == "the_exit":
         state["current_room"] = enterTheExit(state)
