@@ -1,29 +1,23 @@
-# -----------------------------------------------------------------------------
-# File: corridor.py
-# ACS School Project - Simple Maze Example
-# Organization: THUAS (The Hague University of Applied Sciences)
-# Location: Delft
-# Date: July 2025
-# -----------------------------------------------------------------------------
-
 import sys
 from .utils import chooseNextRoom
 
-def enterCorridor(state):
-    print("\n🚶 You are standing in the school's main corridor.")
-    print("You see a long corridor with many doors and glass walls on both side. Behind these door are rooms, waiting to be explored.")
+def enterLobby(state):
+    print("\n🛋️ The lobby opens up to you.")
+    print("You hear the hum of the ventilation and the coffee machine.")
+    print("A screen flickers above you.")
 
     # --- List of accessible rooms from here ---
-    available_rooms = ["lobby", "classroom2015", "nscorridor", "enchanted_library", "teacherroom1"]
-
-    # --- Command handlers ---
+    available_rooms = ["corridor", "projectroom1", "projectroom2", "lab2001", "lab2003", "exit"]
 
     def handle_look():
-        """Describe the corridor and show where the player can go."""
-        print("\nYou take a look around.")
-        print("Students and teachers are walking in both directions along the corridor. You see several labeled doors.")
+        """Describe the lobby and show exits."""
+        print("\nYou take a slow look around.")
+        print("There are a few posters on the wall about upcoming student events.")
+        print("A group of students is sitting in the corner gazing at a laptop")
+
+        #Decide setting, and decide how exits are done
         print(f"- Possible doors: {', '.join(available_rooms)}")
-        print("- You current inventory:", state["inventory"])
+        print("- Your current inventory:", state["inventory"])
 
     def handle_help():
         """List available commands and explain navigation."""
@@ -38,13 +32,13 @@ def enterCorridor(state):
         room = room_name.lower()
         if room in available_rooms:
             print(f"You walk toward the door to {room}.")
-            state["previous_room"] = "corridor"
+            state["previous_room"] = "lobby"
             return room
         else:
             print(f"❌ '{room_name}' is not a valid exit. Use 'look around' to see available options.")
             return None
 
-    # --- Main corridor command loop ---
+# --- Main lobby command loop ---
     while True:
         command = input("\n> ").strip().lower()
 

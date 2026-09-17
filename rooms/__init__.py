@@ -18,3 +18,7 @@ from .lab2003 import enterLab2003
 from .utils import chooseNextRoom
 from .enachanted_library import enterEnchantedLibrary
 from .teacherroom1 import enterteacherroom1
+
+# Jason Util imports
+from .lobby import enterLobby
+from .projectroom1 import enterProjectRoom1

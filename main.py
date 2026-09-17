@@ -6,7 +6,7 @@
 # Date: September 2026
 # -----------------------------------------------------------------------------
 
-from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary, enterteacherroom1, enterClassroom2031, enterClassroom2035, enterTeachersRoom4
+from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary, enterteacherroom1, enterClassroom2031, enterClassroom2035, enterTeachersRoom4, enterLobby, enterProjectRoom1
 
 print("****************************************************************************")
 print("*                      Welcome to the School Maze!                         *")
@@ -18,13 +18,13 @@ print("*************************************************************************
 state = {
     "current_room": "corridor",
     "previous_room": "corridor",
-
     "visited": {
         "nscorridor" : False,
         "classroom2031": False,
         "classroom2035": False,
         "stairexit": False,
         "teachersroom4": False,
+        "projectroom1": False,
     },
 
     "looked_around": {
@@ -299,7 +299,7 @@ while True:
 
     if current == "corridor":
         state["current_room"] = enterCorridor(state)
-        
+
     elif current == "nscorridor":
         state["current_room"] = enterNSCorridor(state)
 
@@ -320,6 +320,13 @@ while True:
 
     elif current == "lab2001":
         state["current_room"] = enterLab2001(state)
+
+    # Jason room functionality changes
+    elif current == "lobby":
+        state["current_room"] = enterLobby(state)
+
+    elif current == "projectroom1":
+        state["current_room"] = enterProjectRoom1(state)
 
     # TODO: for all these calls, might be wasteful to send the whole state
     elif current == "lab2003":
