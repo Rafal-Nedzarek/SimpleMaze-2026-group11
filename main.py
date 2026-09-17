@@ -6,7 +6,23 @@
 # Date: September 2026
 # -----------------------------------------------------------------------------
 
-from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary, enterteacherroom1, enterClassroom2031, enterClassroom2035, enterTeachersRoom4, enterLobby, enterProjectRoom1, enterProjectRoom2, enterTheExit
+from rooms import (
+    enterCorridor,
+    enterClassroom2015,
+    enterNSCorridor,
+    enterStairExit,
+    enterLab2001,
+    enterLab2003,
+    enterEnchantedLibrary,
+    enterteacherroom1,
+    enterClassroom2031,
+    enterClassroom2035,
+    enterTeachersRoom4,
+    enterLobby,
+    enterProjectRoom1,
+    enterProjectRoom2,
+    enterTheExit
+)
 
 print("****************************************************************************")
 print("*                      Welcome to the School Maze!                         *")
