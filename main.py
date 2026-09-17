@@ -6,7 +6,7 @@
 # Date: September 2026
 # -----------------------------------------------------------------------------
 
-from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary, enterteacherroom1, enterClassroom2031, enterClassroom2035, enterTeachersRoom4, enterLobby, enterProjectRoom1
+from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary, enterteacherroom1, enterClassroom2031, enterClassroom2035, enterTeachersRoom4, enterLobby, enterProjectRoom1, enterBreakRoom
 
 print("****************************************************************************")
 print("*                      Welcome to the School Maze!                         *")
@@ -334,6 +334,9 @@ while True:
 
     elif current == "enchanted_library":
         state["current_room"] = enterEnchantedLibrary(state)
+
+    elif current == "break_room":
+        state["current_room"] = enterBreakRoom(state)
 
     elif current == "teacherroom1":
         state["current_room"] = enterteacherroom1(state)

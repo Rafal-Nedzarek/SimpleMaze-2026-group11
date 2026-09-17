@@ -14,7 +14,7 @@ def enterCorridor(state):
     print("You see a long corridor with many doors and glass walls on both side. Behind these door are rooms, waiting to be explored.")
 
     # --- List of accessible rooms from here ---
-    available_rooms = ["lobby", "classroom2015", "nscorridor", "enchanted_library", "teacherroom1"]
+    available_rooms = ["lobby", "classroom2015", "nscorridor", "enchanted_library", "teacherroom1", "break_room"]
 
     # --- Command handlers ---
 
