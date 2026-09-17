@@ -332,7 +332,7 @@ while True:
     elif current == "projectroom2":
         state["current_room"] = enterProjectRoom2(state)
 
-    elif current == "theExit":
+    elif current == "the_exit":
         state["current_room"] = enterTheExit(state)
 
     # TODO: for all these calls, might be wasteful to send the whole state

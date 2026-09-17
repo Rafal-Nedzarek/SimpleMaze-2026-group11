@@ -23,4 +23,4 @@ from .teacherroom1 import enterteacherroom1
 from .lobby import enterLobby
 from .projectroom1 import enterProjectRoom1
 from .projectroom2 import enterProjectRoom2
-from.theExit import enterTheExit
+from.the_exit import enterTheExit
