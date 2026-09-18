@@ -58,11 +58,11 @@ def enterBreakRoom(state):
     print("\nBONUS UNLOCKED!")
     print("Dark Sun Buff: +10% extra energy.")
 
-    inventory.append("Dark Sun Buff")
+    state["inventory"].append("Dark Sun Buff")
 
     print("\n-----------------------------------")
     print("Your inventory:")
-    print(inventory)
+    print(state["inventory"])
     print("-----------------------------------")
 
     leave = input("\nDo you want to leave the Dark Night? (yes/no): ")
@@ -95,3 +95,4 @@ def enterBreakRoom(state):
     print("You received the Dark Sun Buff.")
     print("The adventure continues in another room.")
     print("===================================")
+    return "corridor"
