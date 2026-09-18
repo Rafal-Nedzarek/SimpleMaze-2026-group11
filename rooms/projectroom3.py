@@ -28,6 +28,7 @@ def enterProjectRoom3(state):
             print("On a circular face, it contains the names of animals: ")
             print("Rat, Ox, Tiger, Rabbit, <empty>, Snake, Horse, Goat, Monkey, Rooster, Pig.")
             print("It seems one of the inscriptions is missing.")
+            state["looked_around"]["projectroom3"] = True
         else:
             #print("The teacher sighs: You again? You already solved the challenge.")
             print('The incriptions glow.')
@@ -35,17 +36,17 @@ def enterProjectRoom3(state):
                 print("On the central table, a smaller instrument popped out.")
             else:
                 print("The table and the observatory turn slowly. You've already taken the astrolabe.")
-        print("- Possible exits: corridor")
+        print("- Possible exits: lobby")
         print("- Your current inventory:", state["inventory"])
 
     def handle_help():
         print("\nAvailable commands:")
         print("- look around         : Examine the room and its contents.")
-        if not state["visited"]["projectroom3"]:
+        if not state["visited"]["projectroom3"] and state["looked_around"]["projectroom3"]:
             print("- inscribe <animal>     : Figure out the missing animal(?)")
-        if state["visited"]["projectroom3"] and "key" not in state["inventory"]:
+        if state["visited"]["projectroom3"] and "astrolabe" not in state["inventory"]:
             print("- take astrolabe            : Pick up the astrolabe once it's revealed.")
-        print("- go corridor / back  : Leave the room and return to the corridor.")
+        print("- go lobby / back  : Leave the room and return to the lobby.")
         print("- ?                   : Show this help message.")
         print("- quit                : Quit the game entirely.")
 
@@ -63,9 +64,9 @@ def enterProjectRoom3(state):
             print(f"There is no '{item}' here to take.")
 
     def handle_go(destination):
-        if destination in ["corridor", "back"]:
-            print("🚪 You open the door and step back into the corridor.")
-            return "corridor"
+        if destination in ["lobby", "back"]:
+            print("🚪 You open the door and step back into the lobby.")
+            return "lobby"
         else:
             print(f"❌ You can't go to '{destination}' from here.")
             return None
@@ -73,7 +74,7 @@ def enterProjectRoom3(state):
     def handle_answer(answer):
         if state["visited"]["projectroom3"]:
             print("✅ You've already solved this challenge.")
-        elif answer == "Dragon":
+        elif answer == "dragon":
             print("✅ Correct! The table glows, and the entire room starts to turn around you.")
             state["visited"]["projectroom3"] = True
             print("Suddenly you see something pop out of the center.")
@@ -100,8 +101,8 @@ def enterProjectRoom3(state):
             if result:
                 return result
 
-        elif command.startswith("answer "):
-            answer = command[7:].strip()
+        elif command.startswith("inscribe "):
+            answer = command[9:].strip()
             result = handle_answer(answer)
             if result:
                 return result

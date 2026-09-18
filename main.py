@@ -45,7 +45,6 @@ state = {
         "projectroom2": False,
         "projectroom3": False
     },
-
     "looked_around": {
         "classroom2031": False,
         "classroom2035": False,
@@ -53,6 +52,7 @@ state = {
         "teachersroom4": False,
         "classroom2015": False,
         "projectroom2": False,
+        "projectroom3": False,
         "lab2001": False,
         "lab2003": False,
         "nscorridor": False,
