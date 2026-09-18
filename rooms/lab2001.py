@@ -23,7 +23,7 @@ def enterLab2001(state):
                   "- run workbench               : Run the workbench laser.\n"
                   "- replace laser               : Replace the laser if it's broken.\n"
                   )
-        # display take when the final key is ready
+        # display take when the lab2003 key is ready
         print("- go lobby / back  : Leave the room and return to the corridor.")
         print("- ?                   : Show this help message.")
         print("- quit                : Quit the game entirely.")
@@ -86,9 +86,9 @@ def enterLab2001(state):
                 print(f"You've placed {item} on the workbench plate.")
 
     def handle_run_workbench():
-        # check if final key already forged
-        if state["room_states"]["lab2001"]["final_key_forged"]:
-            print("You've already forged the final key!")
+        # check if lab2003 key already forged
+        if state["room_states"]["lab2001"]["lab2003_key_forged"]:
+            print("You've already forged the lab2003 key!")
         # check if laser broken
         elif state["room_states"]["lab2001"]["laser_broken"]:
             print("You need to replace the broken laser first!")
@@ -116,10 +116,10 @@ def enterLab2001(state):
                 else:
                     #TODO: get min power from state
                     if supplied_power >= 1000:
-                        state["inventory"].append("final key")
-                        state["room_states"]["lab2001"]["final_key_forged"] = True
+                        state["inventory"].append("lab2003 key")
+                        state["room_states"]["lab2001"]["lab2003_key_forged"] = True
                         print("WIP: You watch the whole process...\n"
-                              "You take the final key with you!")
+                              "You take the lab2003 key with you!")
                         # TODO: decide if we want to display inventory at this moment
                         print("- Your current inventory:", state["inventory"])
                     else:

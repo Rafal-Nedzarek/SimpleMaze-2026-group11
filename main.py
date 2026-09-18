@@ -109,7 +109,7 @@ state = {
                 "key shard 3": False,
                 "key shard 4": False,
             },
-            "final_key_forged": False,
+            "lab2003_key_forged": False,
         },
         "lab2003": {
             "door_unlocked": False,
@@ -121,7 +121,7 @@ state = {
     },
     "health" : 10,
     # TODO: make sure we have those items in other rooms, then clear inventory
-    "inventory": ["playing cards", "notebook"],
+    "inventory": [],
     "hangman_words" : ["ghost", "haunt", "death", "skull", "grave", "night", "spook", "demon", "witch", "scary","dread",
                        "creep", "curse", "shade", "blood", "decay", "crypt", "ghoul", "abyss", "omens", "stalk", "burial",
                        "casket", "chills", "corpse", "creepy", "fright", "hollow", "horror", "lurker", "menace", "rotten",

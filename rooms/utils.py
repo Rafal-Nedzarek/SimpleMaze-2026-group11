@@ -8,6 +8,14 @@
 
 import os
 
+# TODO: delete any unused utils
+
+def debugMode(request):
+    # assumming request formatted as "debug add <item_list>"
+    item_list = request[10:].split(", ")
+    print(f"Adding to inventory: {item_list}")
+    return item_list
+
 def clearScreen():
     if os.getenv("PYCHARM_HOSTED"):
         print("\n" * 50)  # fallback for PyCharm
