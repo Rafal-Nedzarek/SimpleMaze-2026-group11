@@ -7,7 +7,7 @@
 # -----------------------------------------------------------------------------
 
 import sys
-from .utils import chooseNextRoom
+from data import MANIFEST
 
 def enterStairExit(state):
     print("\nYou push the door to the stair exit and you enter the room.")
@@ -52,8 +52,8 @@ def enterStairExit(state):
             return None
     def handle_manifest():
         print("\nManifest:")
-        for i in state["manifest"]:
-            print(f"- name: {i}     gender: {state["manifest"][i]["gender"]}     age: {state["manifest"][i]["age"]}     favourite items: {state["manifest"][i]["item1"]}, {state["manifest"][i]["item2"]}, {state["manifest"][i]["item3"]}")
+        for i in MANIFEST:
+            print(f"- name: {i}     gender: {MANIFEST[i]["gender"]}     age: {MANIFEST[i]["age"]}     favourite items: {MANIFEST[i]["item1"]}, {MANIFEST[i]["item2"]}, {MANIFEST[i]["item3"]}")
         print("\n To guess the ghost you need to tipe: are you (name)")
 
     # --- Main command loop ---

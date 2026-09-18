@@ -8,6 +8,7 @@
 
 import sys
 from .utils import debugMode
+from data import MANIFEST
 
 def enterNSCorridor(state):
     if state["visited"]["nscorridor"] is False:
@@ -58,8 +59,8 @@ def enterNSCorridor(state):
 
     def handle_manifest():
         print("\nManifest:")
-        for i in state["manifest"]:
-            print(f"- name: {i}     gender: {state["manifest"][i]["gender"]}     age: {state["manifest"][i]["age"]}     favourite items: {state["manifest"][i]["item1"]}, {state["manifest"][i]["item2"]}, {state["manifest"][i]["item3"]}")
+        for i in MANIFEST:
+            print(f"- name: {i}     gender: {MANIFEST[i]["gender"]}     age: {MANIFEST[i]["age"]}     favourite items: {MANIFEST[i]["item1"]}, {MANIFEST[i]["item2"]}, {MANIFEST[i]["item3"]}")
         print("\n To guess the ghost you need to tipe: are you (name)")
 
     # --- Main corridor command loop ---

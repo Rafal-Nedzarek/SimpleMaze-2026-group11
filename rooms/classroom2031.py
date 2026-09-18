@@ -10,9 +10,7 @@ import sys
 from operator import truediv
 import random
 import time
-
-from .utils import chooseNextRoom
-
+from data import MANIFEST
 
 def enterClassroom2031(state):
 
@@ -21,16 +19,16 @@ def enterClassroom2031(state):
         print("\nSuddenly a dark figure appear in front of you for a second and instantly disappeared")
         if state["room_states"]["classroom2035"]["crucifix"] is True:
             print("Crucifix start to burn and it fells out of your inventory to a ground")
-            state["inventory"].pop("crucifix")
+            state["inventory"].remove("crucifix")
             print("Crucifix protected you from taking damage")
         elif state["room_states"]["classroom2035"]["crucifix"] is False:
             print("You have taken 4 harts of damage")
             state["health"] -= 4
             print(f"\n- Your current health is {state["health"]} harts")
-        ghost = random.choice(list(state["manifest"].keys()))
-        state["room_states"]["classroom2031"][state["manifest"][ghost]["item1"]] = True
-        state["room_states"]["classroom2031"][state["manifest"][ghost]["item2"]] = True
-        state["room_states"]["classroom2031"][state["manifest"][ghost]["item3"]] = True
+        ghost = random.choice(list(MANIFEST.keys()))
+        state["room_states"]["classroom2031"][MANIFEST[ghost]["item1"]] = True
+        state["room_states"]["classroom2031"][MANIFEST[ghost]["item2"]] = True
+        state["room_states"]["classroom2031"][MANIFEST[ghost]["item3"]] = True
         print(ghost)
     state["visited"]["classroom20314"] = True
 
@@ -68,8 +66,8 @@ def enterClassroom2031(state):
 
     def handle_manifest():
         print("\nManifest:")
-        for i in state["manifest"]:
-            print(f"- name: {i}     gender: {state["manifest"][i]["gender"]}     age: {state["manifest"][i]["age"]}     favourite items: {state["manifest"][i]["item1"]}, {state["manifest"][i]["item2"]}, {state["manifest"][i]["item3"]}")
+        for i in MANIFEST:
+            print(f"- name: {i}     gender: {MANIFEST[i]["gender"]}     age: {MANIFEST[i]["age"]}     favourite items: {MANIFEST[i]["item1"]}, {MANIFEST[i]["item2"]}, {MANIFEST[i]["item3"]}")
         print("\n To guess the ghost you need to tipe: are you (name)")
 
     def handle_ouija_board():
@@ -92,12 +90,12 @@ def enterClassroom2031(state):
                 print("\n Congratulation you have finished horror section, a new rift as appear close to a lab2001")
                 state["room_states"]["classroom2031"]["ghost discovered"] = True
             elif question == "how old are you?":
-                ghost_age = str(state["manifest"][ghost]["age"])
+                ghost_age = str(MANIFEST[ghost]["age"])
                 for i in ghost_age:
                     time.sleep(1)
                     print(i)
             elif question == "what is your gender?":
-                ghost_gender = state["manifest"][ghost]["gender"]
+                ghost_gender = MANIFEST[ghost]["gender"]
                 for i in ghost_gender:
                     time.sleep(1)
                     print(i)
