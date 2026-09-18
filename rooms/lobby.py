@@ -1,5 +1,5 @@
 import sys
-from .utils import chooseNextRoom
+from .utils import debugMode
 
 def enterLobby(state):
     print("\n🛋️ The lobby opens up to you.")
@@ -65,6 +65,10 @@ def enterLobby(state):
         elif command == "quit":
             print("👋 You leave the school and the adventure comes to an end. Game over.")
             sys.exit()
+
+        # not shown to the player
+        elif command.startswith("debug add "):
+            state["inventory"] += debugMode(command)
 
         else:
             print("❓ Unknown command. Type '?' to see available commands.")
