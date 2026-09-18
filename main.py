@@ -22,7 +22,8 @@ from rooms import (
     enterProjectRoom1,
     enterProjectRoom2,
     enterProjectRoom3,
-    enterTheExit
+    enterTheExit,
+    enterBreakRoom
 )
 
 print("****************************************************************************")
@@ -362,6 +363,9 @@ while True:
 
     elif current == "enchanted_library":
         state["current_room"] = enterEnchantedLibrary(state)
+
+    elif current == "break_room":
+        state["current_room"] = enterBreakRoom(state)
 
     elif current == "teacherroom1":
         state["current_room"] = enterteacherroom1(state)
