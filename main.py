@@ -109,7 +109,7 @@ state = {
                 "key shard 3": False,
                 "key shard 4": False,
             },
-            "final_key_forged": False,
+            "lab2003_key_forged": False,
         },
         "lab2003": {
             "door_unlocked": False,
