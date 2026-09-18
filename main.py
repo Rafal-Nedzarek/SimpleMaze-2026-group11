@@ -21,6 +21,7 @@ from rooms import (
     enterLobby,
     enterProjectRoom1,
     enterProjectRoom2,
+    enterProjectRoom3,
     enterTheExit,
     enterBreakRoom
 )
@@ -43,8 +44,8 @@ state = {
         "teachersroom4": False,
         "projectroom1": False,
         "projectroom2": False,
+        "projectroom3": False
     },
-
     "looked_around": {
         "classroom2031": False,
         "classroom2035": False,
@@ -52,6 +53,7 @@ state = {
         "teachersroom4": False,
         "classroom2015": False,
         "projectroom2": False,
+        "projectroom3": False,
         "lab2001": False,
         "lab2003": False,
         "nscorridor": False,
@@ -348,6 +350,9 @@ while True:
 
     elif current == "projectroom2":
         state["current_room"] = enterProjectRoom2(state)
+
+    elif current == "projectroom3":
+        state["current_room"] = enterProjectRoom3(state)
 
     elif current == "the_exit":
         state["current_room"] = enterTheExit(state)

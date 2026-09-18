@@ -7,7 +7,15 @@ def enterLobby(state):
     print("A screen flickers above you.")
 
     # --- List of accessible rooms from here ---
-    available_rooms = ["corridor", "projectroom1", "projectroom2", "lab2001", "lab2003", "the_exit"]
+    available_rooms = [
+        "corridor",
+        "projectroom1",
+        "projectroom2",
+        "projectroom3",
+        "lab2001",
+        "lab2003",
+        "the_exit"
+    ]
 
     def handle_look():
         """Describe the lobby and show exits."""
