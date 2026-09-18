@@ -4,12 +4,12 @@ import sys, time
 def enterLab2003(state):
     # --- Check if the player has the key to enter ---
     if not state["room_states"]["lab2003"]["door_unlocked"]:
-        if "final key" not in state["inventory"]:
+        if "lab2003 key" not in state["inventory"]:
             print("\n🚪 The door to Lab 2003 is locked.")
             print("The door looks robust and high-tech. You might need a special key...")
             return "lobby"
         else:
-            print("\nYou insert the final key into the lock and turn it.")
+            print("\nYou insert the lab2003 key into the lock and turn it.")
             print("WIP: description upon entering the room.")
             state["room_states"]["lab2003"]["door_unlocked"] = True
     else:
