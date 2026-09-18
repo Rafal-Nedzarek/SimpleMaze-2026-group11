@@ -26,13 +26,6 @@ from rooms import (
     enterBreakRoom
 )
 
-print("****************************************************************************")
-print("*                      Welcome to the School Maze!                         *")
-print("*        Your goal is to explore all important rooms in the school.        *")
-print("*    You may need to solve challenges to collect items and unlock rooms.   *")
-print("*               Once you've visited all rooms, you win!                    *")
-print("****************************************************************************")
-
 state = {
     "current_room": "corridor",
     "previous_room": "corridor",
@@ -120,9 +113,15 @@ state = {
         },
     },
     "health" : 10,
-    # TODO: make sure we have those items in other rooms, then clear inventory
     "inventory": [],
 }
+
+print("****************************************************************************")
+print("*                      Welcome to the School Maze!                         *")
+print("*        Your goal is to explore all important rooms in the school.        *")
+print("*    You may need to solve challenges to collect items and unlock rooms.   *")
+print("*               Once you've visited all rooms, you win!                    *")
+print("****************************************************************************")
 
 while True:
     current = state["current_room"]
@@ -167,7 +166,6 @@ while True:
     elif current == "the_exit":
         state["current_room"] = enterTheExit(state)
 
-    # TODO: for all these calls, might be wasteful to send the whole state
     elif current == "lab2003":
         state["current_room"] = enterLab2003(state)
 
