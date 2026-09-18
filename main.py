@@ -43,6 +43,7 @@ state = {
         "teachersroom4": False,
         "projectroom1": False,
         "projectroom2": False,
+        "projectroom3": False
     },
 
     "looked_around": {
