@@ -65,7 +65,7 @@ def enterLab2001(state):
         elif examined_object == "notebook":
             print("You look through a notebook placed on a table next to the workbench.\n"
                   "The latest entry reads:\n"
-                  "----------------------------------------------------"
+                  "----------------------------------------------------\n"
                   "Power (Watts) = voltage (Volts) * current (Amps)\n"
                   "Current (Amps) = voltage (Volts) / resistance (Ohms)\n"
                   "----------------------------------------------------"
