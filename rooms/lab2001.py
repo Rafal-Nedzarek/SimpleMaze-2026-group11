@@ -1,10 +1,11 @@
 import sys
 
 def enterLab2001(state):
-    print("Here goes the description of the room upon entering it.")
+    print("You enter Lab 2001. The room is filled with PCs, cables, and all sorts of hardware."
+          "Nothing extraordinary at first glance.")
 
     def handle_look():
-        print("You look around the room and see a workbench and a notebook on a table next to it.")
+        print("You look around the room. You notice an unfamiliar workbench and an open notebook on a table next to it.")
         print("- Possible exits: corridor")
         print("- Your current inventory:", state["inventory"])
         print("- New actions available: examine workbench, examine notebook")
@@ -30,7 +31,7 @@ def enterLab2001(state):
 
     def handle_go(destination):
         if destination in ["lobby", "back"]:
-            print("🚪 You open the door and step back into the corridor.")
+            print("🚪 You open the door and step back into the lobby.")
             return "lobby"
         else:
             print(f"❌ You can't go to '{destination}' from here.")
@@ -43,8 +44,8 @@ def enterLab2001(state):
                   "There is an empty, key-shaped plate in the middle of it.\n"
                   "The workbench has a laser head pointed towards the plate.\n"
                   # TODO: get minimum power and max current from state
-                  "The laser has a \"Min power: 1000 W. Max current: 4.5 A\" label on it.\n"
-                  "Next to the workbench is a huge box full of laser replacements.\n"
+                  "A label on the laser reads: \"Min power: 1000 W. Max current: 4.5 A.\"\n"
+                  "Next to the workbench stands a huge box full of laser replacements.\n"
                   "Between the bench and the laser head you can see a potentiometer with a knob to adjust resistance.\n")
             # TODO: the setup params might need to be made global
             voltage = state["room_states"]["lab2001"]["given_voltage"]
@@ -63,16 +64,18 @@ def enterLab2001(state):
             state["room_states"]["lab2001"]["workbench_examined"] = True
         elif examined_object == "notebook":
             print("You look through a notebook placed on a table next to the workbench.\n"
-                  "The latest entry is:\n"
+                  "The latest entry reads:\n"
+                  "----------------------------------------------------"
                   "Power (Watts) = voltage (Volts) * current (Amps)\n"
                   "Current (Amps) = voltage (Volts) / resistance (Ohms)\n"
+                  "----------------------------------------------------"
                   )
             state["room_states"]["lab2001"]["notebook examined"] = True
 
     def handle_set_resistance(resistance):
         resistance = float(resistance)
         state["room_states"]["lab2001"]["resistance_setting"] = resistance
-        print(f"Resistance set to {state["room_states"]["lab2001"]["resistance_setting"]}")
+        print(f"Resistance set to {state["room_states"]["lab2001"]["resistance_setting"]} Ohms.")
 
     def handle_place_item(item):
         if item not in state["inventory"]:
@@ -95,10 +98,8 @@ def enterLab2001(state):
         else:
             # check if all four key shards are on the plate
             if not all(value == True for value in state["room_states"]["lab2001"]["key_shards_placed"].values()):
-                print("All key shards need to be on the plate before you run the workbench!")
-                # TODO: confirm if using break is better here
+                print("All four key shards need to be on the plate before you run the workbench!")
             else:
-                # TODO: the setup params might need to be made global
                 voltage = state["room_states"]["lab2001"]["given_voltage"]
                 resistance = state["room_states"]["lab2001"]["resistance_setting"]
                 print(f"Voltage: {voltage} Volt\n"
@@ -118,22 +119,23 @@ def enterLab2001(state):
                     if supplied_power >= 1000:
                         state["inventory"].append("lab2003 key")
                         state["room_states"]["lab2001"]["lab2003_key_forged"] = True
-                        print("WIP: You watch the whole process...\n"
+                        print("You watch as the laser beam fuses the four key shards together.\n"
                               "You take the lab2003 key with you!")
                         # TODO: decide if we want to display inventory at this moment
                         print("- Your current inventory:", state["inventory"])
                     else:
-                        print("The laser lights up but it has no effect on the four shards.\n"
+                        print("The laser lights up but has no effect on the four shards.\n"
                               "The supplied power must be too low...")
 
     def handle_replace_laser():
         # TODO: will need updating if action shown only when laser broken
         if not state["room_states"]["lab2001"]["laser_broken"]:
             print("The laser seems fine. No replacement needed.")
+            return False
         else:
-            state["room_states"]["lab2001"]["laser_broken"] = False
             print("You've replaced the laser with one of the lasers from the box.\n"
                   "You can use the workbench again!")
+            return False
 
     # --- Commandoloop ---
     while True:
@@ -153,27 +155,21 @@ def enterLab2001(state):
 
         elif command.startswith("examine "):
             examined_object = command[8:].strip()
-            result = handle_examine(examined_object)
-            if result:
-                return result
+            handle_examine(examined_object)
 
         elif command.startswith("set resistance to "):
             resistance = command[17:].strip()
-            result = handle_set_resistance(resistance)
-            if result:
-                return result
+            handle_set_resistance(resistance)
 
         elif command.startswith("place "):
             item = command[5:].strip()
-            result = handle_place_item(item)
-            if result:
-                return result
+            handle_place_item(item)
 
         elif command == "run workbench":
-            result = handle_run_workbench()
+            handle_run_workbench()
 
         elif command == "replace laser":
-            result = handle_replace_laser()
+            state["room_states"]["lab2001"]["laser_broken"] = handle_replace_laser()
 
         elif command == "quit":
             print("👋 You drop your backpack, leave the maze behind, and step back into the real world.")
