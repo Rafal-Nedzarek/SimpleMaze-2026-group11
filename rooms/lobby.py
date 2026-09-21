@@ -11,7 +11,6 @@ def enterLobby(state):
         "corridor",
         "projectroom1",
         "projectroom2",
-        "projectroom3",
         "lab2001",
         "lab2003",
         "the_exit"
