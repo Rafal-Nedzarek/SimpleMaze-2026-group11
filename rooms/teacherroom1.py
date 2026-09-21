@@ -35,6 +35,7 @@ def enterteacherroom1(state):
                             playing_card_to_take=input('Answer yes or no: ')
                             if playing_card_to_take=='yes':
                                 state['inventory'].append('playing card')
+                                state["room_states"]["classroom2031"]["playing cards"] = True
                                 print('\nYou received new item in inventory!')
                                 break
                             elif playing_card_to_take=='no':

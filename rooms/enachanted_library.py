@@ -128,6 +128,7 @@ def enterEnchantedLibrary(state):
 
                 if answer.lower() == "yes":
                     state["inventory"].append("Notebook")
+                    state["room_states"]["classroom2031"]["notebook"] = True
                     print()
                     print("You picked up the Notebook.")
                     print("Maybe I will need to use it in another section or another place.")

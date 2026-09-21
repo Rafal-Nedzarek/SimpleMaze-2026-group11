@@ -77,11 +77,11 @@ state = {
             "clock" : False,
         },
         "classroom2031": {
-            "playing cards" : True,
+            "playing cards" : False,
             "dog picture" : False,
             "photo camera" : False,
             "football" : False,
-            "notebook" : True,
+            "notebook" : False,
             "make-up" : False,
             "ghost discovered" : False
         },
