@@ -8,7 +8,6 @@
 
 from rooms import (
     enterCorridor,
-    enterClassroom2015,
     enterNSCorridor,
     enterStairExit,
     enterLab2001,
