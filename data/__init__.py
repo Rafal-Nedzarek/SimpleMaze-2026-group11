@@ -1,0 +1,1 @@
+from .horror_section import HANGMAN_WORDS, MANIFEST

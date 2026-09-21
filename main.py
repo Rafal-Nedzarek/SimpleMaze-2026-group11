@@ -6,23 +6,25 @@
 # Date: September 2026
 # -----------------------------------------------------------------------------
 
-from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary, enterteacherroom1, enterClassroom2031, enterClassroom2035, enterTeachersRoom4, enterLobby, enterProjectRoom1
-
-
-print("░██████╗░█████╗░██╗░░██╗░█████╗░░█████╗░██╗░░░░░        ███╗░░░███╗░█████╗░███████╗███████╗")
-print("██╔════╝██╔══██╗██║░░██║██╔══██╗██╔══██╗██║░░░░░        ████╗░████║██╔══██╗╚════██║██╔════╝")
-print("╚█████╗░██║░░╚═╝███████║██║░░██║██║░░██║██║░░░░░        ██╔████╔██║███████║░░███╔═╝█████╗░░")
-print("░╚═══██╗██║░░██╗██╔══██║██║░░██║██║░░██║██║░░░░░        ██║╚██╔╝██║██╔══██║██╔══╝░░██╔══╝░░")
-print("██████╔╝╚█████╔╝██║░░██║╚█████╔╝╚█████╔╝███████╗        ██║░╚═╝░██║██║░░██║███████╗███████╗")
-print("╚═════╝░░╚════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░╚══════╝        ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝╚══════╝")
-
-print("\n****************************************************************************")
-print("*                                  Welcome                                 *")
-print("*                Your goal is to explore rooms in the school.              *")
-print("*    You need to solve challenges to collect key shards and unlock rooms   *")
-print("*                and defeat the final boss to escape the maze              *")
-print("****************************************************************************")
-print("\n - If you are stuck and don't know what to do type: ?")
+from rooms import (
+    enterCorridor,
+    enterClassroom2015,
+    enterNSCorridor,
+    enterStairExit,
+    enterLab2001,
+    enterLab2003,
+    enterEnchantedLibrary,
+    enterteacherroom1,
+    enterClassroom2031,
+    enterClassroom2035,
+    enterTeachersRoom4,
+    enterLobby,
+    enterProjectRoom1,
+    enterProjectRoom2,
+    enterProjectRoom3,
+    enterTheExit,
+    enterBreakRoom
+)
 
 state = {
     "current_room": "corridor",
@@ -34,14 +36,17 @@ state = {
         "stairexit": False,
         "teachersroom4": False,
         "projectroom1": False,
+        "projectroom2": False,
+        "projectroom3": False,
+        "lab2003": False,
     },
-
     "looked_around": {
         "classroom2031": False,
         "classroom2035": False,
         "stairexit": False,
         "teachersroom4": False,
         "classroom2015": False,
+        "projectroom2": False,
         "projectroom3": False,
         "lab2001": False,
         "lab2003": False,
@@ -98,7 +103,7 @@ state = {
                 "key shard 3": False,
                 "key shard 4": False,
             },
-            "final_key_forged": False,
+            "lab2003_key_forged": False,
         },
         "lab2003": {
             "door_unlocked": False,
@@ -109,199 +114,23 @@ state = {
         },
     },
     "health" : 10,
-    # TODO: make sure we have those items in other rooms, then clear inventory
-    "inventory": ["playing cards", "notebook"],
-    "hangman_words" : ["ghost", "haunt", "death", "skull", "grave", "night", "spook", "demon", "witch", "scary","dread",
-                       "creep", "curse", "shade", "blood", "decay", "crypt", "ghoul", "abyss", "omens", "stalk", "burial",
-                       "casket", "chills", "corpse", "creepy", "fright", "hollow", "horror", "lurker", "menace", "rotten",
-                       "scream", "shadow", "shriek", "spider", "undead", "wicked", "zombie", "dungeon","haunted", "monster",
-                       "ominous", "phantom", "possess", "severed", "stalker", "vampire", "whisper", "gloomy"],
-    "manifest" : {
-        "dominik" : {
-            "age" : 21,
-            "gender" : "male",
-            "item1" : "playing cards",
-            "item2" : "dog picture",
-            "item3" : "photo camera"
-        },
-        "martin" : {
-            "age" : 20,
-            "gender" : "male",
-            "item1" : "dog picture",
-            "item2" : "playing cards",
-            "item3" : "football"
-        },
-        "daniel" : {
-            "age" : 21,
-            "gender" : "male",
-            "item1" : "playing cards",
-            "item2" : "dog picture",
-            "item3" : "football"
-        },
-        "vin": {
-            "age": 20,
-            "gender": "male",
-            "item1": "notebook",
-            "item2": "playing cards",
-            "item3": "football"
-        },
-        "gabriel": {
-            "age": 20,
-            "gender": "male",
-            "item1": "notebook",
-            "item2": "dog picture",
-            "item3": "football"
-        },
-        "johannes": {
-            "age": 21,
-            "gender": "male",
-            "item1": "dog picture",
-            "item2": "playing cards",
-            "item3": "notebook"
-        },
-        "joseph": {
-            "age": 21,
-            "gender": "male",
-            "item1": "dog picture",
-            "item2": "photo camera",
-            "item3": "notebook"
-        },
-        "david": {
-            "age": 20,
-            "gender": "male",
-            "item1": "photo camera",
-            "item2": "playing cards",
-            "item3": "football"
-        },
-        "connor": {
-            "age": 21,
-            "gender": "male",
-            "item1": "dog picture",
-            "item2": "playing cards",
-            "item3": "football"
-        },
-        "leon": {
-            "age": 21,
-            "gender": "male",
-            "item1": "dog picture",
-            "item2": "photo camera",
-            "item3": "football"
-        },
-        "nick": {
-            "age": 20,
-            "gender": "male",
-            "item1": "notebook",
-            "item2": "photo camera",
-            "item3": "football"
-        },
-        "damian": {
-            "age": 20,
-            "gender": "male",
-            "item1": "notebook",
-            "item2": "dog picture",
-            "item3": "playing cards"
-        },
-        "stuart": {
-            "age": 21,
-            "gender": "male",
-            "item1": "photo camera",
-            "item2": "notebook",
-            "item3": "football"
-        },
-        "mark": {
-            "age": 21,
-            "gender": "male",
-            "item1": "notebook",
-            "item2": "playing cards",
-            "item3": "football"
-        },
-        "anett": {
-            "age": 20,
-            "gender": "female",
-            "item1": "photo camera",
-            "item2": "playing cards",
-            "item3": "make-up"
-        },
-        "miina": {
-            "age": 20,
-            "gender": "female",
-            "item1": "dog picture",
-            "item2": "playing cards",
-            "item3": "make-up"
-        },
-        "lisa": {
-            "age": 20,
-            "gender": "female",
-            "item1": "playing cards",
-            "item2": "notebook",
-            "item3": "make-up"
-        },
-        "aria": {
-            "age": 20,
-            "gender": "female",
-            "item1": "dog picture",
-            "item2": "notebook",
-            "item3": "make-up"
-        },
-        "veronika": {
-            "age": 21,
-            "gender": "female",
-            "item1": "dog picture",
-            "item2": "make-up",
-            "item3": "playing cards"
-        },
-        "shelby": {
-            "age": 21,
-            "gender": "female",
-            "item1": "notebook",
-            "item2": "dog picture",
-            "item3": "make-up"
-        },
-        "amy": {
-            "age": 20,
-            "gender": "female",
-            "item1": "photo camera",
-            "item2": "dog picture",
-            "item3": "make-up"
-        },
-        "ashley": {
-            "age": 21,
-            "gender": "female",
-            "item1": "photo camera",
-            "item2": "notebook",
-            "item3": "make-up"
-        },
-        "sara": {
-            "age": 20,
-            "gender": "female",
-            "item1": "photo camera",
-            "item2": "notebook",
-            "item3": "playing cards"
-        },
-        "olivia": {
-            "age": 21,
-            "gender": "female",
-            "item1": "photo camera",
-            "item2": "dog picture",
-            "item3": "make-up"
-        },
-        "elizabeth": {
-            "age": 21,
-            "gender": "female",
-            "item1": "notebook",
-            "item2": "photo camera",
-            "item3": "make-up"
-        },
-        "kamila": {
-            "age": 21,
-            "gender": "female",
-            "item1": "notebook",
-            "item2": "dog picture",
-            "item3": "playing cards"
-        },
-
-    },
+    "inventory": [],
 }
+
+print("░██████╗░█████╗░██╗░░██╗░█████╗░░█████╗░██╗░░░░░        ███╗░░░███╗░█████╗░███████╗███████╗")
+print("██╔════╝██╔══██╗██║░░██║██╔══██╗██╔══██╗██║░░░░░        ████╗░████║██╔══██╗╚════██║██╔════╝")
+print("╚█████╗░██║░░╚═╝███████║██║░░██║██║░░██║██║░░░░░        ██╔████╔██║███████║░░███╔═╝█████╗░░")
+print("░╚═══██╗██║░░██╗██╔══██║██║░░██║██║░░██║██║░░░░░        ██║╚██╔╝██║██╔══██║██╔══╝░░██╔══╝░░")
+print("██████╔╝╚█████╔╝██║░░██║╚█████╔╝╚█████╔╝███████╗        ██║░╚═╝░██║██║░░██║███████╗███████╗")
+print("╚═════╝░░╚════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░╚══════╝        ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝╚══════╝")
+
+print("\n****************************************************************************")
+print("*                                  Welcome                                 *")
+print("*                Your goal is to explore rooms in the school.              *")
+print("*    You need to solve challenges to collect key shards and unlock rooms   *")
+print("*                and defeat the final boss to escape the maze              *")
+print("****************************************************************************")
+print("\n - If you are stuck and don't know what to do type: ?")
 
 while True:
     current = state["current_room"]
@@ -337,12 +166,23 @@ while True:
     elif current == "projectroom1":
         state["current_room"] = enterProjectRoom1(state)
 
-    # TODO: for all these calls, might be wasteful to send the whole state
+    elif current == "projectroom2":
+        state["current_room"] = enterProjectRoom2(state)
+
+    elif current == "projectroom3":
+        state["current_room"] = enterProjectRoom3(state)
+
+    elif current == "the_exit":
+        state["current_room"] = enterTheExit(state)
+
     elif current == "lab2003":
         state["current_room"] = enterLab2003(state)
 
     elif current == "enchanted_library":
         state["current_room"] = enterEnchantedLibrary(state)
+
+    elif current == "break_room":
+        state["current_room"] = enterBreakRoom(state)
 
     elif current == "teacherroom1":
         state["current_room"] = enterteacherroom1(state)

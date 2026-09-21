@@ -1,5 +1,5 @@
 import sys
-from .utils import chooseNextRoom
+from .utils import debugMode
 
 def enterLobby(state):
     print("\n🛋️ The lobby opens up to you.")
@@ -7,7 +7,15 @@ def enterLobby(state):
     print("A screen flickers above you.")
 
     # --- List of accessible rooms from here ---
-    available_rooms = ["corridor", "projectroom1", "projectroom2", "lab2001", "lab2003", "exit"]
+    available_rooms = [
+        "corridor",
+        "projectroom1",
+        "projectroom2",
+        "projectroom3",
+        "lab2001",
+        "lab2003",
+        "the_exit"
+    ]
 
     def handle_look():
         """Describe the lobby and show exits."""
@@ -57,6 +65,10 @@ def enterLobby(state):
         elif command == "quit":
             print("👋 You leave the school and the adventure comes to an end. Game over.")
             sys.exit()
+
+        # not shown to the player
+        elif command.startswith("debug add "):
+            state["inventory"] += debugMode(command)
 
         else:
             print("❓ Unknown command. Type '?' to see available commands.")
