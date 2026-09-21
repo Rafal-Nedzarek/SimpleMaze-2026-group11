@@ -14,7 +14,7 @@ def enterCorridor(state):
     print("You see a long corridor with many doors and glass walls on both side. Behind these door are rooms, waiting to be explored.")
 
     # --- List of accessible rooms from here ---
-    available_rooms = ["lobby", "classroom2015", "nscorridor", "enchanted_library", "teacherroom1", "projectroom3", "break_room"]
+    available_rooms = ["lobby", "nscorridor", "enchanted_library", "teacherroom1", "projectroom3", "break_room"]
 
     # --- Command handlers ---
 
@@ -29,7 +29,7 @@ def enterCorridor(state):
         """List available commands and explain navigation."""
         print("\nAvailable commands:")
         print("- look around         : See what's in the corridor and where you can go.")
-        print("- go <room name>      : Move to another room. Example: go classroom2015")
+        print("- go <room name>      : Move to another room. Example: go enchanted_library")
         print("- ?                   : Show this help message.")
         print("- quit                : Quit the game.")
 
