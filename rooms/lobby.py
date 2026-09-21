@@ -31,7 +31,7 @@ def enterLobby(state):
         """List available commands and explain navigation."""
         print("\nAvailable commands:")
         print("- look around         : See what's in the corridor and where you can go.")
-        print("- go <room name>      : Move to another room. Example: go classroom2015")
+        print("- go <room name>      : Move to another room. Example: go lab2001")
         print("- ?                   : Show this help message.")
         print("- quit                : Quit the game.")
 
