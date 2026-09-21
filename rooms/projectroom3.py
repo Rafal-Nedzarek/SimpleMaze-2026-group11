@@ -36,7 +36,7 @@ def enterProjectRoom3(state):
                 print("On the central table, a smaller instrument popped out.")
             else:
                 print("The table and the observatory turn slowly. You've already taken the astrolabe.")
-        print("- Possible exits: lobby")
+        print("- Possible exits: corridor")
         print("- Your current inventory:", state["inventory"])
 
     def handle_help():
@@ -46,7 +46,7 @@ def enterProjectRoom3(state):
             print("- inscribe <animal>     : Figure out the missing animal(?)")
         if state["visited"]["projectroom3"] and "astrolabe" not in state["inventory"]:
             print("- take astrolabe            : Pick up the astrolabe once it's revealed.")
-        print("- go lobby / back  : Leave the room and return to the lobby.")
+        print("- go corridor / back  : Leave the room and return to the corridor.")
         print("- ?                   : Show this help message.")
         print("- quit                : Quit the game entirely.")
 
@@ -64,9 +64,9 @@ def enterProjectRoom3(state):
             print(f"There is no '{item}' here to take.")
 
     def handle_go(destination):
-        if destination in ["lobby", "back"]:
-            print("🚪 You open the door and step back into the lobby.")
-            return "lobby"
+        if destination in ["corridor", "back"]:
+            print("🚪 You open the door and step back into the corridor.")
+            return "corridor"
         else:
             print(f"❌ You can't go to '{destination}' from here.")
             return None
