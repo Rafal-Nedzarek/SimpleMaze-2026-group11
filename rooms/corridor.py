@@ -10,7 +10,7 @@ import sys
 from .utils import debugMode
 
 def enterCorridor(state):
-    print("\n🚶 You are standing in the school's main corridor.")
+    print("\nYou are standing in the school's main corridor.")
     print("You see a long corridor with many doors and glass walls on both side. Behind these door are rooms, waiting to be explored.")
 
     # --- List of accessible rooms from here ---
@@ -41,7 +41,7 @@ def enterCorridor(state):
             state["previous_room"] = "corridor"
             return room
         else:
-            print(f"❌ '{room_name}' is not a valid exit. Use 'look around' to see available options.")
+            print(f"'{room_name}' is not a valid exit. Use 'look around' to see available options.")
             return None
 
     # --- Main corridor command loop ---
@@ -61,7 +61,7 @@ def enterCorridor(state):
                 return result
 
         elif command == "quit":
-            print("👋 You leave the school and the adventure comes to an end. Game over.")
+            print("You leave the school and the adventure comes to an end. Game over.")
             sys.exit()
 
         # not shown to the player
@@ -69,4 +69,4 @@ def enterCorridor(state):
             state["inventory"] += debugMode(command)
 
         else:
-            print("❓ Unknown command. Type '?' to see available commands.")
+            print("Unknown command. Type '?' to see available commands.")
