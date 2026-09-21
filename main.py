@@ -8,12 +8,21 @@
 
 from rooms import enterCorridor, enterClassroom2015, enterNSCorridor, enterStairExit, enterLab2001, enterLab2003, enterEnchantedLibrary, enterteacherroom1, enterClassroom2031, enterClassroom2035, enterTeachersRoom4, enterLobby, enterProjectRoom1
 
+
+print("░██████╗░█████╗░██╗░░██╗░█████╗░░█████╗░██╗░░░░░        ███╗░░░███╗░█████╗░███████╗███████╗")
+print("██╔════╝██╔══██╗██║░░██║██╔══██╗██╔══██╗██║░░░░░        ████╗░████║██╔══██╗╚════██║██╔════╝")
+print("╚█████╗░██║░░╚═╝███████║██║░░██║██║░░██║██║░░░░░        ██╔████╔██║███████║░░███╔═╝█████╗░░")
+print("░╚═══██╗██║░░██╗██╔══██║██║░░██║██║░░██║██║░░░░░        ██║╚██╔╝██║██╔══██║██╔══╝░░██╔══╝░░")
+print("██████╔╝╚█████╔╝██║░░██║╚█████╔╝╚█████╔╝███████╗        ██║░╚═╝░██║██║░░██║███████╗███████╗")
+print("╚═════╝░░╚════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░╚══════╝        ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝╚══════╝")
+
+print("\n****************************************************************************")
+print("*                                  Welcome                                 *")
+print("*                Your goal is to explore rooms in the school.              *")
+print("*    You need to solve challenges to collect key shards and unlock rooms   *")
+print("*                and defeat the final boss to escape the maze              *")
 print("****************************************************************************")
-print("*                      Welcome to the School Maze!                         *")
-print("*        Your goal is to explore all important rooms in the school.        *")
-print("*    You may need to solve challenges to collect items and unlock rooms.   *")
-print("*               Once you've visited all rooms, you win!                    *")
-print("****************************************************************************")
+print("\n - If you are stuck and don't know what to do type: ?")
 
 state = {
     "current_room": "corridor",
@@ -63,11 +72,11 @@ state = {
             "clock" : False,
         },
         "classroom2031": {
-            "playing cards" : False,
+            "playing cards" : True,
             "dog picture" : False,
             "photo camera" : False,
             "football" : False,
-            "notebook" : False,
+            "notebook" : True,
             "make-up" : False,
             "ghost discovered" : False
         },

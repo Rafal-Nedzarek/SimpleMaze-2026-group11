@@ -20,7 +20,7 @@ def enterClassroom2035(state):
     # --- Helperfuncties voor commandoverwerking ---
 
     def handle_look():
-        print("\nYou scan a room.")
+        print("\nYou scan a room.\n")
         if state["room_states"]["classroom2035"]["folder"] is False:
             print("You can see that, on a teachers desk lies a folder.")
         if state["room_states"]["classroom2035"]["football"] is False:
@@ -31,26 +31,27 @@ def enterClassroom2035(state):
             print("On a desk in the back of the room lies something but you can't see what it is.")
         if state["room_states"]["classroom2035"]["folder"] is True and state["room_states"]["classroom2035"]["board"] is True and state["room_states"]["classroom2035"]["desk"] is True and state["room_states"]["classroom2035"]["football"] is True:
             print("There is nothing more you can do")
-        print("- Possible exits: nscorridor")
+        print("\n- Possible exits: nscorridor")
         state["looked_around"]["classroom2035"] = True
 
 
     def handle_help():
         print("\nAvailable commands:")
-        if state["room_states"]["classroom2035"]["manifest"] is True:
-            print("- manifest            : Check the manifest")
-        if state["room_states"]["classroom2035"]["folder"] is False or state["room_states"]["classroom2035"]["desk"] is False or state["room_states"]["classroom2035"]["board"] is False or state["room_states"]["classroom2035"]["football"] is False:
-            print("- investigate         : Check some areas of the room")
-            if state["room_states"]["classroom2035"]["folder"] is False:
-                print("      ‣ folder        : Check the folder on a teachers desk")
-            if state["room_states"]["classroom2035"]["desk"] is False:
-                print("      ‣ desk          : Check the student desk in the back")
-            if state["room_states"]["classroom2035"]["board"] is False:
-                print("      ‣ board         : Check the board")
-            if state["room_states"]["classroom2035"]["football"] is False:
-                print("      ‣ football      : Check the football")
-        if state["room_states"]["classroom2035"]["folder"] is False or state["room_states"]["classroom2035"]["desk"] is False or state["room_states"]["classroom2035"]["board"] is False or state["room_states"]["classroom2035"]["football"] is False or state["room_states"]["classroom2035"]["manifest"] is True:
-            print("--------------------------------------------------")
+        if state["looked_around"]["classroom2035"] is True:
+            if state["room_states"]["classroom2035"]["manifest"] is True:
+                print("- manifest            : Check the manifest")
+            if state["room_states"]["classroom2035"]["folder"] is False or state["room_states"]["classroom2035"]["desk"] is False or state["room_states"]["classroom2035"]["board"] is False or state["room_states"]["classroom2035"]["football"] is False:
+                print("- investigate         : Check some areas of the room")
+                if state["room_states"]["classroom2035"]["folder"] is False:
+                    print("      ‣ folder        : Check the folder on a teachers desk")
+                if state["room_states"]["classroom2035"]["desk"] is False:
+                    print("      ‣ desk          : Check the student desk in the back")
+                if state["room_states"]["classroom2035"]["board"] is False:
+                    print("      ‣ board         : Check the board")
+                if state["room_states"]["classroom2035"]["football"] is False:
+                    print("      ‣ football      : Check the football")
+            if state["room_states"]["classroom2035"]["folder"] is False or state["room_states"]["classroom2035"]["desk"] is False or state["room_states"]["classroom2035"]["board"] is False or state["room_states"]["classroom2035"]["football"] is False or state["room_states"]["classroom2035"]["manifest"] is True:
+                print("--------------------------------------------------")
         print("- look around         : Examine the room and its contents.")
         print("- go corridor / back  : Leave the room and return to the corridor.")
         print("- ?                   : Show this help message.")
@@ -65,10 +66,10 @@ def enterClassroom2035(state):
             else:
                 print("You go closer to a teachers desk.")
                 print("You pick up the file and open the file.")
-                print("A kay falls out of the file and you pick it up.")
+                print("\nA kay falls out of the file and you pick it up.")
                 print("It's a key from the Classroom2031.")
-                print("Inside is a manifest with name of the students their ages and 3 of their favourite items.")
-                print("Also there is a note 'To exit this place you need to guess the ghost'")
+                print("Inside the folder is a manifest with name of the students their ages and 3 of their favourite items.")
+                print("\nAlso there is a note 'To get key shard 4 you need to guess the ghost")
                 print("You pick up manifest and key2031 to your inventory.")
                 state["inventory"].append("manifest")
                 state["room_states"]["classroom2035"]["manifest"] = True
@@ -82,7 +83,7 @@ def enterClassroom2035(state):
             else:
                 print("You go closer to a desk in a back of the room")
                 print("You can see its an ouija board for communicating with ghosts")
-                print("You pick up ouija board and store in your inventory")
+                print("\nYou pick up ouija board and store in your inventory")
                 state["inventory"].append("ouija board")
                 print("- Your current inventory:", state["inventory"])
                 state["room_states"]["classroom2035"]["desk"] = True
@@ -93,8 +94,8 @@ def enterClassroom2035(state):
             else:
                 print("You step to the board and you can see there is unfinished game of hangman.")
                 print("You take marker into your hand and try to guess the word")
-                print("You can only guess one letter at a time, based on that hangman will appear")
-                wanna_play = input("Wanna play? (y/n): ").lower()
+                print("\nYou can only guess one letter at a time, based on that hangman will appear")
+                wanna_play = input("\nWanna play? (y/n): ").lower()
                 if wanna_play == "y" or wanna_play == "yes":
                     handle_hangman()
                 elif wanna_play == "n" or wanna_play == "no":
@@ -109,8 +110,9 @@ def enterClassroom2035(state):
                 print("You go to the corner of the room and check the ball.")
                 print("Its a normal football, you will pick it up to your inventory")
                 state["inventory"].append("football")
-                print("- Your current inventory:", state["inventory"])
+                print("\n- Your current inventory:", state["inventory"])
                 state["room_states"]["classroom2035"]["football"] = True
+                state["room_states"]["classroom2031"]["football"] = True
 
         else:
             print(f"There is no '{item}' here to investigate.")
@@ -120,7 +122,6 @@ def enterClassroom2035(state):
         word_letters = []
         for i in word:
             word_letters.append(i)
-        print(word_letters)
         while state["room_states"]["classroom2035"]["game_over"] is not True:
             print("---------------------------------------------")
             print("▒█░▒█ ░█▀▀█ ▒█▄░▒█ ▒█▀▀█ ▒█▀▄▀█ ░█▀▀█ ▒█▄░▒█")
@@ -163,7 +164,7 @@ def enterClassroom2035(state):
                 print("There is a crucifix inside the box, you take the crucifix")
                 state["inventory"].append("crucifix")
                 state["room_states"]["classroom2035"]["crucifix"] = True
-                print("- Your current inventory:", state["inventory"])
+                print("\n- Your current inventory:", state["inventory"])
                 state["room_states"]["classroom2035"]["game_over"] = True
                 state["room_states"]["classroom2035"]["board"] = True
             elif unraveled_word != word and state["room_states"]["classroom2035"]["wrong_guess"] >= 6:
@@ -216,8 +217,8 @@ def enterClassroom2035(state):
                 return result
 
         elif command == "quit":
-            print("👋 You drop your backpack, leave the maze behind, and step back into the real world.")
+            print("You drop your backpack, leave the maze behind, and step back into the real world.")
             sys.exit()
 
         else:
-            print("❓ Unknown command. Type '?' to see available commands.")
+            print("Unknown command. Type '?' to see available commands.")

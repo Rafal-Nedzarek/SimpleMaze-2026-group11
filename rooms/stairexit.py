@@ -22,7 +22,7 @@ def enterStairExit(state):
         print("\nYou take a slow look around.")
         print("Chunks or rubble is piled where the stairs used to be")
         print("To your left is a wooden chest")
-        print("- Possible exit: NSCorridor")
+        print("- Possible exit: nscorridor")
         state["looked_around"]["stairexit"] = True
 
     def handle_help():
@@ -30,12 +30,14 @@ def enterStairExit(state):
         print("\nAvailable commands:")
         if state["room_states"]["classroom2035"]["manifest"] is True:
             print("- manifest            : Check the manifest")
-        if state["room_states"]["stairexit"]["chest_opened"] is False:
+        if state["room_states"]["stairexit"]["chest_opened"] is False and state["looked_around"]["stairexit"] is True:
             print("- open chest          : See what’s in the chest.")
         if state["room_states"]["stairexit"]["chest_opened"] is False and state["looked_around"]["stairexit"] is True:
             print("--------------------------------------------------")
+        elif state["room_states"]["classroom2035"]["manifest"] is True:
+            print("--------------------------------------------------")
         print("- look around         : See what’s in the lobby.")
-        print("- go nscorridor / back  : Return to the main corridor.")
+        print("- go nscorridor / back: Return to the main corridor.")
         print("- ?                   : Show this help message.")
         print("- quit                : Quit the game.")
         print(f"\n- Your current health is {state["health"]} harts")
@@ -68,7 +70,7 @@ def enterStairExit(state):
             print("\nYou open the chest and you have received bandages")
             print("When you use bandages you will gain 4 hearts")
             state["inventory"].append("bandages")
-            print("- Your current inventory:", state["inventory"])
+            print("\n- Your current inventory:", state["inventory"])
             state["room_states"]["stairexit"]["chest_opened"] = True
 
         elif command == "open chest" and state["room_states"]["stairexit"]["chest_opened"] == True:

@@ -24,10 +24,10 @@ def enterNSCorridor(state):
     def handle_look():
         """Describe the corridor and show where the player can go."""
         print("\nYou take a look around.")
-        print("There are stains of blood on the wall and ground, and the corridor looks abandoned")
+        print("\nThere are stains of blood on the wall and ground, and the corridor looks abandoned")
         print("You can see some torn off books, papers and some schools supplies on the ground")
         print("3 meters from you, lies skeleton with missing upper part of the body")
-        print("You can see 4 doors to Stair Exit, Teachers Room 4, Classroom 2031 and Classroom 2035")
+        print("\nYou can see 4 doors to Stair Exit, Teachers Room 4, Classroom 2031 and Classroom 2035")
         print(f"- Possible doors: {', '.join(available_rooms)}")
 
     def handle_help():
@@ -40,7 +40,6 @@ def enterNSCorridor(state):
         print("- go <room name>      : Move to another room.")
         print("- ?                   : Show this help message.")
         print("- quit                : Quit the game.")
-        print(f"- Possible doors: {', '.join(available_rooms)}")
         print(f"\n- Your current health is {state["health"]} harts")
         print("- Your current inventory:", state["inventory"])
 

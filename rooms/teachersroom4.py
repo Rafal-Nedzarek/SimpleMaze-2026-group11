@@ -13,7 +13,7 @@ def enterTeachersRoom4(state):
 
     print("\nYou step into Teachers room 4.")
     if state["visited"]["teachersroom4"] is False:
-        print("The room has a flickering light and papers all around the ground")
+        print("The room has a flickering light and papers are all over the ground")
         print("there is broken glass on the ground")
     state["visited"]["teachersroom4"] = True
 
@@ -47,7 +47,9 @@ def enterTeachersRoom4(state):
                     print("      ‣ clock         : Check the clock")
             if state["room_states"]["teachersroom4"]["mug"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is False:
                 print("- roman numbers       : Cheat sheet for roman numbers")
-            if state["room_states"]["teachersroom4"]["safe_opened"] is True or state["room_states"]["teachersroom4"]["mug"] is False or state["room_states"]["teachersroom4"]["calendar"] is False or state["room_states"]["teachersroom4"]["clock"] is False or state["room_states"]["classroom2035"]["manifest"] is True:
+            if state["looked_around"]["teachersroom4"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is False or state["room_states"]["classroom2035"]["manifest"] is True:
+                print("--------------------------------------------------")
+            elif state["room_states"]["classroom2035"]["manifest"] is True:
                 print("--------------------------------------------------")
         print("- look around         : Examine the room for clues.")
         print("- go corridor / back  : Leave the room and return to the corridor.")
@@ -79,14 +81,16 @@ def enterTeachersRoom4(state):
                 state["room_states"]["teachersroom4"]["safe"] = True
             elif state["room_states"]["teachersroom4"]["safe"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is False:
                 print("You go closer to a safe")
-                password = input("Enter your password: ")
+                password = input("\nEnter 4 digits password: ")
                 if password == "3141":
                     print("\nYou open the safe.")
                     print("\nInside of the safe is photo camera and make-up kit")
                     state["inventory"].append("photo camera")
                     state["inventory"].append("make-up")
-                    print("- Your current inventory:", state["inventory"])
+                    print("\n- Your current inventory:", state["inventory"])
                     state["room_states"]["teachersroom4"]["safe_opened"] = True
+                    state["room_states"]["classroom2031"]["photo camera"] = True
+                    state["room_states"]["classroom2031"]["make-up"] = True
                 else:
                     print("Invalid password.")
 
@@ -97,7 +101,7 @@ def enterTeachersRoom4(state):
                 print("You look at the calendar at the desk")
                 print("You can see that 31st of October is circled and stuck in the calendar is a picture of a dog")
                 state["inventory"].append("dog picture")
-                print("- Your current inventory:", state["inventory"])
+                print("\n- Your current inventory:", state["inventory"])
                 state["room_states"]["teachersroom4"]["calendar"] = True
         elif item == "clock":
             if state["room_states"]["teachersroom4"]["clock"] is True:
@@ -156,8 +160,8 @@ def enterTeachersRoom4(state):
                 return result
 
         elif command == "quit":
-            print("👋 You close your notebook and leave the project behind. Game over.")
+            print("You close your notebook and leave the project behind. Game over.")
             sys.exit()
 
         else:
-            print("❓ Unknown command. Type '?' to see available commands.")
+            print("Unknown command. Type '?' to see available commands.")

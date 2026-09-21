@@ -21,7 +21,7 @@ def enterClassroom2031(state):
         print("\nSuddenly a dark figure appear in front of you for a second and instantly disappeared")
         if state["room_states"]["classroom2035"]["crucifix"] is True:
             print("Crucifix start to burn and it fells out of your inventory to a ground")
-            state["inventory"].pop("crucifix")
+            state["inventory"].remove("crucifix")
             print("Crucifix protected you from taking damage")
         elif state["room_states"]["classroom2035"]["crucifix"] is False:
             print("You have taken 4 harts of damage")
@@ -31,7 +31,6 @@ def enterClassroom2031(state):
         state["room_states"]["classroom2031"][state["manifest"][ghost]["item1"]] = True
         state["room_states"]["classroom2031"][state["manifest"][ghost]["item2"]] = True
         state["room_states"]["classroom2031"][state["manifest"][ghost]["item3"]] = True
-        print(ghost)
     state["visited"]["classroom20314"] = True
 
     # --- Helperfuncties voor commandoverwerking ---
@@ -47,9 +46,24 @@ def enterClassroom2031(state):
         print("\nAvailable commands:")
         if state["room_states"]["classroom2035"]["manifest"] is True:
             print("- manifest            : Check the manifest")
-        print("- put (item)          : Put item into a pentagram")
-        print("- use ouija board     : Use ouija board to speak with ghost.")
-        print("--------------------------------------------------")
+        if state["room_states"]["classroom2031"]["playing cards"] is True or state["room_states"]["classroom2031"]["dog picture"] is True or state["room_states"]["classroom2031"]["photo camera"] is True or state["room_states"]["classroom2031"]["football"] is True or state["room_states"]["classroom2031"]["notebook"] is True or state["room_states"]["classroom2031"]["make-up"] is True:
+            print("- put                 : Put item into a pentagram")
+            if state["room_states"]["classroom2031"]["playing cards"] is True:
+                print("      ‣ playing cards   : Put playing cards to pentagram")
+            if state["room_states"]["classroom2031"]["dog picture"] is True:
+                print("      ‣ dog picture   : Put dog picture to pentagram")
+            if state["room_states"]["classroom2031"]["photo camera"] is True:
+                print("      ‣ photo camera   : Put photo camera to pentagram")
+            if state["room_states"]["classroom2031"]["football"] is True:
+                print("      ‣ football   : Put football to pentagram")
+            if state["room_states"]["classroom2031"]["notebook"] is True:
+                print("      ‣ notebook   : Put notebook to pentagram")
+            if state["room_states"]["classroom2031"]["make-up"] is True:
+                print("      ‣ make-up   : Put make-up to pentagram")
+        if state["room_states"]["classroom2035"]["desk"] is True:
+            print("- use ouija board     : Use ouija board to speak with ghost.")
+        if state["room_states"]["classroom2035"]["manifest"] is True:
+            print("--------------------------------------------------")
         print("- look around         : Examine the room and its contents.")
         print("- go corridor / back  : Leave the room and return to the corridor.")
         print("- ?                   : Show this help message.")
@@ -91,6 +105,7 @@ def enterClassroom2031(state):
                 print("- Your current inventory:", state["inventory"])
                 print("\n Congratulation you have finished horror section, a new rift as appear close to a lab2001")
                 state["room_states"]["classroom2031"]["ghost discovered"] = True
+                state["room_states"]["classroom2035"]["manifest"] = False
             elif question == "how old are you?":
                 ghost_age = str(state["manifest"][ghost]["age"])
                 for i in ghost_age:
@@ -101,6 +116,8 @@ def enterClassroom2031(state):
                 for i in ghost_gender:
                     time.sleep(1)
                     print(i)
+            else:
+                print("You put invalid question or forgot to put ? at the end.")
 
     def handle_put(item):
         if item == "playing cards":
