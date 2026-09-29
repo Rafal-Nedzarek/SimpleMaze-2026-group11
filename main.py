@@ -108,7 +108,6 @@ state = {
             "door_unlocked": False,
             "lights_on": False,
             "boss_fight_active": False,
-            "player_health": 10,
             "boss_health": 100,
         },
     },

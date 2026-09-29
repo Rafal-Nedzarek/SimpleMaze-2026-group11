@@ -62,23 +62,19 @@ def enterLab2003(state):
         # boss fight functions
         def boss_attack():
             time.sleep(2)
-            print("The boss attacks you!")
-            state["room_states"]["lab2003"]["player_health"] -= 3
+            print("The enemy attacks you!")
+            state["health"] -= 3
             display_health_bars()
 
         def player_attack():
-            print("You punch the boss with your fist. Doesn't seem to do much...")
+            print("You punch the enemy with your fist. Doesn't seem to do much...")
             state["room_states"]["lab2003"]["boss_health"] -= 1
             display_health_bars()
-
-        def use_item():
-            print("WIP!")
-            # TODO: add code
 
         def display_health_bars():
             print("------------\n"
                   f"Boss HP: {state["room_states"]["lab2003"]["boss_health"]}\n"
-                  f"Your HP: {state["room_states"]["lab2003"]["player_health"]}\n"
+                  f"Your HP: {state["health"]}\n"
                   "------------\n")
 
         # solving the puzzle skips the fight
@@ -107,7 +103,7 @@ def enterLab2003(state):
             boss_attack()
 
             # check if player's HP still positive after boss attack
-            if state["room_states"]["lab2003"]["player_health"] <= 0:
+            if state["health"] <= 0:
                 print("You've been defeated! You use your last strength to reach into your pocket.\n"
                       "You pop a paracetamol pill to revive yourself. After a while you wake up in the lobby.")
                 return "lobby"
@@ -116,24 +112,52 @@ def enterLab2003(state):
             # - only actions: attack, use ...
             # print that any other action blocked during the fight
             command = input("What do you do!?\n"
-                            # Hide use <item> action while under construction
-                            # "Available actions: punch, use <item>, quit\n"
-                            "Available actions: punch, quit\n"
+                            "Available actions: punch, use <item>, rage quit\n"
                             "> ").strip().lower()
 
             if command == "punch":
                 player_attack()
 
             if command.startswith("use "):
-                # TODO: add handling
-                use_item()
+                item = command[4:]
+                if item in state["inventory"]:
+                    if item == "bandages":
+                        heal = 4
+                        state["health"] = state["health"] + heal if state["health"] + heal < 10 else 10
+                        print(f"You heal {heal} health points!")
+                        display_health_bars()
+                    # TODO: replace the placeholders below with actual weapon/item names
+                    elif item in ["special weapon 1", "special weapon 2", "special weapon 3"]:
+                        special_weapon_dmg = 34
+                        state["room_states"]["lab2003"]["boss_health"] -= special_weapon_dmg
+                        print(f"Critical hit! Your enemy receives {special_weapon_dmg} damage!")
+                        # TODO: make those special weapons one use only
+                        #   that way you'll need all three instead of reusing just one
+                        state["inventory"].remove(item)
+                        print(f"{item.title()} has been removed from your inventory.")
+                    else:
+                        print("This item is of no use here.")
+                else:
+                    print("Item not found.")
 
-            elif command == "quit":
-                # TODO: maybe adjust the message here
-                print("👋 You drop your backpack, leave the maze behind, and step back into the real world.")
+            elif command == "rage quit":
+                print("You smash your keyboard repeatedly and then silently stare into the distance.\n"
+                      "Take a deep breath. Better luck next time!")
                 sys.exit()
 
-        print("WIP: what happens after the boss fight goes here")
+            else:
+                print("Uh oh, you made a typo! Unknown command!")
+
+        time.sleep(2)
+        print("\nThe hooded figure falls to the ground.\n"
+              "You can hear all their support systems grinding down to a halt.\n"
+              "Next to the lifeless, robotic body you see a peculiar key.\n"
+              "A label on the keychain reads \"EXIT\"...\n"
+              "You head back to the lobby.")
+        state["inventory"].append("exit key")
+        state["visited"]["lab2003"] = True
+        time.sleep(2)
+        return "lobby"
 
     # --- Commandoloop ---
     while True:
