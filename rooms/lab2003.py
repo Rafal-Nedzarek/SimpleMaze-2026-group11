@@ -1,60 +1,55 @@
 import sys, time
-
+from strings import shared_strings as s, lab2003_strings as t
 
 def enterLab2003(state):
+    available_rooms = ["lobby"]
     # --- Check if the player has the key to enter ---
     if not state["room_states"]["lab2003"]["door_unlocked"]:
         if "lab2003 key" not in state["inventory"]:
-            print("\n🚪 The door to Lab 2003 is locked.")
-            print("The door looks robust and high-tech. You'll need a special key...")
+            print(t.DOOR_LOCKED)
             return "lobby"
         else:
-            print("\nYou insert the lab2003 key into the lock and turn it.")
-            print("As you enter the room, you're immediately enveloped with darkness.")
+            print(t.DOOR_UNLOCKED)
+            print(t.ENTER_ROOM)
             state["room_states"]["lab2003"]["door_unlocked"] = True
     else:
         # door locked for good once lab2003 has been completed
         if state["visited"]["lab2003"]:
-            print("You can't unlock the door anymore. The small screen next to the lock displays ERROR.")
+            print(t.DOOR_LOCKED_END)
             return "lobby"
-        print("You re-enter Lab 2003.")
+        print(t.RE_ENTER_ROOM)
         if not state["room_states"]["lab2003"]["lights_on"]:
-            print("You can't see anything in the darkness.")
+            print(t.LIGHTS_OFF)
 
     def handle_look():
         if not state["room_states"]["lab2003"]["lights_on"]:
-            print("It's so dark in here that you can't see anything. Better turn the lights on first...")
+            print(t.LIGHTS_OFF)
         else:
-            print("You look around the room and notice one desk placed exactly in the middle.\n"
-                  "Around the desk a group of small, tracked robots are busy placing candles around the place.\n"
-                  "It seems they're preparing some sort of ritual. Your attention moves onto the desk.\n"
-                  "You notice a hooded person sitting at the desk...")
+            print(t.LOOK_AROUND)
             state["looked_around"]["lab2001"] = True
-        print("- Possible exits: lobby")
-        print("- Your current inventory:", state["inventory"])
-        # TODO: update new actions after looking
+        print(s.POSSIBLE_EXITS.format(available_rooms=available_rooms))
+        print(s.CURRENT_INVENTORY.format(inventory=state["inventory"]))
         if state["room_states"]["lab2003"]["lights_on"]:
-            print("- New action available: approach the person")
+            print(t.NEW_ACTIONS)
 
 
     def handle_help():
-        print("\nAvailable commands:")
-        print("- look around         : Examine the room and its contents.")
-        # TODO: add room-specific actions here!
+        print(s.COMMANDS_HEADER)
         if not state["room_states"]["lab2003"]["lights_on"]:
-            print("- lights on                : Turn on the lights.")
+            print(t.ROOM_SPECIFIC_COMMANDS["lights_on"])
         elif state["looked_around"]["lab2001"]:
-            print("- approach the person                : See if the person is okay.")
-        print("- go lobby / back  : Leave the room and return to the lobby.")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game entirely.")
+            print(t.ROOM_SPECIFIC_COMMANDS["approach"])
+        print(s.STANDARD_COMMANDS["look_around"])
+        print(s.STANDARD_COMMANDS["go_back"])
+        print(s.STANDARD_COMMANDS["help"])
+        print(s.STANDARD_COMMANDS["quit"])
 
     def handle_go(destination):
         if destination in ["lobby", "back"]:
-            print("🚪 You open the door and step back into the lobby.")
+            print(t.HANDLE_GO["valid"])
             return "lobby"
         else:
-            print(f"❌ You can't go to '{destination}' from here.")
+            print(t.HANDLE_GO["invalid"].format(destination=destination))
             return None
 
     def boss_battle():
@@ -62,39 +57,33 @@ def enterLab2003(state):
         # boss fight functions
         def boss_attack():
             time.sleep(2)
-            print("The enemy attacks you!")
+            print(t.BOSS_FIGHT["enemy_attacks"])
             state["health"] -= 3
             display_health_bars()
 
         def player_attack():
-            print("You punch the enemy with your fist. Doesn't seem to do much...")
+            print(t.BOSS_FIGHT["player_punch"])
             state["room_states"]["lab2003"]["boss_health"] -= 1
             display_health_bars()
 
         def display_health_bars():
-            print("------------\n"
-                  f"Boss HP: {state["room_states"]["lab2003"]["boss_health"]}\n"
-                  f"Your HP: {state["health"]}\n"
-                  "------------\n")
+            print(t.BOSS_FIGHT["health_bars"].format(
+                boss_health=state["room_states"]["lab2003"]["boss_health"],
+                player_health=state["health"]
+            ))
 
         # solving the puzzle skips the fight
-        print("You approach the hooded person. You notice they're wearing long, crimson robes.\n"
-              "You can't clearly see their face, but you see some cables sticking out from beneath the robes.\n"
-              "The pair of eyes glowing under the hood turns towards you. You hear what sounds like a question:")
-        boss_answer = input("62656e206a696a2076696a616e64206f6620767269656e643f\n"
-                            "> ").strip().lower()
+        print(t.BOSS_CONVERSATION["boss_desc"])
+        boss_answer = input(t.BOSS_CONVERSATION["boss_question"]).strip().lower()
         if boss_answer == "vriend" or boss_answer == "767269656e64":
-            print("The person nods their hooded head. You could swear you hear the buzzing of servo motors under those robes.\n"
-                  "The person extends their robotic hand with a key, you take it in silence.\n"
-                  "Not sure what to make of all that, you quickly go back to the lobby.")
+            print(t.BOSS_CONVERSATION["answer_correct"])
             state["inventory"].append("exit key")
             state["visited"]["lab2003"] = True
             return "lobby"
 
         # assuming wrong answer
         state["room_states"]["lab2003"]["boss_fight_active"] = True
-        print("Looks like the person didn't like your answer. They stand up and grab a two-handed axe that was hidden among the lab's hardware.\n"
-              "The eyes under the hood glow ominously, the servo motors under the robes are abuzz. They're preparing to attack!")
+        print(t.BOSS_CONVERSATION["answer_wrong"])
         display_health_bars()
 
         # boss fight loop
@@ -104,16 +93,13 @@ def enterLab2003(state):
 
             # check if player's HP still positive after boss attack
             if state["health"] <= 0:
-                print("You've been defeated! You use your last strength to reach into your pocket.\n"
-                      "You pop a paracetamol pill to revive yourself. After a while you wake up in the lobby.")
+                print(t.BOSS_FIGHT["player_lost"])
                 return "lobby"
 
             # prompt player's action
             # - only actions: attack, use ...
             # print that any other action blocked during the fight
-            command = input("What do you do!?\n"
-                            "Available actions: punch, use <item>, rage quit\n"
-                            "> ").strip().lower()
+            command = input(t.BOSS_FIGHT["available_actions"]).strip().lower()
 
             if command == "punch":
                 player_attack()
@@ -124,36 +110,33 @@ def enterLab2003(state):
                     if item == "bandages":
                         heal = 4
                         state["health"] = state["health"] + heal if state["health"] + heal < 10 else 10
-                        print(f"You heal {heal} health points!")
+                        print(t.BOSS_FIGHT["player_heal"].format(heal=heal))
                         display_health_bars()
                     # TODO: replace the placeholders below with actual weapon/item names
                     elif item in ["special weapon 1", "special weapon 2", "special weapon 3"]:
                         special_weapon_dmg = 34
                         state["room_states"]["lab2003"]["boss_health"] -= special_weapon_dmg
-                        print(f"Critical hit! Your enemy receives {special_weapon_dmg} damage!")
-                        # TODO: make those special weapons one use only
-                        #   that way you'll need all three instead of reusing just one
+                        print(t.BOSS_FIGHT["item_attack"].format(
+                            special_weapon_dmg=special_weapon_dmg
+                        ))
+                        # NOTE: making those special weapons one use only
+                        # that way you'll need all three instead of reusing just one
                         state["inventory"].remove(item)
-                        print(f"{item.title()} has been removed from your inventory.")
+                        print(t.BOSS_FIGHT["item_removed"].format(item=item))
                     else:
-                        print("This item is of no use here.")
+                        print(t.BOSS_FIGHT["item_useless"])
                 else:
-                    print("Item not found.")
+                    print(t.BOSS_FIGHT["item_not_found"])
 
             elif command == "rage quit":
-                print("You smash your keyboard repeatedly and then silently stare into the distance.\n"
-                      "Take a deep breath. Better luck next time!")
+                print(t.BOSS_FIGHT["rage_quit"])
                 sys.exit()
 
             else:
-                print("Uh oh, you made a typo! Unknown command!")
+                print(t.BOSS_FIGHT["unknown_command"])
 
         time.sleep(2)
-        print("\nThe hooded figure falls to the ground.\n"
-              "You can hear all their support systems grinding down to a halt.\n"
-              "Next to the lifeless, robotic body you see a peculiar key.\n"
-              "A label on the keychain reads \"EXIT\"...\n"
-              "You head back to the lobby.")
+        print(t.BOSS_FIGHT["boss_defeated"])
         state["inventory"].append("exit key")
         state["visited"]["lab2003"] = True
         time.sleep(2)
@@ -175,10 +158,9 @@ def enterLab2003(state):
             if result:
                 return result
 
-        elif command == "lights on":
+        elif command == "lights on" and not state["room_states"]["lab2003"]["lights_on"]:
             state["room_states"]["lab2003"]["lights_on"] = True
-            print("You're dazzled by the bright lights. After a brief moment, your eyesight recovers.\n"
-                  "Time to take a look around...")
+            print(t.LIGHTS_ON)
 
         elif command == "approach the person":
             result = boss_battle()
@@ -186,8 +168,8 @@ def enterLab2003(state):
                 return result
 
         elif command == "quit":
-            print("👋 You drop your backpack, leave the maze behind, and step back into the real world.")
+            print(s.QUIT)
             sys.exit()
 
         else:
-            print("❓ Unknown command. Type '?' to see available commands.")
+            print(s.UNKNOWN_COMMAND)
