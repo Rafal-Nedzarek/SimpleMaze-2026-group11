@@ -2,21 +2,22 @@ import sys
 from functions import shared_functions as sf
 
 def enterteacherroom1(state):
-    print('\nYou stepped inside the teacher room 1\n'
-            'This room seems like a mess')
+    if 'croocked key' in state['inventory']:
+        print('\nYou stepped inside the teacher room 1\n'
+                'This room seems like a mess')
+        def handle_look():
+            print('\nYou see a ghostly figure in the middle of the room\n'
+                  'It might be the teacher of this room\n'
+                  'Books are scattered on the floor\n'
+                  'And some stuff on a table'
+                  )
 
-    def handle_look():
-        print('\nYou see a ghostly figure in the middle of the room\n'
-              'It might be the teacher of this room\n'
-              'Books are scattered on the floor\n'
-              'And some stuff on a table'
-              )
+        def check_table():
+            print('\nThere is a playing card on the table\n'
+                  'Might be tempted to take it,\n'
+                  'but the ghost is staring at you\n'
+                  'Maybe you should talk to it')
 
-    def check_table():
-        print('\nThere is a playing card on the table\n'
-              'Might be tempted to take it,\n'
-              'but the ghost is staring at you\n'
-              'Maybe you should talk to it')
 
 
     def handle_interact():
@@ -50,63 +51,63 @@ def enterteacherroom1(state):
                             print('\nThats the correct answer!\n'
                               'youre very smart')
                             break
-                    elif joke_answer!=(21,19):
-                        print('\nThat is not the correct answer!')
-                except ValueError:
-                    print('\nPlease use only numbers')
-        else:
-            print('\nYou already received your playing card\n'
-                  'Go explore the other rooms')
+                        elif joke_answer == 19:
+                                print('\nThats the correct answer!\n'
+                                  'youre very smart')
+                                break
+                        elif joke_answer!=(21,19):
+                            print('\nThat is not the correct answer!')
+                    except ValueError:
+                        print('\nPlease use only numbers')
+            else:
+                print('\nYou already received your playing card\n'
+                      'Go explore the other rooms')
 
+    def handle_go(destination):
+         """Handle movement to another room."""
+         if destination in ["corridor", "back"]:
+             print("You leave the teacher room 1 and head back into the corridor.")
+             state["previous_room"] = "teacherroom1"
+             return "corridor"
+         else:
+             print(f"You can't go to '{destination}' from here.")
+             return None
+              
     def handle_help():
         print("\nAvailable commands:")
         print("-check table          : Check whats on the table")
         print("-talk with ghost      : Interact with the ghost")
-        # print("- look around         : Examine the room and its contents.")
-        # print("- go corridor / back  : Leave the room and return to the corridor.")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game entirely.")
         sf.show_universal_help_text()
 
         print(f' invetory: {state['inventory']}')
 
-    def handle_go(destination):
-        """Handle movement to another room."""
-        if destination in ["corridor", "back"]:
-            print("You leave the teacher room 1 and head back into the corridor.")
-            state["previous_room"] = "teacherroom1"
-            return "corridor"
-        else:
-            print(f"❌ You can't go to '{destination}' from here.")
-            return None
+        while True:
+            command = input("\n> ").strip().lower()
 
-    while True:
-        command = input("\n> ").strip().lower()
+            if command == "look around":
+                handle_look()
 
-        if command == "look around":
-            handle_look()
+            elif command == 'check table':
+                check_table()
 
-        elif command == 'check table':
-            check_table()
+            elif command == "talk with ghost":
+                handle_interact()
 
-        elif command == "talk with ghost":
-            handle_interact()
+            elif command == "?":
+                handle_help()
 
-        elif command == "?":
-            handle_help()
+            elif command.startswith("go "):
+                destination = command[3:].strip()
+                result = handle_go(destination)
+                if result:
+                    return result
 
-        elif command.startswith("go "):
-            destination = command[3:].strip()
-            result = handle_go(destination)
-            if result:
-                return result
+            elif command == "quit":
+                print("You sit back in the softest chair, close your eyes, and exit the adventure. Game over.")
+                sys.exit()
 
-        elif command == "quit":
-            print("👋 You sit back in the softest chair, close your eyes, and exit the adventure. Game over.")
-            sys.exit()
+            elif command == "status":
+                sf.show_completion(state["completed"])
 
-        elif command == "status":
-            sf.show_completion(state["completed"])
-
-        else:
-            print("❓ Unknown command. Type '?' to see available commands.")
+            else:
+                print("Unknown command. Type '?' to see available commands.")

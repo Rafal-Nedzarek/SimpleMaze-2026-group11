@@ -17,7 +17,7 @@ def enterCorridor(state):
         state["visited"]["corridor"] = True
 
     # --- List of accessible rooms from here ---
-    available_rooms = ["lobby", "nscorridor", "enchanted_library", "teacherroom1", "projectroom3", "break_room"]
+    available_rooms = ["lobby", "nscorridor","examroom", "enchanted_library", "teacherroom1", "projectroom3", "break_room"]
 
     # --- Command handlers ---
 

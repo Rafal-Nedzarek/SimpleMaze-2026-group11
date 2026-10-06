@@ -22,6 +22,7 @@ from rooms import (
     enterProjectRoom2,
     enterProjectRoom3,
     enterTheExit,
+    enterexamroom,
     enterBreakRoom
 )
 
@@ -39,6 +40,7 @@ state = {
         "projectroom2": False,
         "projectroom3": False,
         "lab2003": False,
+        "examroom": False,
     },
 
     "completed": {
@@ -75,6 +77,7 @@ state = {
         "lab2003": False,
         "nscorridor": False,
         "teacherroom1": False,
+        "examroom": False,
     },
     # dictionary for tracking room-specific states
     "room_states": {
@@ -205,6 +208,9 @@ while True:
 
     elif current == "teacherroom1":
         state["current_room"] = enterteacherroom1(state)
+
+    elif current == "examroom":
+        state["current_room"] = enterexamroom(state)
 
     else:
         print("Unknown room. Exiting game.")
