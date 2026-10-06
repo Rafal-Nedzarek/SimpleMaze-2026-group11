@@ -8,7 +8,6 @@
 
 from rooms import (
     enterCorridor,
-    enterClassroom2015,
     enterNSCorridor,
     enterStairExit,
     enterLab2001,
@@ -91,7 +90,7 @@ state = {
             "football" : False,
             "notebook" : False,
             "make-up" : False,
-            "ghost discovered" : False
+            "ghost discovered" : False,
         },
         "enchanted_library":{
             "clue1_solved": False,
@@ -160,9 +159,6 @@ while True:
 
     elif current == "teachersroom4":
         state["current_room"] = enterTeachersRoom4(state)
-
-    elif current == "classroom2015":
-        state["current_room"] = enterClassroom2015(state)
 
     elif current == "lab2001":
         state["current_room"] = enterLab2001(state)

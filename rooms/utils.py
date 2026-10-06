@@ -7,8 +7,6 @@
 # -----------------------------------------------------------------------------
 
 import os
-from main import state
-
 
 # TODO: delete any unused utils
 
@@ -42,7 +40,7 @@ def chooseNextRoom(choices):
         print("Invalid input.")
         return None
 
-def healing():
+def healing(state):
     state["health"] += 4
     if state["health"] > 10:
         state["health"] = 10

@@ -3,7 +3,7 @@
 # ACS School Project - Simple Maze Example
 # Organization: THUAS (The Hague University of Applied Sciences)
 # Location: Delft
-# Date: July 2025
+# Date: September 2026
 # -----------------------------------------------------------------------------
 
 import sys
@@ -70,7 +70,7 @@ def enterCorridor(state):
                     return result
         elif command == "use bandages":
             if "bandages" in state["inventory"]:
-                healing()
+                healing(state)
             else:
                 print("You don't have any bandages.")
 

@@ -173,7 +173,7 @@ def enterTeachersRoom4(state):
 
         elif command == "use bandages":
             if "bandages" in state["inventory"]:
-                healing()
+                healing(state)
             else:
                 print("You don't have any bandages.")
 
