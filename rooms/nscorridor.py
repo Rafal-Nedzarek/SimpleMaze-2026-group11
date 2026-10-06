@@ -40,10 +40,12 @@ def enterNSCorridor(state):
             print("- manifest            : Check the manifest")
             print("--------------------------------------------------")
             print("- use bandages        : Use bandages to heal 4 harts.")
-        print("- look around         : See what's in the corridor and where you can go.")
-        print("- go <room name>      : Move to another room.")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game.")
+        # print("- look around         : See what's in the corridor and where you can go.")
+        # print("- go <room name>      : Move to another room.")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game.")
+        sf.show_universal_help_text()
+
         print(f"\n- Your current health is {state["health"]} harts")
         print("- Your current inventory:", state["inventory"])
 

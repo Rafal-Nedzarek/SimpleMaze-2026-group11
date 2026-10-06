@@ -34,15 +34,16 @@ def enterProjectRoom1(state):
 
     def handle_help():
         print("\nAvailable commands:")
-        print("- look around         : Examine the room and its contents.")
+        # print("- look around         : Examine the room and its contents.")
         if not state["visited"]["projectroom1"]:
             #print("- answer <number>     : Attempt to solve the math question.")
             print("- action <number>     : Take a specific action to repair the engine.")
         if state["visited"]["projectroom1"] and "stardust sphere" not in state["inventory"]:
             print("- take stardust sphere            : Pick up the key once it's revealed.")
-        print("- go corridor / back  : Leave the room and return to the corridor.")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game entirely.")
+        # print("- go corridor / back  : Leave the room and return to the corridor.")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game entirely.")
+        sf.show_universal_help_text()
 
     def handle_take(item):
         if item == "stardust sphere":

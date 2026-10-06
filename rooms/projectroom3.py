@@ -42,14 +42,15 @@ def enterProjectRoom3(state):
 
     def handle_help():
         print("\nAvailable commands:")
-        print("- look around         : Examine the room and its contents.")
+        # print("- look around         : Examine the room and its contents.")
         if not state["visited"]["projectroom3"] and state["looked_around"]["projectroom3"]:
             print("- inscribe <animal>     : Figure out the missing animal(?)")
         if state["visited"]["projectroom3"] and "astrolabe" not in state["inventory"]:
             print("- take astrolabe            : Pick up the astrolabe once it's revealed.")
-        print("- go corridor / back  : Leave the room and return to the corridor.")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game entirely.")
+        # print("- go corridor / back  : Leave the room and return to the corridor.")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game entirely.")
+        sf.show_universal_help_text()
 
     def handle_take(item):
         if item == "astrolabe":

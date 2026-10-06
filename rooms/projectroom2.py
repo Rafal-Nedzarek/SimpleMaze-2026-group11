@@ -31,14 +31,15 @@ def enterProjectRoom2(state):
 
     def handle_help():
         print("\nAvailable commands:")
-        print("- look around         : Examine the room and its contents.")
+        # print("- look around         : Examine the room and its contents.")
         if state["looked_around"]["projectroom2"] and not state["visited"]["projectroom2"]:
             print("- target <group>     : Target the 'larger' or 'smaller' group.")
         if state["visited"]["projectroom2"] and "tentacle" not in state["inventory"]:
             print("- take tentacle            : Pick up the key once it's revealed.")
-        print("- go lobby / back  : Leave the room and return to the lobby.")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game entirely.")
+        # print("- go lobby / back  : Leave the room and return to the lobby.")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game entirely.")
+        sf.show_universal_help_text()
 
 #Come back here later
     def handle_take(item):

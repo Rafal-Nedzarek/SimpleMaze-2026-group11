@@ -32,10 +32,11 @@ def enterLobby(state):
         """List available commands and explain navigation."""
         print("\nAvailable commands:")
         print("- use bandages        : Use bandages to heal 4 harts.")
-        print("- look around         : See what's in the corridor and where you can go.")
-        print("- go <room name>      : Move to another room. Example: go lab2001")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game.")
+        # print("- look around         : See what's in the corridor and where you can go.")
+        # print("- go <room name>      : Move to another room. Example: go lab2001")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game.")
+        sf.show_universal_help_text()
 
     def handle_go(room_name):
         """Move to a listed room."""
