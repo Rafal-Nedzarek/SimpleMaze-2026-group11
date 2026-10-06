@@ -11,6 +11,8 @@ from operator import truediv
 import random
 import time
 from data import MANIFEST
+from rooms.utils import healing
+
 
 def enterClassroom2031(state):
 
@@ -62,6 +64,7 @@ def enterClassroom2031(state):
             print("- use ouija board     : Use ouija board to speak with ghost.")
         if state["room_states"]["classroom2035"]["manifest"] is True:
             print("--------------------------------------------------")
+        print("- use bandages        : Use bandages to heal 4 harts.")
         print("- look around         : Examine the room and its contents.")
         print("- go corridor / back  : Leave the room and return to the corridor.")
         print("- ?                   : Show this help message.")
@@ -104,6 +107,7 @@ def enterClassroom2031(state):
                 print("\n Congratulation you have finished horror section, a new rift as appear close to a lab2001")
                 state["room_states"]["classroom2031"]["ghost discovered"] = True
                 state["room_states"]["classroom2035"]["manifest"] = False
+                state["section_finished"]["horror"] = True
             elif question == "how old are you?":
                 ghost_age = str(MANIFEST[ghost]["age"])
                 for i in ghost_age:
@@ -209,6 +213,12 @@ def enterClassroom2031(state):
                 handle_put(item)
             elif state["room_states"]["classroom2031"]["ghost discovered"] is True:
                 print("The ghost was discovered in the room.")
+
+        elif command == "use bandages":
+            if "bandages" in state["inventory"]:
+                healing()
+            else:
+                print("You don't have any bandages.")
 
         elif command.startswith("go "):
             destination = command[3:].strip()

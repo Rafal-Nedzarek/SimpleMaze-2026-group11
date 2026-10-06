@@ -1,5 +1,6 @@
 import sys
-from .utils import debugMode
+from .utils import debugMode, healing
+
 
 def enterLobby(state):
     print("\n🛋️ The lobby opens up to you.")
@@ -30,6 +31,7 @@ def enterLobby(state):
     def handle_help():
         """List available commands and explain navigation."""
         print("\nAvailable commands:")
+        print("- use bandages        : Use bandages to heal 4 harts.")
         print("- look around         : See what's in the corridor and where you can go.")
         print("- go <room name>      : Move to another room. Example: go classroom2015")
         print("- ?                   : Show this help message.")
@@ -56,9 +58,20 @@ def enterLobby(state):
         elif command == "?":
             handle_help()
 
+        elif command == "use bandages":
+            if "bandages" in state["inventory"]:
+                healing()
+            else:
+                print("You don't have any bandages.")
+
         elif command.startswith("go "):
             room = command[3:].strip()
-            result = handle_go(room)
+            if room == "lab2001" and state["section_finished"]["horror"] is False:
+                print("you can't enter the door is locked")
+            elif room == "lab2003" and state["section_finished"]["horror"] is False:
+                print("you can't enter the door is locked")
+            else:
+                result = handle_go(room)
             if result:
                 return result
 

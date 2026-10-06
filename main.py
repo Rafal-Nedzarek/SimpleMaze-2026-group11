@@ -30,6 +30,7 @@ state = {
     "current_room": "corridor",
     "previous_room": "corridor",
     "visited": {
+        "corridor" : False,
         "nscorridor" : False,
         "classroom2031": False,
         "classroom2035": False,
@@ -39,6 +40,13 @@ state = {
         "projectroom2": False,
         "projectroom3": False,
         "lab2003": False,
+    },
+    "section_finished":{
+        "medieval": True,
+        "chinese": True,
+        "scifi": True,
+        "horror": False,
+        "boss": True,
     },
     "looked_around": {
         "classroom2031": False,
