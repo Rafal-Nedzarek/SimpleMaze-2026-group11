@@ -8,6 +8,7 @@
 
 import sys
 from data import MANIFEST
+from functions import shared_functions as sf
 
 def enterTeachersRoom4(state):
 
@@ -91,6 +92,7 @@ def enterTeachersRoom4(state):
                     state["room_states"]["teachersroom4"]["safe_opened"] = True
                     state["room_states"]["classroom2031"]["photo camera"] = True
                     state["room_states"]["classroom2031"]["make-up"] = True
+                    state["completed"]["teachersroom4"] = True
                 else:
                     print("Invalid password.")
 
@@ -162,6 +164,9 @@ def enterTeachersRoom4(state):
         elif command == "quit":
             print("You close your notebook and leave the project behind. Game over.")
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("Unknown command. Type '?' to see available commands.")

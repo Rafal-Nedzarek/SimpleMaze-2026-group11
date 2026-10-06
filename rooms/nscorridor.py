@@ -9,6 +9,7 @@
 import sys
 from .utils import debugMode
 from data import MANIFEST
+from functions import shared_functions as sf
 
 def enterNSCorridor(state):
     if state["visited"]["nscorridor"] is False:
@@ -91,6 +92,9 @@ def enterNSCorridor(state):
         # not shown to the player
         elif command.startswith("debug add "):
             state["inventory"] += debugMode(command)
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("Unknown command. Type '?' to see available commands.")

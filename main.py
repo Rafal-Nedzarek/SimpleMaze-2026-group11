@@ -39,6 +39,22 @@ state = {
         "projectroom3": False,
         "lab2003": False,
     },
+
+    "completed": {
+        "break_room" : False,
+        "classroom2031" : False,
+        "classroom2035": False,
+        "enchanted_library" : False,
+        "lab2001": False,
+        "lab2003": False,
+        "projectroom1": False,
+        "projectroom2": False,
+        "projectroom3": False,
+        "stairexit" : False,
+        "teacherroom1" : False,
+        "teachersroom4" : False
+    },
+
     "looked_around": {
         "classroom2031": False,
         "classroom2035": False,

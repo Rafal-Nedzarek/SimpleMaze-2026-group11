@@ -1,5 +1,6 @@
 import sys
 from .utils import debugMode
+from functions import shared_functions as sf
 
 def enterLobby(state):
     print("\n🛋️ The lobby opens up to you.")
@@ -68,6 +69,9 @@ def enterLobby(state):
         # not shown to the player
         elif command.startswith("debug add "):
             state["inventory"] += debugMode(command)
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("❓ Unknown command. Type '?' to see available commands.")

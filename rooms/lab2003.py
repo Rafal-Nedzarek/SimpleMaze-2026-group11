@@ -1,5 +1,6 @@
 import sys, time
 from strings import shared_strings as s, lab2003_strings as t
+from functions import shared_functions as sf
 
 def enterLab2003(state):
     available_rooms = ["lobby"]
@@ -139,6 +140,7 @@ def enterLab2003(state):
         print(t.BOSS_FIGHT["boss_defeated"])
         state["inventory"].append("exit key")
         state["visited"]["lab2003"] = True
+        state["completed"]["lab2003"] = True
         time.sleep(2)
         return "lobby"
 
@@ -170,6 +172,9 @@ def enterLab2003(state):
         elif command == "quit":
             print(s.QUIT)
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print(s.UNKNOWN_COMMAND)

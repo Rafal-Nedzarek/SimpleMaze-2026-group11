@@ -1,5 +1,6 @@
 import sys
 from strings import shared_strings as s, lab2001_strings as t
+from functions import shared_functions as sf
 
 def enterLab2001(state):
     available_rooms = ["lobby"]
@@ -96,6 +97,7 @@ def enterLab2001(state):
                     if supplied_power >= 1000:
                         state["inventory"].append("lab2003 key")
                         state["room_states"]["lab2001"]["lab2003_key_forged"] = True
+                        state["completed"]["classroom2035"] = True
                         print(t.HANDLE_RUN_WORKBENCH["forging_desc"])
                         # TODO: decide if we want to display inventory at this moment
                         print(s.CURRENT_INVENTORY.format(inventory=state["inventory"]))
@@ -148,6 +150,9 @@ def enterLab2001(state):
         elif command == "quit":
             print(s.QUIT)
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print(s.UNKNOWN_COMMAND)

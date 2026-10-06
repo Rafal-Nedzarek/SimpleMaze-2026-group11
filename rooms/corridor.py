@@ -8,6 +8,7 @@
 
 import sys
 from .utils import debugMode
+from functions import shared_functions as sf
 
 def enterCorridor(state):
     print("\nYou are standing in the school's main corridor.")
@@ -67,6 +68,9 @@ def enterCorridor(state):
         # not shown to the player
         elif command.startswith("debug add "):
             state["inventory"] += debugMode(command)
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("Unknown command. Type '?' to see available commands.")

@@ -200,6 +200,7 @@ def enterEnchantedLibrary(state):
 
                     state["inventory"].append("Golden Key")
                     state["room_states"]["enchanted_library"]["spellbook_unlocked"] = True
+                    state["completed"]["enchanted_library"] = True
 
                 else:
                     print()

@@ -11,6 +11,7 @@ from operator import truediv
 import random
 import time
 from data import MANIFEST
+from functions import shared_functions as sf
 
 def enterClassroom2031(state):
 
@@ -29,7 +30,7 @@ def enterClassroom2031(state):
         state["room_states"]["classroom2031"][MANIFEST[ghost]["item1"]] = True
         state["room_states"]["classroom2031"][MANIFEST[ghost]["item2"]] = True
         state["room_states"]["classroom2031"][MANIFEST[ghost]["item3"]] = True
-    state["visited"]["classroom20314"] = True
+    state["visited"]["classroom2031"] = True
 
     # --- Helperfuncties voor commandoverwerking ---
 
@@ -104,6 +105,7 @@ def enterClassroom2031(state):
                 print("\n Congratulation you have finished horror section, a new rift as appear close to a lab2001")
                 state["room_states"]["classroom2031"]["ghost discovered"] = True
                 state["room_states"]["classroom2035"]["manifest"] = False
+                state["completed"]["classroom2031"] = True
             elif question == "how old are you?":
                 ghost_age = str(MANIFEST[ghost]["age"])
                 for i in ghost_age:
@@ -219,6 +221,9 @@ def enterClassroom2031(state):
         elif command == "quit":
             print("You drop your backpack, leave the maze behind, and step back into the real world.")
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("Unknown command. Type '?' to see available commands.")

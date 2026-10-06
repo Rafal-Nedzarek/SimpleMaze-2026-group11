@@ -1,4 +1,5 @@
 import sys
+from functions import shared_functions as sf
 
 def enterteacherroom1(state):
     print('\nYou stepped inside the teacher room 1\n'
@@ -36,6 +37,7 @@ def enterteacherroom1(state):
                             if playing_card_to_take=='yes':
                                 state['inventory'].append('playing card')
                                 state["room_states"]["classroom2031"]["playing cards"] = True
+                                state["completed"]["teacherroom1"] = True
                                 print('\nYou received new item in inventory!')
                                 break
                             elif playing_card_to_take=='no':
@@ -100,6 +102,9 @@ def enterteacherroom1(state):
         elif command == "quit":
             print("👋 You sit back in the softest chair, close your eyes, and exit the adventure. Game over.")
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("❓ Unknown command. Type '?' to see available commands.")

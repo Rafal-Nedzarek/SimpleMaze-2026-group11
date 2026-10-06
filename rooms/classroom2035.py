@@ -9,6 +9,7 @@
 import sys
 from data import HANGMAN_WORDS, MANIFEST
 import random
+from functions import shared_functions as sf
 
 def enterClassroom2035(state):
 
@@ -167,6 +168,7 @@ def enterClassroom2035(state):
                 print("\n- Your current inventory:", state["inventory"])
                 state["room_states"]["classroom2035"]["game_over"] = True
                 state["room_states"]["classroom2035"]["board"] = True
+                state["completed"]["classroom2035"] = True
             elif unraveled_word != word and state["room_states"]["classroom2035"]["wrong_guess"] >= 6:
                 print("\nYou lose!")
                 print("\nYou lost a chance to win the game.")
@@ -219,6 +221,9 @@ def enterClassroom2035(state):
         elif command == "quit":
             print("You drop your backpack, leave the maze behind, and step back into the real world.")
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("Unknown command. Type '?' to see available commands.")
