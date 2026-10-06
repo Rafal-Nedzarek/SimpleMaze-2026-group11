@@ -1,7 +1,7 @@
 COMMANDS_HEADER = "\nAvailable commands:"
 STANDARD_COMMANDS = {
     "look_around": "- look around         : Examine the room and its contents.",
-    "go_back": "- go lobby / back  : Leave the room and return to the corridor.",
+    "go_back": "- go back  : Return to the previous area.",
     "help": "- ?                   : Show this help message.",
     "quit": "- quit                : Quit the game entirely."
 }

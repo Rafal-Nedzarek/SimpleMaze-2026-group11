@@ -1,5 +1,6 @@
 import sys
 from .utils import chooseNextRoom
+from functions import shared_functions as sf
 
 def enterProjectRoom1(state):
     print("\n🏫 You step into Project Room 1.")
@@ -56,6 +57,7 @@ def enterProjectRoom1(state):
                 print("It is suprisingly heavier than it looks. It\'s also quite warm.")
                 print("You take it and tuck it safely into your backpack.")
                 state["inventory"].append("stardust_sphere")
+                state["completed"]["projectroom1"] = True
         else:
             print(f"There is no '{item}' here to take.")
 
@@ -108,6 +110,9 @@ def enterProjectRoom1(state):
         elif command == "quit":
             print("👋 You leave the school and the adventure comes to an end. Game over.")
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("❓ Unknown command. Type '?' to see available commands.")

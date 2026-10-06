@@ -7,6 +7,7 @@
 # -----------------------------------------------------------------------------
 
 import sys
+from functions import shared_functions as sf
 from .utils import debugMode, healing
 
 def enterCorridor(state):
@@ -81,6 +82,9 @@ def enterCorridor(state):
         # not shown to the player
         elif command.startswith("debug add "):
             state["inventory"] += debugMode(command)
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("Unknown command. Type '?' to see available commands.")

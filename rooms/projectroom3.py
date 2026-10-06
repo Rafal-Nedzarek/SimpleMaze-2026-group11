@@ -9,6 +9,7 @@
 #
 import sys
 from .utils import chooseNextRoom
+from functions import shared_functions as sf
 
 def enterProjectRoom3(state):
     print("\n🏫 You step Project Room 3.")
@@ -78,6 +79,7 @@ def enterProjectRoom3(state):
             print("✅ Correct! The table glows, and the entire room starts to turn around you.")
             state["visited"]["projectroom3"] = True
             print("Suddenly you see something pop out of the center.")
+            state["completed"]["projectroom3"] = True
         else:
             print("❌ Incorrect. Mysteriously, the inscription you wrote disappears.")
 
@@ -110,6 +112,9 @@ def enterProjectRoom3(state):
         elif command == "quit":
             print("👋 You drop your backpack, leave the maze behind, and step back into the real world.")
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("❓ Unknown command. Type '?' to see available commands.")

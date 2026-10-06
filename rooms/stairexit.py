@@ -74,6 +74,7 @@ def enterStairExit(state):
             state["inventory"].append("bandages")
             print("\n- Your current inventory:", state["inventory"])
             state["room_states"]["stairexit"]["chest_opened"] = True
+            state["completed"]["stairexit"] = True
 
         elif command == "open chest" and state["room_states"]["stairexit"]["chest_opened"] == True:
             print("\nYou have already opened this chest")

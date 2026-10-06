@@ -8,6 +8,7 @@
 
 import sys
 from data import MANIFEST
+from functions import shared_functions as sf
 from rooms.utils import healing
 
 
@@ -117,7 +118,6 @@ def enterTeachersRoom4(state):
                     state["inventory"].append("dog picture")
                     print("\n- Your current inventory:", state["inventory"])
                     room["calendar"] = True
-
             elif item == "clock":
                 if room["clock"] is True:
                     print("The clock still shows 6:06")
@@ -186,6 +186,9 @@ def enterTeachersRoom4(state):
         elif command == "quit":
             print("You close your notebook and leave the project behind. Game over.")
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("Unknown command. Type '?' to see available commands.")
