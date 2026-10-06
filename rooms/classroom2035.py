@@ -9,6 +9,10 @@
 import sys
 from data import HANGMAN_WORDS, MANIFEST
 import random
+from functions import shared_functions as sf
+
+from rooms.utils import healing
+
 
 def enterClassroom2035(state):
 
@@ -41,7 +45,7 @@ def enterClassroom2035(state):
             if state["room_states"]["classroom2035"]["manifest"] is True:
                 print("- manifest            : Check the manifest")
             if state["room_states"]["classroom2035"]["folder"] is False or state["room_states"]["classroom2035"]["desk"] is False or state["room_states"]["classroom2035"]["board"] is False or state["room_states"]["classroom2035"]["football"] is False:
-                print("- investigate         : Check some areas of the room")
+                print("- check               : Check some areas of the room")
                 if state["room_states"]["classroom2035"]["folder"] is False:
                     print("      ‣ folder        : Check the folder on a teachers desk")
                 if state["room_states"]["classroom2035"]["desk"] is False:
@@ -52,14 +56,17 @@ def enterClassroom2035(state):
                     print("      ‣ football      : Check the football")
             if state["room_states"]["classroom2035"]["folder"] is False or state["room_states"]["classroom2035"]["desk"] is False or state["room_states"]["classroom2035"]["board"] is False or state["room_states"]["classroom2035"]["football"] is False or state["room_states"]["classroom2035"]["manifest"] is True:
                 print("--------------------------------------------------")
-        print("- look around         : Examine the room and its contents.")
-        print("- go corridor / back  : Leave the room and return to the corridor.")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game entirely.")
+        print("- use bandages        : Use bandages to heal 4 harts.")
+        # print("- look around         : Examine the room and its contents.")
+        # print("- go corridor / back  : Leave the room and return to the corridor.")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game entirely.")
+        sf.show_universal_help_text()
+
         print(f"\n- Your current health is {state["health"]} harts")
         print("- Your current inventory:", state["inventory"])
 
-    def handle_investigate(item):
+    def handle_check(item):
         if item == "folder":
             if state["room_states"]["classroom2035"]["folder"] is True:
                 print("There is no other folder on a desk.")
@@ -115,7 +122,7 @@ def enterClassroom2035(state):
                 state["room_states"]["classroom2031"]["football"] = True
 
         else:
-            print(f"There is no '{item}' here to investigate.")
+            print(f"There is no '{item}' here to check.")
 
     def handle_hangman():
         word = random.choice(HANGMAN_WORDS)
@@ -167,6 +174,7 @@ def enterClassroom2035(state):
                 print("\n- Your current inventory:", state["inventory"])
                 state["room_states"]["classroom2035"]["game_over"] = True
                 state["room_states"]["classroom2035"]["board"] = True
+                state["completed"]["classroom2035"] = True
             elif unraveled_word != word and state["room_states"]["classroom2035"]["wrong_guess"] >= 6:
                 print("\nYou lose!")
                 print("\nYou lost a chance to win the game.")
@@ -200,15 +208,21 @@ def enterClassroom2035(state):
         if command == "look around":
             handle_look()
 
-        elif command.startswith("investigate"):
+        elif command.startswith("check"):
             item = command[12:].strip()
-            handle_investigate(item)
+            handle_check(item)
 
         elif command == "manifest":
             handle_manifest()
 
         elif command == "?":
             handle_help()
+
+        elif command == "use bandages":
+            if "bandages" in state["inventory"]:
+                healing(state)
+            else:
+                print("You don't have any bandages.")
 
         elif command.startswith("go "):
             destination = command[3:].strip()
@@ -219,6 +233,9 @@ def enterClassroom2035(state):
         elif command == "quit":
             print("You drop your backpack, leave the maze behind, and step back into the real world.")
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("Unknown command. Type '?' to see available commands.")

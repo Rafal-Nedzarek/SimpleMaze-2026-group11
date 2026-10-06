@@ -30,6 +30,7 @@ state = {
     "current_room": "corridor",
     "previous_room": "corridor",
     "visited": {
+        "corridor" : False,
         "nscorridor" : False,
         "classroom2031": False,
         "classroom2035": False,
@@ -40,6 +41,29 @@ state = {
         "projectroom3": False,
         "lab2003": False,
         "examroom": False,
+    },
+
+    "completed": {
+        "break_room" : False,
+        "classroom2031" : False,
+        "classroom2035": False,
+        "enchanted_library" : False,
+        "lab2001": False,
+        "lab2003": False,
+        "projectroom1": False,
+        "projectroom2": False,
+        "projectroom3": False,
+        "stairexit" : False,
+        "teacherroom1" : False,
+        "teachersroom4" : False
+    },
+
+    "section_finished":{
+        "medieval": True,
+        "chinese": True,
+        "scifi": True,
+        "horror": False,
+        "boss": True,
     },
     "looked_around": {
         "classroom2031": False,
@@ -85,7 +109,7 @@ state = {
             "football" : False,
             "notebook" : False,
             "make-up" : False,
-            "ghost discovered" : False
+            "ghost discovered" : False,
         },
         "enchanted_library":{
             "clue1_solved": False,
@@ -111,7 +135,6 @@ state = {
             "door_unlocked": False,
             "lights_on": False,
             "boss_fight_active": False,
-            "player_health": 10,
             "boss_health": 100,
         },
     },
@@ -154,9 +177,6 @@ while True:
 
     elif current == "teachersroom4":
         state["current_room"] = enterTeachersRoom4(state)
-
-    elif current == "classroom2015":
-        state["current_room"] = enterClassroom2015(state)
 
     elif current == "lab2001":
         state["current_room"] = enterLab2001(state)

@@ -1,4 +1,3 @@
-
 def enterBreakRoom(state):
     print("===================================")
     print("          THE DARK NIGHT")
@@ -59,6 +58,7 @@ def enterBreakRoom(state):
     print("Dark Sun Buff: +10% extra energy.")
 
     state["inventory"].append("Dark Sun Buff")
+    state["completed"]["break_room"] = True
 
     print("\n-----------------------------------")
     print("Your inventory:")

@@ -9,6 +9,7 @@
 #
 import sys
 from .utils import chooseNextRoom
+from functions import shared_functions as sf
 
 def enterProjectRoom3(state):
     print("\n🏫 You step Project Room 3.")
@@ -41,14 +42,15 @@ def enterProjectRoom3(state):
 
     def handle_help():
         print("\nAvailable commands:")
-        print("- look around         : Examine the room and its contents.")
+        # print("- look around         : Examine the room and its contents.")
         if not state["visited"]["projectroom3"] and state["looked_around"]["projectroom3"]:
             print("- inscribe <animal>     : Figure out the missing animal(?)")
         if state["visited"]["projectroom3"] and "astrolabe" not in state["inventory"]:
             print("- take astrolabe            : Pick up the astrolabe once it's revealed.")
-        print("- go corridor / back  : Leave the room and return to the corridor.")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game entirely.")
+        # print("- go corridor / back  : Leave the room and return to the corridor.")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game entirely.")
+        sf.show_universal_help_text()
 
     def handle_take(item):
         if item == "astrolabe":
@@ -78,6 +80,7 @@ def enterProjectRoom3(state):
             print("✅ Correct! The table glows, and the entire room starts to turn around you.")
             state["visited"]["projectroom3"] = True
             print("Suddenly you see something pop out of the center.")
+            state["completed"]["projectroom3"] = True
         else:
             print("❌ Incorrect. Mysteriously, the inscription you wrote disappears.")
 
@@ -110,6 +113,9 @@ def enterProjectRoom3(state):
         elif command == "quit":
             print("👋 You drop your backpack, leave the maze behind, and step back into the real world.")
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("❓ Unknown command. Type '?' to see available commands.")

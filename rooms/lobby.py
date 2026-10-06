@@ -1,5 +1,7 @@
 import sys
-from .utils import debugMode
+from functions import shared_functions as sf
+from .utils import debugMode, healing
+
 
 def enterLobby(state):
     print("\n🛋️ The lobby opens up to you.")
@@ -29,10 +31,12 @@ def enterLobby(state):
     def handle_help():
         """List available commands and explain navigation."""
         print("\nAvailable commands:")
-        print("- look around         : See what's in the corridor and where you can go.")
-        print("- go <room name>      : Move to another room. Example: go lab2001")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game.")
+        print("- use bandages        : Use bandages to heal 4 harts.")
+        # print("- look around         : See what's in the corridor and where you can go.")
+        # print("- go <room name>      : Move to another room. Example: go lab2001")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game.")
+        sf.show_universal_help_text()
 
     def handle_go(room_name):
         """Move to a listed room."""
@@ -55,9 +59,20 @@ def enterLobby(state):
         elif command == "?":
             handle_help()
 
+        elif command == "use bandages":
+            if "bandages" in state["inventory"]:
+                healing(state)
+            else:
+                print("You don't have any bandages.")
+
         elif command.startswith("go "):
             room = command[3:].strip()
-            result = handle_go(room)
+            if room == "lab2001" and state["section_finished"]["horror"] is False:
+                print("you can't enter the door is locked")
+            elif room == "lab2003" and state["section_finished"]["horror"] is False:
+                print("you can't enter the door is locked")
+            else:
+                result = handle_go(room)
             if result:
                 return result
 
@@ -68,6 +83,9 @@ def enterLobby(state):
         # not shown to the player
         elif command.startswith("debug add "):
             state["inventory"] += debugMode(command)
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("❓ Unknown command. Type '?' to see available commands.")

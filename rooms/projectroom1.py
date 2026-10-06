@@ -1,5 +1,6 @@
 import sys
 from .utils import chooseNextRoom
+from functions import shared_functions as sf
 
 def enterProjectRoom1(state):
     print("\n🏫 You step into Project Room 1.")
@@ -33,15 +34,16 @@ def enterProjectRoom1(state):
 
     def handle_help():
         print("\nAvailable commands:")
-        print("- look around         : Examine the room and its contents.")
+        # print("- look around         : Examine the room and its contents.")
         if not state["visited"]["projectroom1"]:
             #print("- answer <number>     : Attempt to solve the math question.")
             print("- action <number>     : Take a specific action to repair the engine.")
         if state["visited"]["projectroom1"] and "stardust sphere" not in state["inventory"]:
             print("- take stardust sphere            : Pick up the key once it's revealed.")
-        print("- go corridor / back  : Leave the room and return to the corridor.")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game entirely.")
+        # print("- go corridor / back  : Leave the room and return to the corridor.")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game entirely.")
+        sf.show_universal_help_text()
 
     def handle_take(item):
         if item == "stardust sphere":
@@ -56,6 +58,7 @@ def enterProjectRoom1(state):
                 print("It is suprisingly heavier than it looks. It\'s also quite warm.")
                 print("You take it and tuck it safely into your backpack.")
                 state["inventory"].append("stardust_sphere")
+                state["completed"]["projectroom1"] = True
         else:
             print(f"There is no '{item}' here to take.")
 
@@ -108,6 +111,9 @@ def enterProjectRoom1(state):
         elif command == "quit":
             print("👋 You leave the school and the adventure comes to an end. Game over.")
             sys.exit()
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         else:
             print("❓ Unknown command. Type '?' to see available commands.")

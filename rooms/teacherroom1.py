@@ -1,4 +1,5 @@
 import sys
+from functions import shared_functions as sf
 
 def enterteacherroom1(state):
     if 'croocked key' in state['inventory']:
@@ -18,31 +19,37 @@ def enterteacherroom1(state):
                   'Maybe you should talk to it')
 
 
-        def handle_interact():
-            if not 'playing card' in state['inventory']:
-                while True:
-                    try:
-                        print('\nwelcome to my classroom\n'
-                              'First thing first\n'
-                              'What is 9 plus 10?\n'
-                              )
-                        joke_answer=int(input('Enter your answer: '))
-                        if joke_answer==21:
-                            print('\nHahaha!\n'
-                                'I see that youre a gen z\n'
-                                'Do you want this playing card?')
-                            while True:
-                                playing_card_to_take=input('Answer yes or no: ')
-                                if playing_card_to_take=='yes':
-                                    state['inventory'].append('playing card')
-                                    state["room_states"]["classroom2031"]["playing cards"] = True
-                                    print('\nYou received new item in inventory!')
-                                    break
-                                elif playing_card_to_take=='no':
-                                    print('\n its youre loss')
-                                    break
-                                else:
-                                    print('\nIts either yes or no -_-')
+
+    def handle_interact():
+        if not 'playing card' in state['inventory']:
+            while True:
+                try:
+                    print('\nwelcome to my classroom\n'
+                          'First thing first\n'
+                          'What is 9 plus 10?\n'
+                          )
+                    joke_answer=int(input('Enter your answer: '))
+                    if joke_answer==21:
+                        print('\nHahaha!\n'
+                            'I see that youre a gen z\n'
+                            'Do you want this playing card?')
+                        while True:
+                            playing_card_to_take=input('Answer yes or no: ')
+                            if playing_card_to_take=='yes':
+                                state['inventory'].append('playing card')
+                                state["room_states"]["classroom2031"]["playing cards"] = True
+                                state["completed"]["teacherroom1"] = True
+                                print('\nYou received new item in inventory!')
+                                break
+                            elif playing_card_to_take=='no':
+                                print('\n its youre loss')
+                                break
+                            else:
+                                print('\nIts either yes or no -_-')
+                        break
+                    elif joke_answer == 19:
+                            print('\nThats the correct answer!\n'
+                              'youre very smart')
                             break
                         elif joke_answer == 19:
                                 print('\nThats the correct answer!\n'
@@ -56,25 +63,23 @@ def enterteacherroom1(state):
                 print('\nYou already received your playing card\n'
                       'Go explore the other rooms')
 
-        def handle_help():
-            print("\nAvailable commands:")
-            print("-check table          : Check whats on the table")
-            print("-talk with ghost      : Interact with the ghost")
-            print("- look around         : Examine the room and its contents.")
-            print("- go corridor / back  : Leave the room and return to the corridor.")
-            print("- ?                   : Show this help message.")
-            print("- quit                : Quit the game entirely.")
-            print(f' invetory: {state['inventory']}')
+    def handle_go(destination):
+         """Handle movement to another room."""
+         if destination in ["corridor", "back"]:
+             print("You leave the teacher room 1 and head back into the corridor.")
+             state["previous_room"] = "teacherroom1"
+             return "corridor"
+         else:
+             print(f"You can't go to '{destination}' from here.")
+             return None
+              
+    def handle_help():
+        print("\nAvailable commands:")
+        print("-check table          : Check whats on the table")
+        print("-talk with ghost      : Interact with the ghost")
+        sf.show_universal_help_text()
 
-        def handle_go(destination):
-            """Handle movement to another room."""
-            if destination in ["corridor", "back"]:
-                print("You leave the teacher room 1 and head back into the corridor.")
-                state["previous_room"] = "teacherroom1"
-                return "corridor"
-            else:
-                print(f"❌ You can't go to '{destination}' from here.")
-                return None
+        print(f' invetory: {state['inventory']}')
 
         while True:
             command = input("\n> ").strip().lower()
@@ -98,12 +103,11 @@ def enterteacherroom1(state):
                     return result
 
             elif command == "quit":
-                print("👋 You sit back in the softest chair, close your eyes, and exit the adventure. Game over.")
+                print("You sit back in the softest chair, close your eyes, and exit the adventure. Game over.")
                 sys.exit()
 
-            else:
-                print("❓ Unknown command. Type '?' to see available commands.")
+            elif command == "status":
+                sf.show_completion(state["completed"])
 
-    else:
-        print('You need the crooked key to access this room')
-        return 'corridor'
+            else:
+                print("Unknown command. Type '?' to see available commands.")
