@@ -7,7 +7,7 @@
 # -----------------------------------------------------------------------------
 
 import sys
-from .utils import debugMode
+from .utils import debugMode, healing
 from data import MANIFEST
 
 def enterNSCorridor(state):
@@ -38,6 +38,7 @@ def enterNSCorridor(state):
         if state["room_states"]["classroom2035"]["manifest"] is True:
             print("- manifest            : Check the manifest")
             print("--------------------------------------------------")
+            print("- use bandages        : Use bandages to heal 4 harts.")
         print("- look around         : See what's in the corridor and where you can go.")
         print("- go <room name>      : Move to another room.")
         print("- ?                   : Show this help message.")
@@ -75,6 +76,11 @@ def enterNSCorridor(state):
         elif command == "manifest":
             handle_manifest()
 
+        elif command == "use bandages":
+            if "bandages" in state["inventory"]:
+                healing(state)
+            else:
+                print("You don't have any bandages.")
         elif command.startswith("go "):
             room = command[3:].strip()
             if room == "classroom2031" and "key2031" not in state["inventory"]:

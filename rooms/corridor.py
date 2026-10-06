@@ -3,15 +3,17 @@
 # ACS School Project - Simple Maze Example
 # Organization: THUAS (The Hague University of Applied Sciences)
 # Location: Delft
-# Date: July 2025
+# Date: September 2026
 # -----------------------------------------------------------------------------
 
 import sys
-from .utils import debugMode
+from .utils import debugMode, healing
 
 def enterCorridor(state):
     print("\nYou are standing in the school's main corridor.")
-    print("You see a long corridor with many doors and glass walls on both side. Behind these door are rooms, waiting to be explored.")
+    if state["visited"]["corridor"] is False:
+        print("You see a long corridor with many doors and glass walls on both side. Behind these door are rooms, waiting to be explored.")
+        state["visited"]["corridor"] = True
 
     # --- List of accessible rooms from here ---
     available_rooms = ["lobby", "nscorridor", "enchanted_library", "teacherroom1", "projectroom3", "break_room"]
@@ -28,6 +30,7 @@ def enterCorridor(state):
     def handle_help():
         """List available commands and explain navigation."""
         print("\nAvailable commands:")
+        print("- use bandages        : Use bandages to heal 4 harts.")
         print("- look around         : See what's in the corridor and where you can go.")
         print("- go <room name>      : Move to another room. Example: go enchanted_library")
         print("- ?                   : Show this help message.")
@@ -56,9 +59,20 @@ def enterCorridor(state):
 
         elif command.startswith("go "):
             room = command[3:].strip()
-            result = handle_go(room)
-            if result:
-                return result
+
+            if room == "lobby" and state["section_finished"]["medieval"] is False and state["section_finished"]["chinese"] is False:
+                print("You can't enter the door is locked")
+            elif room == "nscorridor" and state["section_finished"]["scifi"] is False:
+                print("You can't enter the door is locked")
+            else:
+                result = handle_go(room)
+                if result:
+                    return result
+        elif command == "use bandages":
+            if "bandages" in state["inventory"]:
+                healing(state)
+            else:
+                print("You don't have any bandages.")
 
         elif command == "quit":
             print("You leave the school and the adventure comes to an end. Game over.")

@@ -8,6 +8,8 @@
 
 import sys
 from data import MANIFEST
+from rooms.utils import healing
+
 
 def enterStairExit(state):
     print("\nYou push the door to the stair exit and you enter the room.")
@@ -78,6 +80,12 @@ def enterStairExit(state):
 
         elif command == "?":
             handle_help()
+
+        elif command == "use bandages":
+            if "bandages" in state["inventory"]:
+                healing(state)
+            else:
+                print("You don't have any bandages.")
 
         elif command == "manifest":
             handle_manifest()

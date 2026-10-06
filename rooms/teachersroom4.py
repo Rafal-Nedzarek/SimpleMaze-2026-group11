@@ -8,6 +8,8 @@
 
 import sys
 from data import MANIFEST
+from rooms.utils import healing
+
 
 def enterTeachersRoom4(state):
 
@@ -36,7 +38,7 @@ def enterTeachersRoom4(state):
             print("- manifest            : Check the manifest")
         if state["looked_around"]["teachersroom4"] is True:
             if state["room_states"]["teachersroom4"]["safe_opened"] is False or state["room_states"]["teachersroom4"]["mug"] is False or state["room_states"]["teachersroom4"]["calendar"] is False or state["room_states"]["teachersroom4"]["clock"] is False:
-                print("- investigate         : Check some areas of the room")
+                print("- check              : Check some areas of the room")
                 if state["room_states"]["teachersroom4"]["safe_opened"] is False:
                     print("      ‣ safe          : Check the safe")
                 if state["room_states"]["teachersroom4"]["mug"] is False and state["room_states"]["teachersroom4"]["safe"] is True:
@@ -51,6 +53,7 @@ def enterTeachersRoom4(state):
                 print("--------------------------------------------------")
             elif state["room_states"]["classroom2035"]["manifest"] is True:
                 print("--------------------------------------------------")
+        print("- use bandages        : Use bandages to heal 4 harts.")
         print("- look around         : Examine the room for clues.")
         print("- go corridor / back  : Leave the room and return to the corridor.")
         print("- ?                   : Show this help message.")
@@ -68,57 +71,72 @@ def enterTeachersRoom4(state):
             print(f"You can't go to '{destination}' from here.")
             return None
 
-    def handle_investigate(item):
-        if item == "safe":
-            if state["room_states"]["teachersroom4"]["safe"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is True:
-                print("Safe is opened there is nothing else to do.")
-            elif state["room_states"]["teachersroom4"]["safe"] is False and state["room_states"]["teachersroom4"]["safe_opened"] is False:
-                print("You go closer to a safe")
-                print("You try to open it but it's closed and the safe is asking a code from you.")
-                print("You notice that on the side of the safe ia a stickynote.")
-                print("\nstickynote: 📅 + 🕕 + 🍵 = 🖥❓")
-                print("\nYou step away from the safe")
-                state["room_states"]["teachersroom4"]["safe"] = True
-            elif state["room_states"]["teachersroom4"]["safe"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is False:
-                print("You go closer to a safe")
-                password = input("\nEnter 4 digits password: ")
-                if password == "3141":
-                    print("\nYou open the safe.")
-                    print("\nInside of the safe is photo camera and make-up kit")
-                    state["inventory"].append("photo camera")
-                    state["inventory"].append("make-up")
-                    print("\n- Your current inventory:", state["inventory"])
-                    state["room_states"]["teachersroom4"]["safe_opened"] = True
-                    state["room_states"]["classroom2031"]["photo camera"] = True
-                    state["room_states"]["classroom2031"]["make-up"] = True
-                else:
-                    print("Invalid password.")
+    def handle_check(item):
+        try:
+            room = state["room_states"]["teachersroom4"]
 
-        elif item == "calendar":
-            if state["room_states"]["teachersroom4"]["calendar"] is True:
-                print("There is nothing new 31st of October is still circled")
+            if item == "safe":
+                if room["safe"] is True and room["safe_opened"] is True:
+                    print("Safe is opened, there is nothing else to do.")
+                elif room["safe"] is False and room["safe_opened"] is False:
+                    print("You go closer to a safe")
+                    print("You try to open it but it's closed and the safe is asking a code from you.")
+                    print("You notice that on the side of the safe is a sticky note.")
+                    print("\nstickynote: 📅 + 🕕 + 🍵 = 🖥❓")
+                    print("\nYou step away from the safe")
+                    room["safe"] = True
+                elif room["safe"] is True and room["safe_opened"] is False:
+                    print("You go closer to a safe")
+                    password = input("\nEnter 4 digits password: ").strip()
+                    try:
+                        if len(password) != 4:
+                            raise ValueError
+                        int(password)  # raises ValueError if it contains non-digits
+                    except ValueError:
+                        print("The password must be exactly 4 digits.")
+                        return
+
+                    if password == "5478":
+                        print("\nYou open the safe.")
+                        print("\nInside of the safe is a photo camera and a make-up kit")
+                        state["inventory"].append("photo camera")
+                        state["inventory"].append("make-up")
+                        print("\n- Your current inventory:", state["inventory"])
+                        room["safe_opened"] = True
+                        state["room_states"]["classroom2031"]["photo camera"] = True
+                        state["room_states"]["classroom2031"]["make-up"] = True
+                    else:
+                        print("Invalid password.")
+
+            elif item == "calendar":
+                if room["calendar"] is True:
+                    print("There is nothing new, 31st of October is still circled")
+                else:
+                    print("You look at the calendar at the desk")
+                    print("You can see that 31st of October is circled and stuck in the calendar is a picture of a dog")
+                    state["inventory"].append("dog picture")
+                    print("\n- Your current inventory:", state["inventory"])
+                    room["calendar"] = True
+
+            elif item == "clock":
+                if room["clock"] is True:
+                    print("The clock still shows 6:06")
+                else:
+                    print("You look at the broken clock on a wall")
+                    print("It says 6:06")
+                    room["clock"] = True
+
+            elif item == "mug":
+                if room["mug"] is not True:
+                    print("You look at the mug on a desk")
+                    room["mug"] = True
+                print("On the mug is the Trevi Fountain and under it are the roman numerals MDCCLXII")
+
             else:
-                print("You look at the calendar at the desk")
-                print("You can see that 31st of October is circled and stuck in the calendar is a picture of a dog")
-                state["inventory"].append("dog picture")
-                print("\n- Your current inventory:", state["inventory"])
-                state["room_states"]["teachersroom4"]["calendar"] = True
-        elif item == "clock":
-            if state["room_states"]["teachersroom4"]["clock"] is True:
-                print("clock still show time 6:06")
-            else:
-                print("You look at the broken clock on a wall")
-                print("They say it is 6:06")
-                state["room_states"]["teachersroom4"]["clock"] = True
-        elif item == "mug":
-            if state["room_states"]["teachersroom4"]["mug"] is True:
-                print("On the mug is statue of David and under it is are roman letters MDCCLXII")
-            else:
-                print("You look at the mug on a desk")
-                print("On the mug is statue of David and under it is are roman letters MDCCLXII")
-                state["room_states"]["teachersroom4"]["mug"] = True
-        else:
-            print("unknown object")
+                print("Unknown object.")
+
+        except KeyError as e:
+            print(f"Error: missing game data {e}. Check that it exists in state.")
 
     def handle_manifest():
         print("\nManifest:")
@@ -146,12 +164,18 @@ def enterTeachersRoom4(state):
             print("D = 500")
             print("M = 1000")
 
-        elif command.startswith("investigate"):
+        elif command.startswith("check"):
             item = command[12:].strip()
-            handle_investigate(item)
+            handle_check(item)
 
         elif command == "manifest":
             handle_manifest()
+
+        elif command == "use bandages":
+            if "bandages" in state["inventory"]:
+                healing(state)
+            else:
+                print("You don't have any bandages.")
 
         elif command.startswith("go "):
             destination = command[3:].strip()
