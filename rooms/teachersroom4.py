@@ -55,10 +55,12 @@ def enterTeachersRoom4(state):
             elif state["room_states"]["classroom2035"]["manifest"] is True:
                 print("--------------------------------------------------")
         print("- use bandages        : Use bandages to heal 4 harts.")
-        print("- look around         : Examine the room for clues.")
-        print("- go corridor / back  : Leave the room and return to the corridor.")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game completely.")
+        # print("- look around         : Examine the room for clues.")
+        # print("- go corridor / back  : Leave the room and return to the corridor.")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game completely.")
+        sf.show_universal_help_text()
+
         print(f"\n- Your current health is {state["health"]} harts")
         print("- Your current inventory:", state["inventory"])
 
@@ -106,6 +108,7 @@ def enterTeachersRoom4(state):
                         room["safe_opened"] = True
                         state["room_states"]["classroom2031"]["photo camera"] = True
                         state["room_states"]["classroom2031"]["make-up"] = True
+                        state["visited"]["teachersroom4"] = True
                     else:
                         print("Invalid password.")
 

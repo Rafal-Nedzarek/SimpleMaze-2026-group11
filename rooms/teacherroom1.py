@@ -62,10 +62,12 @@ def enterteacherroom1(state):
         print("\nAvailable commands:")
         print("-check table          : Check whats on the table")
         print("-talk with ghost      : Interact with the ghost")
-        print("- look around         : Examine the room and its contents.")
-        print("- go corridor / back  : Leave the room and return to the corridor.")
-        print("- ?                   : Show this help message.")
-        print("- quit                : Quit the game entirely.")
+        # print("- look around         : Examine the room and its contents.")
+        # print("- go corridor / back  : Leave the room and return to the corridor.")
+        # print("- ?                   : Show this help message.")
+        # print("- quit                : Quit the game entirely.")
+        sf.show_universal_help_text()
+
         print(f' invetory: {state['inventory']}')
 
     def handle_go(destination):
