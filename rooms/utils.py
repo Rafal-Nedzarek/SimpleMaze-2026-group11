@@ -39,3 +39,12 @@ def chooseNextRoom(choices):
     except ValueError:
         print("Invalid input.")
         return None
+
+def healing(state):
+    state["health"] += 4
+    if state["health"] > 10:
+        state["health"] = 10
+    state["inventory"].remove("bandages")
+    print("You used the bandages.")
+    print(f"\n- Your current health is {state["health"]} harts")
+    print("- Your current inventory:", state["inventory"])
