@@ -18,6 +18,7 @@ from .utils import chooseNextRoom
 from .enachanted_library import enterEnchantedLibrary
 from .teacherroom1 import enterteacherroom1
 from .break_room import enterBreakRoom
+from .examroom import enterexamroom
 
 # Jason Util imports
 from .lobby import enterLobby
