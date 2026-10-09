@@ -31,11 +31,9 @@ def enterCorridor(state):
     def handle_help():
         """List available commands and explain navigation."""
         print("\nAvailable commands:")
-        print("- use bandages        : Use bandages to heal 4 harts.")
-        # print("- look around         : See what's in the corridor and where you can go.")
-        # print("- go <room name>      : Move to another room. Example: go enchanted_library")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game.")
+        if state["health"]<10 and state["inventory"] == "bandages" :
+            print("- use bandages        : Use bandages to heal 4 harts.")
+            print("--------------------------------------------------")
         sf.show_universal_help_text()
 
     def handle_go(room_name):

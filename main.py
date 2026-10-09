@@ -13,7 +13,7 @@ from rooms import (
     enterLab2001,
     enterLab2003,
     enterEnchantedLibrary,
-    enterteacherroom1,
+    # enterteacherroom1,
     enterClassroom2031,
     enterClassroom2035,
     enterTeachersRoom4,
@@ -206,8 +206,8 @@ while True:
     elif current == "break_room":
         state["current_room"] = enterBreakRoom(state)
 
-    elif current == "teacherroom1":
-        state["current_room"] = enterteacherroom1(state)
+    # elif current == "teacherroom1":
+    #    state["current_room"] = enterteacherroom1(state)
 
     elif current == "examroom":
         state["current_room"] = enterexamroom(state)

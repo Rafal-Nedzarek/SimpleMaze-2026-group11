@@ -72,8 +72,8 @@ def enterteacherroom1(state):
          else:
              print(f"You can't go to '{destination}' from here.")
              return None
-              
-    def handle_help():
+
+def handle_help():
         print("\nAvailable commands:")
         print("-check table          : Check whats on the table")
         print("-talk with ghost      : Interact with the ghost")
@@ -111,3 +111,7 @@ def enterteacherroom1(state):
 
             else:
                 print("Unknown command. Type '?' to see available commands.")
+
+    else:
+        print('You need the crooked key to access this room')
+        return 'corridor'

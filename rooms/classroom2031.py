@@ -63,13 +63,11 @@ def enterClassroom2031(state):
                 print("      ‣ make-up   : Put make-up to pentagram")
         if state["room_states"]["classroom2035"]["desk"] is True:
             print("- use ouija board     : Use ouija board to speak with ghost.")
+        if state["health"]<10 and state["inventory"] == "bandages" :
+            print("- use bandages        : Use bandages to heal 4 harts.")
         if state["room_states"]["classroom2035"]["manifest"] is True:
             print("--------------------------------------------------")
         print("- use bandages        : Use bandages to heal 4 harts.")
-        # print("- look around         : Examine the room and its contents.")
-        # print("- go corridor / back  : Leave the room and return to the corridor.")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game entirely.")
         sf.show_universal_help_text()
 
         print(f"\n- Your current health is {state["health"]} harts")

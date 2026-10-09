@@ -3,7 +3,7 @@ from .utils import chooseNextRoom
 from functions import shared_functions as sf
 
 def enterProjectRoom1(state):
-    print("\n🏫 You step into Project Room 1.")
+    print("\nYou step into Project Room 1.")
     print("Suddenly, you find yourself floating. An endless sea of stars spreads out before you.")
     print("You turn and find you had just stepped out of an airlock.")
 
@@ -40,21 +40,18 @@ def enterProjectRoom1(state):
             print("- action <number>     : Take a specific action to repair the engine.")
         if state["visited"]["projectroom1"] and "stardust sphere" not in state["inventory"]:
             print("- take stardust sphere            : Pick up the key once it's revealed.")
-        # print("- go corridor / back  : Leave the room and return to the corridor.")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game entirely.")
         sf.show_universal_help_text()
 
     def handle_take(item):
         if item == "stardust sphere":
             if not state["visited"]["projectroom1"]:
-                print("❌ There's no key visible yet. Maybe solving the puzzle will reveal more.")
+                print("There's no key visible yet. Maybe solving the puzzle will reveal more.")
                 #print('unfinished')
             elif "stardust_sphere" in state["inventory"]:
                 print("You already have the sphere in your inventory.")
                 #print('unfinished')
             else:
-                print("🔑 You lift the lone sphere.")
+                print("You lift the lone sphere.")
                 print("It is suprisingly heavier than it looks. It\'s also quite warm.")
                 print("You take it and tuck it safely into your backpack.")
                 state["inventory"].append("stardust_sphere")
@@ -64,22 +61,22 @@ def enterProjectRoom1(state):
 
     def handle_answer(answer):
         if state["visited"]["projectroom1"]:
-            print("✅ You've already solved this challenge.")
+            print("You've already solved this challenge.")
         elif answer == "1":
-            print("✅ Correct! Upon sorting the spheres, the engines sensors glow green.")
+            print("Correct! Upon sorting the spheres, the engines sensors glow green.")
             state["visited"]["projectroom1"] = True
             print("Suddenly you see a single sphere you didn't see before.")
         else:
-            print("❌ Incorrect. Upon disconnecting the cube, the engine immediately explodes.")
+            print("Incorrect. Upon disconnecting the cube, the engine immediately explodes.")
             print("You are forced back into the lobby.")
             return "lobby"
 
     def handle_go(destination):
         if destination in ["lobby", "back"]:
-            print("🚪 You open the door and step back into the corridor.")
+            print("You open the door and step back into the corridor.")
             return "lobby"
         else:
-            print(f"❌ You can't go to '{destination}' from here.")
+            print(f"You can't go to '{destination}' from here.")
             return None
 
     #Main Classroom command loop
@@ -116,4 +113,4 @@ def enterProjectRoom1(state):
             sf.show_completion(state["completed"])
 
         else:
-            print("❓ Unknown command. Type '?' to see available commands.")
+            print("Unknown command. Type '?' to see available commands.")

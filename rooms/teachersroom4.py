@@ -50,15 +50,10 @@ def enterTeachersRoom4(state):
                     print("      ‣ clock         : Check the clock")
             if state["room_states"]["teachersroom4"]["mug"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is False:
                 print("- roman numbers       : Cheat sheet for roman numbers")
-            if state["looked_around"]["teachersroom4"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is False or state["room_states"]["classroom2035"]["manifest"] is True:
+            if state["health"] < 10 and state["inventory"] == "bandages":
+                print("- use bandages        : Use bandages to heal 4 harts.")
+            if state["looked_around"]["teachersroom4"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is False or state["room_states"]["classroom2035"]["manifest"] is True or state["health"] < 10 and state["inventory"] == "bandages":
                 print("--------------------------------------------------")
-            elif state["room_states"]["classroom2035"]["manifest"] is True:
-                print("--------------------------------------------------")
-        print("- use bandages        : Use bandages to heal 4 harts.")
-        # print("- look around         : Examine the room for clues.")
-        # print("- go corridor / back  : Leave the room and return to the corridor.")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game completely.")
         sf.show_universal_help_text()
 
         print(f"\n- Your current health is {state["health"]} harts")
