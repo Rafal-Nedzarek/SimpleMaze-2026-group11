@@ -7,18 +7,15 @@ def enterteacherroom1(state):
                 'This room seems like a mess')
         def handle_look():
             print('\nYou see a ghostly figure in the middle of the room\n'
-                  'It might be the teacher of this room\n'
-                  'Books are scattered on the floor\n'
-                  'And some stuff on a table'
-                  )
+                    'It might be the teacher of this room\n'
+                    'Books are scattered on the floor\n'
+                    'And some stuff on a table')
 
         def check_table():
             print('\nThere is a playing card on the table\n'
-                  'Might be tempted to take it,\n'
-                  'but the ghost is staring at you\n'
-                  'Maybe you should talk to it')
-
-
+                    'Might be tempted to take it,\n'
+                    'but the ghost is staring at you\n'
+                    'Maybe you should talk to it')
 
         def handle_interact():
             if not 'playing card' in state['inventory']:
@@ -26,8 +23,7 @@ def enterteacherroom1(state):
                     try:
                         print('\nwelcome to my classroom\n'
                               'First thing first\n'
-                              'What is 9 plus 10?\n'
-                              )
+                              'What is 9 plus 10?\n')
                         joke_answer=int(input('Enter your answer: '))
                         if joke_answer==21:
                             print('\nHahaha!\n'
@@ -51,13 +47,11 @@ def enterteacherroom1(state):
                                 print('\nThats the correct answer!\n'
                                   'youre very smart')
                                 break
-                        elif joke_answer!=(21,19):
-                            print('\nThat is not the correct answer!')
                     except ValueError:
                         print('\nPlease use only numbers')
-                else:
-                    print('\nYou already received your playing card\n'
-                          'Go explore the other rooms')
+            else:
+                print('\nYou already received your playing card\n'
+                      'Go explore the other rooms')
 
         def handle_go(destination):
              """Handle movement to another room."""
@@ -73,9 +67,10 @@ def enterteacherroom1(state):
             print("\nAvailable commands:")
             print("-check table          : Check whats on the table")
             print("-talk with ghost      : Interact with the ghost")
+            print("--------------------------------------------------")
             sf.show_universal_help_text()
 
-            print(f' invetory: {state['inventory']}')
+        print(f' invetory: {state['inventory']}')
 
         while True:
             command = input("\n> ").strip().lower()
@@ -107,6 +102,7 @@ def enterteacherroom1(state):
 
             else:
                 print("Unknown command. Type '?' to see available commands.")
+
     else:
-        print("\nYou need the crooked key to access this room")
+        print('You need the crooked key to access this room')
         return 'corridor'

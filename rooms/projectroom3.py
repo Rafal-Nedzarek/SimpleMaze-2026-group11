@@ -10,9 +10,10 @@
 import sys
 from .utils import chooseNextRoom
 from functions import shared_functions as sf
+from .utils import debugMode, healing
 
 def enterProjectRoom3(state):
-    print("\n🏫 You step Project Room 3.")
+    print("\nYou step Project Room 3.")
     print("You find yourself in a large room that is built with hardened clay bricks.")
     print("The top of the room has an open section, seeing the stars.")
 
@@ -42,24 +43,22 @@ def enterProjectRoom3(state):
 
     def handle_help():
         print("\nAvailable commands:")
-        # print("- look around         : Examine the room and its contents.")
         if not state["visited"]["projectroom3"] and state["looked_around"]["projectroom3"]:
             print("- inscribe <animal>     : Figure out the missing animal(?)")
         if state["visited"]["projectroom3"] and "astrolabe" not in state["inventory"]:
             print("- take astrolabe            : Pick up the astrolabe once it's revealed.")
-        # print("- go corridor / back  : Leave the room and return to the corridor.")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game entirely.")
+        if not state["visited"]["projectroom3"] and state["looked_around"]["projectroom3"] or state["visited"]["projectroom3"] and "astrolabe" not in state["inventory"]:
+            print("--------------------------------------------------")
         sf.show_universal_help_text()
 
     def handle_take(item):
         if item == "astrolabe":
             if not state["visited"]["projectroom3"]:
-                print("❌ There's no key visible yet. Maybe solving the puzzle will reveal more.")
+                print("There's no key visible yet. Maybe solving the puzzle will reveal more.")
             elif "astrolabe" in state["inventory"]:
                 print("You already have the astrolabe in your backpack.")
             else:
-                print("🔑 You lift the astrolabe from the table.")
+                print("You lift the astrolabe from the table.")
                 print("You take it and tuck it safely into your backpack.")
                 state["inventory"].append("astrolabe")
         else:
@@ -67,22 +66,22 @@ def enterProjectRoom3(state):
 
     def handle_go(destination):
         if destination in ["corridor", "back"]:
-            print("🚪 You open the door and step back into the corridor.")
+            print("You open the door and step back into the corridor.")
             return "corridor"
         else:
-            print(f"❌ You can't go to '{destination}' from here.")
+            print(f"You can't go to '{destination}' from here.")
             return None
 
     def handle_answer(answer):
         if state["visited"]["projectroom3"]:
-            print("✅ You've already solved this challenge.")
+            print("You've already solved this challenge.")
         elif answer == "dragon":
-            print("✅ Correct! The table glows, and the entire room starts to turn around you.")
+            print("Correct! The table glows, and the entire room starts to turn around you.")
             state["visited"]["projectroom3"] = True
             print("Suddenly you see something pop out of the center.")
             state["completed"]["projectroom3"] = True
         else:
-            print("❌ Incorrect. Mysteriously, the inscription you wrote disappears.")
+            print("Incorrect. Mysteriously, the inscription you wrote disappears.")
 
     # --- Commandoloop ---
     while True:
@@ -111,11 +110,11 @@ def enterProjectRoom3(state):
                 return result
 
         elif command == "quit":
-            print("👋 You drop your backpack, leave the maze behind, and step back into the real world.")
+            print("You drop your backpack, leave the maze behind, and step back into the real world.")
             sys.exit()
 
         elif command == "status":
             sf.show_completion(state["completed"])
 
         else:
-            print("❓ Unknown command. Type '?' to see available commands.")
+            print("Unknown command. Type '?' to see available commands.")

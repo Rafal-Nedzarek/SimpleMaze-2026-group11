@@ -35,14 +35,10 @@ def enterStairExit(state):
             print("- manifest            : Check the manifest")
         if state["room_states"]["stairexit"]["chest_opened"] is False and state["looked_around"]["stairexit"] is True:
             print("- open chest          : See what’s in the chest.")
-        if state["room_states"]["stairexit"]["chest_opened"] is False and state["looked_around"]["stairexit"] is True:
+        if state["health"]<10 and state["inventory"] == "bandages":
+            print("- use bandages        : Use bandages to heal 4 harts.")
+        if state["room_states"]["stairexit"]["chest_opened"] is False and state["looked_around"]["stairexit"] is True or state["room_states"]["classroom2035"]["manifest"] is True or state["health"]<10 and state["inventory"] == "bandages":
             print("--------------------------------------------------")
-        elif state["room_states"]["classroom2035"]["manifest"] is True:
-            print("--------------------------------------------------")
-        # print("- look around         : See what’s in the lobby.")
-        # print("- go nscorridor / back: Return to the main corridor.")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game.")
         sf.show_universal_help_text()
 
         print(f"\n- Your current health is {state["health"]} harts")

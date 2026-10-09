@@ -38,12 +38,10 @@ def enterNSCorridor(state):
         print("\nAvailable commands:")
         if state["room_states"]["classroom2035"]["manifest"] is True:
             print("- manifest            : Check the manifest")
-            print("--------------------------------------------------")
+        if state["health"] < 10 and state["inventory"] == "bandages":
             print("- use bandages        : Use bandages to heal 4 harts.")
-        # print("- look around         : See what's in the corridor and where you can go.")
-        # print("- go <room name>      : Move to another room.")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game.")
+        if state["room_states"]["classroom2035"]["manifest"] is True or state["health"] < 10 and state["inventory"] == "bandages":
+            print("--------------------------------------------------")
         sf.show_universal_help_text()
 
         print(f"\n- Your current health is {state["health"]} harts")

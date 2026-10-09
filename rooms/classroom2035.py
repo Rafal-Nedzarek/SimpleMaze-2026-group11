@@ -54,13 +54,10 @@ def enterClassroom2035(state):
                     print("      ‣ board         : Check the board")
                 if state["room_states"]["classroom2035"]["football"] is False:
                     print("      ‣ football      : Check the football")
-            if state["room_states"]["classroom2035"]["folder"] is False or state["room_states"]["classroom2035"]["desk"] is False or state["room_states"]["classroom2035"]["board"] is False or state["room_states"]["classroom2035"]["football"] is False or state["room_states"]["classroom2035"]["manifest"] is True:
+            if state["health"] < 10 and state["inventory"] == "bandages":
+                print("- use bandages        : Use bandages to heal 4 harts.")
+            if state["room_states"]["classroom2035"]["folder"] is False or state["room_states"]["classroom2035"]["desk"] is False or state["room_states"]["classroom2035"]["board"] is False or state["room_states"]["classroom2035"]["football"] is False or state["room_states"]["classroom2035"]["manifest"] is True or state["health"] < 10 and state["inventory"] == "bandages":
                 print("--------------------------------------------------")
-        print("- use bandages        : Use bandages to heal 4 harts.")
-        # print("- look around         : Examine the room and its contents.")
-        # print("- go corridor / back  : Leave the room and return to the corridor.")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game entirely.")
         sf.show_universal_help_text()
 
         print(f"\n- Your current health is {state["health"]} harts")
@@ -209,7 +206,7 @@ def enterClassroom2035(state):
             handle_look()
 
         elif command.startswith("check"):
-            item = command[12:].strip()
+            item = command[6:].strip()
             handle_check(item)
 
         elif command == "manifest":

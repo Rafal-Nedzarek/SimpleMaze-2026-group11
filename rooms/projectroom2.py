@@ -45,11 +45,11 @@ def enterProjectRoom2(state):
     def handle_take(item):
         if item == "tentacle":
             if not state["visited"]["projectroom2"]:
-                print("❌ There's no key visible yet. Maybe solving the puzzle will reveal more.")
+                print("There's no key visible yet. Maybe solving the puzzle will reveal more.")
             elif item in state["inventory"]:
                 print("You already have the key in your backpack.")
             else:
-                print("🔑 You extract the part from the broken viewport.")
+                print("You extract the part from the broken viewport.")
                 print("You take it and tuck it safely into your backpack.")
                 state["inventory"].append(item)
                 state["completed"]["projectroom2"] = True
@@ -58,10 +58,10 @@ def enterProjectRoom2(state):
 
     def handle_go(destination):
         if destination in ["lobby", "back"]:
-            print("🚪 You open the door and step back into the lobby.")
+            print("You open the door and step back into the lobby.")
             return "lobby"
         else:
-            print(f"❌ You can't go to '{destination}' from here.")
+            print(f"You can't go to '{destination}' from here.")
             return None
 
     def handle_answer(answer):
@@ -69,17 +69,17 @@ def enterProjectRoom2(state):
             #print("✅ You've already solved this challenge.")
             print("Despite the alarm, the battlefield is quiet.")
         elif answer == "smaller":
-            print("✅ Correct! You shoot and take down the smaller group.")
-            print("✅ The larger group gets obliterated by a fusion bomb from elsewhere.")
+            print("Correct! You shoot and take down the smaller group.")
+            print("The larger group gets obliterated by a fusion bomb from elsewhere.")
             state["visited"]["projectroom2"] = True
             print("A piece of the alien flies into your viewport and breaks the glass.")
         elif answer == "larger":
-            print("❌ A fusion bomb is launched at the larger group.")
+            print("A fusion bomb is launched at the larger group.")
             print("The smaller group charges at the base.")
             print("You run into the door before they reach you.")
             return "lobby"
         else:
-            print("❌ Invalid answer.")
+            print("Invalid answer.")
 
 
     #Main Classroom command loop
@@ -109,11 +109,11 @@ def enterProjectRoom2(state):
                 return result
 
         elif command == "quit":
-            print("👋 You drop your backpack, leave the maze behind, and step back into the real world.")
+            print("You drop your backpack, leave the maze behind, and step back into the real world.")
             sys.exit()
 
         elif command == "status":
             sf.show_completion(state["completed"])
 
         else:
-            print("❓ Unknown command. Type '?' to see available commands.")
+            print("Unknown command. Type '?' to see available commands.")
