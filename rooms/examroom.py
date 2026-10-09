@@ -26,15 +26,14 @@ def enterexamroom(state):
                     break
                 elif respond=='yes':
                     print()
-                    answers_log=[]
                     examroom_texts.questions_sheet()
-                    answers = input('answer: ').upper()
-                    answers_log.append(answers)
-                    result=answers_check(answers_log)
-                    if result==8:
+                    answers = input('answer: ').upper().split(",")
+                    print(answers)
+                    result=answers_check(answers)
+                    if result==4:
                         print('congratulation! You passed the exam\n'
                               'Here is the key for teacherroom1')
-                        # state['inventory'].append('crooked key')
+                        state['inventory'].append('crooked key')
                         break
                     else:
                         print('unfortunately you did not passed the test\n'
