@@ -1,6 +1,6 @@
 import sys
 from functions import shared_functions as sf
-from .utils import debugMode, healing
+from .utils import debugMode
 
 from data import examroom_texts
 def enterexamroom(state):
@@ -62,7 +62,6 @@ def enterexamroom(state):
             print("- use bandages        : Use bandages to heal 4 harts.")
         print("--------------------------------------------------")
         sf.show_universal_help_text()
-        print(f' invetory: {state['inventory']}')
 
     def handle_go(destination):
         if destination in ["corridor", "back"]:
