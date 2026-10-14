@@ -1,6 +1,6 @@
 import sys
 from functions import shared_functions as sf
-from .utils import debugMode, healing
+from .utils import debugMode
 
 
 def enterLobby(state):
@@ -59,7 +59,7 @@ def enterLobby(state):
 
         elif command == "use bandages":
             if "bandages" in state["inventory"]:
-                healing(state)
+                sf.healing(state)
             else:
                 print("You don't have any bandages.")
 
@@ -83,7 +83,7 @@ def enterLobby(state):
             state["inventory"] += debugMode(command)
 
         elif command == "status":
-            sf.show_completion(state["completed"])
+            sf.show_completion(state["completed"],state)
 
         else:
             print("Unknown command. Type '?' to see available commands.")

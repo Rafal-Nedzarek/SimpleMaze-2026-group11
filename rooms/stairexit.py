@@ -8,7 +8,6 @@
 
 import sys
 from data import MANIFEST
-from rooms.utils import healing
 from functions import shared_functions as sf
 
 
@@ -23,7 +22,7 @@ def enterStairExit(state):
     def handle_look():
         """Describe the room and show exits."""
         print("\nYou take a slow look around.")
-        print("Chunks or rubble is piled where the stairs used to be")
+        print("Chunks of rubble are piled where the stairs used to be")
         print("To your left is a wooden chest")
         print("- Possible exit: nscorridor")
         state["looked_around"]["stairexit"] = True
@@ -40,9 +39,6 @@ def enterStairExit(state):
         if state["room_states"]["stairexit"]["chest_opened"] is False and state["looked_around"]["stairexit"] is True or state["room_states"]["classroom2035"]["manifest"] is True or state["health"]<10 and state["inventory"] == "bandages":
             print("--------------------------------------------------")
         sf.show_universal_help_text()
-
-        print(f"\n- Your current health is {state["health"]} harts")
-        print("- Your current inventory:", state["inventory"])
 
     def handle_go(destination):
         """Handle movement to another room."""
@@ -68,7 +64,7 @@ def enterStairExit(state):
             handle_look()
 
         elif command == "open chest" and state["room_states"]["stairexit"]["chest_opened"] == False:
-            print("\nYou open the chest and you have received bandages")
+            print("\nYou open the chest and you find bandages")
             print("When you use bandages you will gain 4 hearts")
             state["inventory"].append("bandages")
             print("\n- Your current inventory:", state["inventory"])
@@ -83,7 +79,7 @@ def enterStairExit(state):
 
         elif command == "use bandages":
             if "bandages" in state["inventory"]:
-                healing(state)
+                sf.healing(state)
             else:
                 print("You don't have any bandages.")
 
@@ -101,7 +97,7 @@ def enterStairExit(state):
             sys.exit()
 
         elif command == "status":
-            sf.show_completion(state["completed"])
+            sf.show_completion(state["completed"],state)
 
         else:
             print("Unknown command. Type '?' to see available commands.")

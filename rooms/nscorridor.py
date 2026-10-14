@@ -7,16 +7,16 @@
 # -----------------------------------------------------------------------------
 
 import sys
-from .utils import debugMode, healing
+from .utils import debugMode
 from data import MANIFEST
 from functions import shared_functions as sf
 
 def enterNSCorridor(state):
     if state["visited"]["nscorridor"] is False:
-        print("\nYou step through the interdimensional door and you are standing in a long corridor.")
+        print("\nYou step through the door and you are standing in a long corridor.")
         print("The floor and walls are covered in dried blood. The air is heavy and the corridor looks worn down.")
     elif state["visited"]["nscorridor"] is True:
-        print("You step back into a nscorridor")
+        print("You step back into the N-S corridor.")
     state["visited"]["nscorridor"] = True
 
     # --- List of accessible rooms from here ---
@@ -28,8 +28,8 @@ def enterNSCorridor(state):
         """Describe the corridor and show where the player can go."""
         print("\nYou take a look around.")
         print("\nThere are stains of blood on the wall and ground, and the corridor looks abandoned")
-        print("You can see some torn off books, papers and some schools supplies on the ground")
-        print("3 meters from you, lies skeleton with missing upper part of the body")
+        print("You can see some torn off books, papers and some school supplies on the ground")
+        print("3 meters from you, lies a skeleton with the upper half of its body missing")
         print("\nYou can see 4 doors to Stair Exit, Teachers Room 4, Classroom 2031 and Classroom 2035")
         print(f"- Possible doors: {', '.join(available_rooms)}")
 
@@ -43,9 +43,6 @@ def enterNSCorridor(state):
         if state["room_states"]["classroom2035"]["manifest"] is True or state["health"] < 10 and state["inventory"] == "bandages":
             print("--------------------------------------------------")
         sf.show_universal_help_text()
-
-        print(f"\n- Your current health is {state["health"]} harts")
-        print("- Your current inventory:", state["inventory"])
 
     def handle_go(room_name):
         """Move to a listed room."""
@@ -79,13 +76,13 @@ def enterNSCorridor(state):
 
         elif command == "use bandages":
             if "bandages" in state["inventory"]:
-                healing(state)
+                sf.healing(state)
             else:
                 print("You don't have any bandages.")
         elif command.startswith("go "):
             room = command[3:].strip()
             if room == "classroom2031" and "key2031" not in state["inventory"]:
-                print("you can't enter the door is locked")
+                print("You can't enter, the door is locked.")
             else:
                 result = handle_go(room)
                 if result:
@@ -100,7 +97,7 @@ def enterNSCorridor(state):
             state["inventory"] += debugMode(command)
 
         elif command == "status":
-            sf.show_completion(state["completed"])
+            sf.show_completion(state["completed"],state)
 
         else:
             print("Unknown command. Type '?' to see available commands.")

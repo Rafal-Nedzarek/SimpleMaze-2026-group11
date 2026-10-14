@@ -10,7 +10,7 @@
 import sys
 from .utils import chooseNextRoom
 from functions import shared_functions as sf
-from .utils import debugMode, healing
+from .utils import debugMode
 
 def enterProjectRoom3(state):
     print("\nYou step Project Room 3.")
@@ -114,7 +114,7 @@ def enterProjectRoom3(state):
             sys.exit()
 
         elif command == "status":
-            sf.show_completion(state["completed"])
+            sf.show_completion(state["completed"],state)
 
         else:
             print("Unknown command. Type '?' to see available commands.")

@@ -113,7 +113,7 @@ def enterProjectRoom2(state):
             sys.exit()
 
         elif command == "status":
-            sf.show_completion(state["completed"])
+            sf.show_completion(state["completed"],state)
 
         else:
             print("Unknown command. Type '?' to see available commands.")
