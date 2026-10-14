@@ -34,5 +34,5 @@ def healing(state):
         state["health"] = 10
     state["inventory"].remove("bandages")
     print("You used the bandages.")
-    print(f"\n- Your current health is {state["health"]} harts")
+    print(f"\n- Your current health is {state["health"]} hearts")
     print("- Your current inventory:", state["inventory"])
