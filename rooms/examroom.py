@@ -1,12 +1,18 @@
 import sys
+from functions import shared_functions as sf
 from data import examroom_texts
 def enterexamroom(state):
     examroom_texts.welcome_screen()
+    state["visited"]["examroom"] = True
 
     def answers_check(answers):
+        cleaned_answers=[]
+        answers=answers[0].split(',')
+        for letter in answers:
+            cleaned_answers.append(letter.upper())
         correct_answers = ['A', 'B', 'C', 'D']
         correct=0
-        for key, ans in zip(correct_answers,answers):
+        for key, ans in zip(correct_answers,cleaned_answers):
             if key==ans:
                 correct+=1
         return correct
@@ -15,23 +21,25 @@ def enterexamroom(state):
     def interact_teacher():
         if 'crooked key' not in state['inventory']:
             print('Hallo! Are you ready for your history exam?')
-            respond=input('Enter yes or no\n'
-                          'Enter: ')
             while True:
-                if respond=='no':
+                respond = input('Enter yes or no\n'
+                                'Enter: ')
+                r=respond.lower()
+                if r=='no':
                     print('Come back when you are ready for the test!')
                     break
-                elif respond=='yes':
+                elif r=='yes':
                     print()
                     answers_log=[]
                     examroom_texts.questions_sheet()
                     answers = input('answer: ')
                     answers_log.append(answers)
                     result=answers_check(answers_log)
-                    if result==8:
+                    if result==4:
                         print('congratulation! You passed the exam\n'
                               'Here is the key for teacherroom1')
-                        # state['inventory'].append('crooked key')
+                        state['inventory'].append('crooked key')
+                        state["completed"]["examroom"] = True
                         break
                     else:
                         print('unfortunately you did not passed the test\n'
@@ -60,6 +68,7 @@ def enterexamroom(state):
         print("- go corridor / back  : Leave the room and return to the corridor.")
         print("- quit                : Quit the game entirely.")
         print(f' invetory: {state['inventory']}')
+        sf.show_universal_help_text()
 
     def handle_go(destination):
         if destination in ["corridor", "back"]:
@@ -95,6 +104,9 @@ def enterexamroom(state):
             result = handle_go(destination)
             if result:
                 return result
+
+        elif command == "status":
+            sf.show_completion(state["completed"])
 
         elif command == "quit":
             print("👋 You sit back in the softest chair, close your eyes, and exit the adventure. Game over.")

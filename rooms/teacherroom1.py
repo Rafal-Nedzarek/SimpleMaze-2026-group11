@@ -2,9 +2,10 @@ import sys
 from functions import shared_functions as sf
 
 def enterteacherroom1(state):
-    if 'croocked key' in state['inventory']:
+    if 'crooked key' in state['inventory']:
         print('\nYou stepped inside the teacher room 1\n'
                 'This room seems like a mess')
+        state["visited"]["teacherroom1"] = True
         def handle_look():
             print('\nYou see a ghostly figure in the middle of the room\n'
                   'It might be the teacher of this room\n'
@@ -31,7 +32,7 @@ def enterteacherroom1(state):
                         joke_answer=int(input('Enter your answer: '))
                         if joke_answer==21:
                             print('\nHahaha!\n'
-                                'I see that youre a gen z\n'
+                                "I see that you're a gen z\n"
                                 'Do you want this playing card?')
                             while True:
                                 playing_card_to_take=input('Answer yes or no: ')
@@ -55,9 +56,9 @@ def enterteacherroom1(state):
                             print('\nThat is not the correct answer!')
                     except ValueError:
                         print('\nPlease use only numbers')
-                else:
-                    print('\nYou already received your playing card\n'
-                          'Go explore the other rooms')
+            else:
+                print('\nYou already received your playing card\n'
+                      'Go explore the other rooms')
 
         def handle_go(destination):
              """Handle movement to another room."""
