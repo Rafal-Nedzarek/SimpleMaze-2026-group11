@@ -152,7 +152,7 @@ def enterLab2001(state):
             sys.exit()
 
         elif command == "status":
-            sf.show_completion(state["completed"])
+            sf.show_completion(state["completed"],state)
 
         else:
             print(s.UNKNOWN_COMMAND)

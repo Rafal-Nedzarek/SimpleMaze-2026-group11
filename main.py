@@ -207,7 +207,7 @@ while True:
         state["current_room"] = enterBreakRoom(state)
 
     elif current == "teacherroom1":
-        state["current_room"] = enterteacherroom1(state)
+       state["current_room"] = enterteacherroom1(state)
 
     elif current == "examroom":
         state["current_room"] = enterexamroom(state)

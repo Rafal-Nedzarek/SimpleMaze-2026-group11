@@ -9,7 +9,6 @@
 import sys
 from data import MANIFEST
 from functions import shared_functions as sf
-from rooms.utils import healing
 
 
 def enterTeachersRoom4(state):
@@ -17,7 +16,7 @@ def enterTeachersRoom4(state):
     print("\nYou step into Teachers room 4.")
     if state["visited"]["teachersroom4"] is False:
         print("The room has a flickering light and papers are all over the ground")
-        print("there is broken glass on the ground")
+        print("There is broken glass on the ground")
     state["visited"]["teachersroom4"] = True
 
     # --- Command handlers ---
@@ -27,7 +26,7 @@ def enterTeachersRoom4(state):
         print("\nYou scan the room.")
         print("There is a table on which is a broken laptop, some office supplies, mug and calendar")
         print("On the wall is a broken clock")
-        print("behind the table is a safe")
+        print("Behind the table is a safe.")
         print("- Possible exits: nscorridor")
         print("- Your current inventory:", state["inventory"])
         state["looked_around"]["teachersroom4"] = True
@@ -49,25 +48,17 @@ def enterTeachersRoom4(state):
                 if state["room_states"]["teachersroom4"]["clock"] is False and state["room_states"]["teachersroom4"]["safe"] is True:
                     print("      ‣ clock         : Check the clock")
             if state["room_states"]["teachersroom4"]["mug"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is False:
-                print("- roman numbers       : Cheat sheet for roman numbers")
-            if state["looked_around"]["teachersroom4"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is False or state["room_states"]["classroom2035"]["manifest"] is True:
+                print("- roman numerals      : Cheat sheet for roman numerals")
+            if state["health"] < 10 and state["inventory"] == "bandages":
+                print("- use bandages        : Use bandages to heal 4 harts.")
+            if state["looked_around"]["teachersroom4"] is True and state["room_states"]["teachersroom4"]["safe_opened"] is False or state["room_states"]["classroom2035"]["manifest"] is True or state["health"] < 10 and state["inventory"] == "bandages":
                 print("--------------------------------------------------")
-            elif state["room_states"]["classroom2035"]["manifest"] is True:
-                print("--------------------------------------------------")
-        print("- use bandages        : Use bandages to heal 4 harts.")
-        # print("- look around         : Examine the room for clues.")
-        # print("- go corridor / back  : Leave the room and return to the corridor.")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game completely.")
         sf.show_universal_help_text()
-
-        print(f"\n- Your current health is {state["health"]} harts")
-        print("- Your current inventory:", state["inventory"])
 
     def handle_go(destination):
         """Handle movement out of the room."""
         if destination in ["nscorridor", "back"]:
-            print("You step away from the lively room and return to the nscorridor.")
+            print("You step away from the eerie room. room and return to the nscorridor.")
             state["previous_room"] = "teachersroom4"
             return "nscorridor"
         else:
@@ -80,17 +71,17 @@ def enterTeachersRoom4(state):
 
             if item == "safe":
                 if room["safe"] is True and room["safe_opened"] is True:
-                    print("Safe is opened, there is nothing else to do.")
+                    print("The safe is open, there is nothing else to do.")
                 elif room["safe"] is False and room["safe_opened"] is False:
-                    print("You go closer to a safe")
-                    print("You try to open it but it's closed and the safe is asking a code from you.")
+                    print("You approach the safe.")
+                    print("You try to open it but it's locked, and the safe asks for a code.")
                     print("You notice that on the side of the safe is a sticky note.")
                     print("\nstickynote: 📅 + 🕕 + 🍵 = 🖥❓")
                     print("\nYou step away from the safe")
                     room["safe"] = True
                 elif room["safe"] is True and room["safe_opened"] is False:
-                    print("You go closer to a safe")
-                    password = input("\nEnter 4 digits password: ").strip()
+                    print("You approach the safe.")
+                    password = input("\nEnter the 4-digit code: ").strip()
                     try:
                         if len(password) != 4:
                             raise ValueError
@@ -114,7 +105,7 @@ def enterTeachersRoom4(state):
 
             elif item == "calendar":
                 if room["calendar"] is True:
-                    print("There is nothing new, 31st of October is still circled")
+                    print("Nothing new, the 31st of October is still circled.")
                 else:
                     print("You look at the calendar at the desk")
                     print("You can see that 31st of October is circled and stuck in the calendar is a picture of a dog")
@@ -125,13 +116,13 @@ def enterTeachersRoom4(state):
                 if room["clock"] is True:
                     print("The clock still shows 6:06")
                 else:
-                    print("You look at the broken clock on a wall")
+                    print("You look at the broken clock on the wall")
                     print("It says 6:06")
                     room["clock"] = True
 
             elif item == "mug":
                 if room["mug"] is not True:
-                    print("You look at the mug on a desk")
+                    print("You look at the mug on the desk")
                     room["mug"] = True
                 print("On the mug is the Trevi Fountain and under it are the roman numerals MDCCLXII")
 
@@ -157,8 +148,8 @@ def enterTeachersRoom4(state):
         elif command == "?":
             handle_help()
 
-        elif command == "roman numbers":
-            print("\nThe roman numbers are:")
+        elif command == "roman numerals":
+            print("\nThe roman numerals are:")
             print("I = 1")
             print("V = 5")
             print("X = 10")
@@ -191,7 +182,7 @@ def enterTeachersRoom4(state):
             sys.exit()
 
         elif command == "status":
-            sf.show_completion(state["completed"])
+            sf.show_completion(state["completed"],state)
 
         else:
             print("Unknown command. Type '?' to see available commands.")

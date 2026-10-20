@@ -1,10 +1,10 @@
 import sys
 from functions import shared_functions as sf
-from .utils import debugMode, healing
+from .utils import debugMode
 
 
 def enterLobby(state):
-    print("\n🛋️ The lobby opens up to you.")
+    print("\nThe lobby opens up to you.")
     print("You hear the hum of the ventilation and the coffee machine.")
     print("A screen flickers above you.")
 
@@ -31,11 +31,9 @@ def enterLobby(state):
     def handle_help():
         """List available commands and explain navigation."""
         print("\nAvailable commands:")
-        print("- use bandages        : Use bandages to heal 4 harts.")
-        # print("- look around         : See what's in the corridor and where you can go.")
-        # print("- go <room name>      : Move to another room. Example: go lab2001")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game.")
+        if state["health"]<10 and state["inventory"] == "bandages" :
+            print("- use bandages        : Use bandages to heal 4 harts.")
+            print("--------------------------------------------------")
         sf.show_universal_help_text()
 
     def handle_go(room_name):
@@ -46,7 +44,7 @@ def enterLobby(state):
             state["previous_room"] = "lobby"
             return room
         else:
-            print(f"❌ '{room_name}' is not a valid exit. Use 'look around' to see available options.")
+            print(f"'{room_name}' is not a valid exit. Use 'look around' to see available options.")
             return None
 
 # --- Main lobby command loop ---
@@ -61,7 +59,7 @@ def enterLobby(state):
 
         elif command == "use bandages":
             if "bandages" in state["inventory"]:
-                healing(state)
+                sf.healing(state)
             else:
                 print("You don't have any bandages.")
 
@@ -73,11 +71,11 @@ def enterLobby(state):
                 print("you can't enter the door is locked")
             else:
                 result = handle_go(room)
-            if result:
-                return result
+                if result:
+                    return result
 
         elif command == "quit":
-            print("👋 You leave the school and the adventure comes to an end. Game over.")
+            print("You leave the school and the adventure comes to an end. Game over.")
             sys.exit()
 
         # not shown to the player
@@ -85,7 +83,7 @@ def enterLobby(state):
             state["inventory"] += debugMode(command)
 
         elif command == "status":
-            sf.show_completion(state["completed"])
+            sf.show_completion(state["completed"],state)
 
         else:
-            print("❓ Unknown command. Type '?' to see available commands.")
+            print("Unknown command. Type '?' to see available commands.")
