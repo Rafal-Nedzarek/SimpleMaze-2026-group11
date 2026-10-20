@@ -1,5 +1,6 @@
 import time
 start_time = time.time()
+previous_duration=0
 
 def show_completion(state_records,state):
     room_completions = 0
@@ -13,12 +14,22 @@ def show_completion(state_records,state):
     completion_percentage = round((room_completions/total_rooms)*100, 1)
 
     end = time.time()
-    print(f"Total runtime of the game is {round((end - start_time), 1)} seconds")
-
+    duration=end - start_time + previous_duration
+    print(f"Total runtime of the game is {convert(duration)}")
     print(f'You have completed {room_completions} rooms.')
     print(f'You have completed {completion_percentage}% of the game.')
     print(f"\nYour current health is {state['health']}/10 hearts.")
     print("- Your current inventory:", state["inventory"])
+    return duration
+
+def convert(seconds):
+    seconds = seconds % (24 * 3600)
+    hour = seconds // 3600
+    seconds %= 3600
+    minutes = seconds // 60
+    seconds %= 60
+    return "%d:%02d:%02d" % (hour, minutes, seconds)
+
 
 def show_universal_help_text():
     print("- look around        : See what's in the room and what you can do.")
