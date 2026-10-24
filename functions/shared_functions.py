@@ -1,4 +1,5 @@
 import time
+
 start_time = time.time()
 previous_duration=0
 
@@ -47,3 +48,37 @@ def healing(state):
     print("You used the bandages.")
     print(f"\n- Your current health is {state["health"]} hearts")
     print("- Your current inventory:", state["inventory"])
+
+def write_save_file(username, states):
+    from pathlib import Path
+
+    # path = Path("output.txt")
+    path = Path("functions/save_files/" + username + "_save.txt")
+
+    lines = [str(states)]
+
+    # extra_line = input("extra input")
+    # lines.append(extra_line)
+
+    with path.open("w", encoding="utf-8") as f:
+        for line in lines:
+            f.write(line)
+
+def read_save_file(username):
+    from pathlib import Path
+
+    # path = Path("output.txt")
+    path = Path("functions/save_files/" + username + "_save.txt")
+
+    # extra_line = input("extra input")
+    # lines.append(extra_line)
+
+    if Path.is_file(path):
+        with path.open("r", encoding="utf-8") as f:
+            for line in f:
+                getDict = dict(eval(line))
+                return getDict
+
+    else:
+        return None
+

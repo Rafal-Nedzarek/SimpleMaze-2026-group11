@@ -5,6 +5,7 @@
 # Location: Delft
 # Date: September 2026
 # -----------------------------------------------------------------------------
+from functions.shared_functions import read_save_file
 
 from rooms import (
     enterCorridor,
@@ -27,6 +28,7 @@ from rooms import (
 )
 
 state = {
+    "user_name": None,
     "current_room": "corridor",
     "previous_room": "corridor",
     "visited": {
@@ -156,6 +158,16 @@ print("*    You need to solve challenges to collect key shards and unlock rooms 
 print("*                and defeat the final boss to escape the maze              *")
 print("****************************************************************************")
 print("\n - If you are stuck and don't know what to do type: ?")
+
+user_name = input("Please enter your name: ")
+state["user_name"] = user_name
+
+save_state = read_save_file(user_name)
+
+if save_state is None:
+    pass
+else:
+    state = save_state
 
 while True:
     current = state["current_room"]
