@@ -29,6 +29,7 @@ from rooms import (
 
 state = {
     "user_name": None,
+    "total_playtime": 0,
     "current_room": "corridor",
     "previous_room": "corridor",
     "visited": {

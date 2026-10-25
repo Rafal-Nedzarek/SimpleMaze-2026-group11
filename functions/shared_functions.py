@@ -1,7 +1,7 @@
 import time
 
 start_time = time.time()
-previous_duration=0
+previous_duration= 0
 
 def show_completion(state_records,state):
     room_completions = 0
@@ -16,7 +16,8 @@ def show_completion(state_records,state):
 
     end = time.time()
     duration=end - start_time + previous_duration
-    print(f"Total runtime of the game is {convert(duration)}")
+    print(f"Current runtime of the game is {convert(duration)}")
+    print(f"Total runtime of the game is {convert(state["total_playtime"] + duration)}")
     print(f'You have completed {room_completions} rooms.')
     print(f'You have completed {completion_percentage}% of the game.')
     print(f"\nYour current health is {state['health']}/10 hearts.")
@@ -52,26 +53,26 @@ def healing(state):
 def write_save_file(username, states):
     from pathlib import Path
 
-    # path = Path("output.txt")
     path = Path("functions/save_files/" + username + "_save.txt")
 
-    lines = [str(states)]
+    end = time.time()
+    duration = end - start_time + previous_duration
+    states["total_playtime"] += duration
 
-    # extra_line = input("extra input")
-    # lines.append(extra_line)
+    lines = [str(states)]
 
     with path.open("w", encoding="utf-8") as f:
         for line in lines:
             f.write(line)
 
 def read_save_file(username):
+
+    global start_time
+    start_time = time.time()
+
     from pathlib import Path
 
-    # path = Path("output.txt")
     path = Path("functions/save_files/" + username + "_save.txt")
-
-    # extra_line = input("extra input")
-    # lines.append(extra_line)
 
     if Path.is_file(path):
         with path.open("r", encoding="utf-8") as f:
