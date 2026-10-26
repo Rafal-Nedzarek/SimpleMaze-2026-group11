@@ -83,3 +83,30 @@ def read_save_file(username):
     else:
         return None
 
+def write_to_leaderboard(states):
+    room_completions = 0
+    total_rooms = 12
+    for completion in states['completed'].values():
+        if completion:
+            room_completions += 1
+        else:
+            continue
+    completion_percentage = round((room_completions / total_rooms) * 100, 1)
+
+    end = time.time()
+    duration = end - start_time + previous_duration
+    completion_time = states["total_playtime"] + duration
+
+    from pathlib import Path
+
+    path = Path("functions/save_files/leaderboard.txt")
+
+    completion_data = {states["user_name"]: {"completion_percent": completion_percentage,
+                                  "total_playtime": completion_time}}
+
+    lines = [str(completion_data)]
+
+    with path.open("a", encoding="utf-8") as f:
+        for line in lines:
+            f.write(line + "\n")
+
