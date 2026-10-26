@@ -1,4 +1,5 @@
 import time
+from operator import itemgetter
 
 start_time = time.time()
 previous_duration= 0
@@ -101,8 +102,8 @@ def write_to_leaderboard(states):
 
     path = Path("functions/save_files/leaderboard.txt")
 
-    completion_data = {states["user_name"]: {"completion_percent": completion_percentage,
-                                  "total_playtime": completion_time}}
+    completion_data = {"username" : states["user_name"], "completion_percent": completion_percentage,
+                                  "total_playtime": completion_time}
 
     lines = [str(completion_data)]
 
@@ -110,3 +111,23 @@ def write_to_leaderboard(states):
         for line in lines:
             f.write(line + "\n")
 
+def display_leaderboard():
+
+    completion_list = []
+
+    from pathlib import Path
+
+    path = Path("functions/save_files/leaderboard.txt")
+
+    with path.open("r", encoding="utf-8") as f:
+        for line in f:
+            if line == "":
+                pass
+            else:
+                completion_list.append( dict(eval(line)) )
+                pass
+
+    print("Sorted by completion percent: ",
+          sorted(completion_list, key=itemgetter('completion_percent'), reverse=True))
+    print("Sorted by play time: ",
+          sorted(completion_list, key=itemgetter('total_playtime')))
