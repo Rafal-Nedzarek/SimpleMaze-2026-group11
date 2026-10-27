@@ -88,5 +88,11 @@ def enterLobby(state):
         elif command == "status":
             sf.show_completion(state["completed"],state)
 
+        elif command == "pause":
+            sf.write_save_file(state["user_name"], state)
+
+        elif command == "scoreboard":
+            sf.display_leaderboard()
+
         else:
             print("Unknown command. Type '?' to see available commands.")

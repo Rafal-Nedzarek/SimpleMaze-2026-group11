@@ -1,5 +1,6 @@
 import sys
 from .utils import chooseNextRoom
+from functions.shared_functions import write_to_leaderboard
 
 def enterTheExit(state):
     # --- Check if the player has the key to enter ---
@@ -13,4 +14,5 @@ def enterTheExit(state):
         print("\n🗝️ You insert the brass key into the lock and turn it with a satisfying click.")
         print("The door creaks open to reveal a stairwell leading outside.")
         print("Congratulations! You completed the game.")
+        write_to_leaderboard(state)
         sys.exit()

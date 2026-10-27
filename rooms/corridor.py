@@ -81,11 +81,15 @@ def enterCorridor(state):
             sys.exit()
 
         # not shown to the player
-        elif command.startswith("debug add "):
-            state["inventory"] += debugMode(command)
+        # elif command.startswith("debug add "):
+        #     state["inventory"] += debugMode(command)
 
         elif command == "status":
             sf.show_completion(state["completed"],state)
+
+        elif command == "pause":
+            sf.write_save_file(state["user_name"], state)
+            sys.exit()
 
         else:
             print("Unknown command. Type '?' to see available commands.")
