@@ -109,6 +109,9 @@ def enterProjectRoom3(state):
             if result:
                 return result
 
+        elif command == "map":
+            sf.display_map(state)
+
         elif command == "quit":
             print("You drop your backpack, leave the maze behind, and step back into the real world.")
             sys.exit()

@@ -6,7 +6,8 @@ def questions_sheet():
           '3. What is the biggest river in China?\n'
           'A=Mekong river, B=Yellow river, C=Yangtze river, D=Pearl river\n'
           '4. Which animal is the mascot of China\n'
-          'A=Komodo dragon, B=Red panda, C=Orangutan, D=Panda')
+          'A=Komodo dragon, B=Red panda, C=Orangutan, D=Panda\n'
+          "\n Seperate your answer with comma's")
 
 def welcome_screen():
     print('Welcome to examroom')

@@ -147,6 +147,9 @@ def enterLab2001(state):
         elif command == "replace laser":
             state["room_states"]["lab2001"]["laser_broken"] = handle_replace_laser()
 
+        elif command == "map":
+            sf.display_map(state)
+
         elif command == "quit":
             print(s.QUIT)
             sys.exit()

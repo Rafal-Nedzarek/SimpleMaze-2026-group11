@@ -92,6 +92,9 @@ def enterStairExit(state):
             if result:
                 return result
 
+        elif command == "map":
+            sf.display_map(state)
+
         elif command == "quit":
             print("You suddenly explode. Game over.")
             sys.exit()
