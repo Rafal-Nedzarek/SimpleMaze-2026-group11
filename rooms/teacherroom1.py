@@ -101,6 +101,9 @@ def enterteacherroom1(state):
             elif command == "status":
                 sf.show_completion(state["completed"],state)
 
+            elif command == "map":
+                sf.display_map(state)
+
             else:
                 print("Unknown command. Type '?' to see available commands.")
 

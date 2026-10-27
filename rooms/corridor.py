@@ -73,6 +73,9 @@ def enterCorridor(state):
             else:
                 print("You don't have any bandages.")
 
+        elif command == "map":
+            sf.display_map(state)
+
         elif command == "quit":
             print("You leave the school and the adventure comes to an end. Game over.")
             sys.exit()

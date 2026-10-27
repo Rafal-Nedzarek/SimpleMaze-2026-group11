@@ -9,7 +9,7 @@ def enterexamroom(state):
 
     def answers_check(answers):
         cleaned_answers=[]
-        answers=answers[0].split(',')
+
         for letter in answers:
             cleaned_answers.append(letter.upper())
         correct_answers = ['A', 'B', 'C', 'D']
@@ -31,10 +31,8 @@ def enterexamroom(state):
                     print('Come back when you are ready for the test!')
                     break
                 elif r=='yes':
-                    print()
                     examroom_texts.questions_sheet()
-                    answers = input('answer: ').upper().split(",")
-                    print(answers)
+                    answers =input('answer: ').strip().upper().split(",")
                     result=answers_check(answers)
                     if result==4:
                         print('congratulation! You passed the exam\n'
@@ -110,6 +108,9 @@ def enterexamroom(state):
         elif command == "quit":
             print("You sit back in the softest chair, close your eyes, and exit the adventure. Game over.")
             sys.exit()
-
+        elif command == "map":
+            sf.display_map(state)
         else:
             print("Unknown command. Type '?' to see available commands.")
+
+

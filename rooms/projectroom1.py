@@ -105,6 +105,9 @@ def enterProjectRoom1(state):
             if result:
                 return result
 
+        elif command == "map":
+            sf.display_map(state)
+
         elif command == "quit":
             print("👋 You leave the school and the adventure comes to an end. Game over.")
             sys.exit()

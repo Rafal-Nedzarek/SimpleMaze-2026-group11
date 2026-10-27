@@ -33,10 +33,11 @@ def convert(seconds):
 
 def show_universal_help_text():
     print("- look around        : See what's in the room and what you can do.")
-    print("- go <room name>     : Move to another room. Example: go enchanted_library")
-    print("- go back            : Return to the previous room")
+    print("- go <room name>     : Move to another room. Example: go enchanted_library.")
+    print("- go back            : Return to the previous room.")
     print("- ?                  : Show this help message.")
     print("- status             : Show how many rooms you've finished and elapsed time.")
+    print("- map                : Display map.")
     print("- quit               : Quit the game.")
 
 def healing(state):
@@ -47,3 +48,17 @@ def healing(state):
     print("You used the bandages.")
     print(f"\n- Your current health is {state["health"]} hearts")
     print("- Your current inventory:", state["inventory"])
+
+def display_map(state):
+    print('\nSchool Maze map\n'
+        '┌─────────────┬────────────────┬───────┬────────┬─────────────────┬──────────┬──────────┬─────┐\n'                                            
+        '│ LAB2001     │  LAB2003       │ Lobby │examroom│Enchanted library│Break room│Stair exit│Class│\n'                                            
+        '│             ├─────────────x──┘       └──────x─┴─────────────x───┴x─────────┴──x───────┤room │\n'                                            
+        '│             x                                     Corridor                            x2031 │\n'                                             
+        '│             ├───────┬─x───────┬────x────┐    ┌────x──┬────x──┐                        ├─────┤\n'                                             
+        '└─────────────┘       │Project  │Project  │    │Teacher│project├───────┐                xClass│\n'                                     
+        '                      │room 1   │room 2   │    │room 1 │room 3 │Teacher│   nscorridor   │room │\n'                                             
+        '                      └─────────┴─────────┤    ├───────┴───────┤room 4 x                │2035 │\n'                                             
+        '                                          │exit│               └───────┴────────────────┴─────┘\n'                              
+        '                                          ▼xxxx▼')
+    print(f"You are currently in {state['current_room']}")
