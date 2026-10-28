@@ -24,7 +24,8 @@ from rooms import (
     enterProjectRoom3,
     enterTheExit,
     enterexamroom,
-    enterBreakRoom
+    enterBreakRoom,
+    enterDragonsLeftHand
 )
 
 state = {
@@ -224,6 +225,9 @@ while True:
 
     elif current == "examroom":
         state["current_room"] = enterexamroom(state)
+
+    elif current == "dragons_left_hand":
+        state["current_room"] = enterDragonsLeftHand(state)
 
     else:
         print("Unknown room. Exiting game.")
