@@ -1,98 +1,217 @@
-def enterBreakRoom(state):
-    print("===================================")
-    print("          THE DARK NIGHT")
-    print("===================================")
+def get_room_state(state):
+    """Get or initialize the persistent state of The Dark Night."""
+    state.setdefault("inventory", [])
+    state.setdefault("completed", {})
+    state.setdefault("room_states", {})
 
-    print("\nYou enter a strange dark room.")
-    print("There is almost no light.")
-    print("You look around and see nothing...")
-    print("Suddenly, a small Dark Sun appears above you.")
-    print("It is glowing with a strange purple light.")
+    return state["room_states"].setdefault(
+        "break_room",
+        {
+            "sun_touched": False,
+            "puzzle_solved": False,
+            "reward_claimed": False,
+            "attempts": 0,
+            "energy": 0,
+        },
+    )
 
-    answer = input("\nDo you want to touch the Dark Sun? (yes/no): ")
 
-    while answer != "yes" and answer != "no":
-        print("\nThe Dark Sun does not understand you.")
-        print("Please answer with yes or no.")
-        answer = input("\nDo you want to touch the Dark Sun? (yes/no): ")
+def ask_choice(prompt, valid_choices):
+    """Ask until the player enters a valid choice."""
+    valid_choices = [choice.lower() for choice in valid_choices]
 
-    if answer == "yes":
-        print("\nYou slowly touch the Dark Sun...")
-        print("BOOM!")
-        print("The whole room becomes bright for a few seconds.")
-        print("You feel a strange power inside your body.")
+    while True:
+        answer = input(prompt).strip().lower()
 
+        if answer in valid_choices:
+            return answer
+
+        print(f"Invalid choice. Choose: {', '.join(valid_choices)}")
+
+
+def show_status(room):
+    """Display the Dark Sun's current energy."""
+    print("\n========== DARK SUN STATUS ==========")
+    print(f"Energy collected: {room['energy']}/30")
+
+    if room["puzzle_solved"]:
+        print("Puzzle: SOLVED")
     else:
-        print("\nYou decide not to touch the Dark Sun.")
-        print("You take one step back...")
-        print("The Dark Sun becomes brighter.")
-        print("You take another step back...")
-        print("It becomes even brighter.")
-        print("\nYou realize that the Dark Sun does not care about your answer.")
-        print("It gives you the power anyway.")
+        print("Puzzle: UNSOLVED")
 
-    print("\nSuddenly, three symbols appear on the floor.")
-    print("A moon, a star and a sun.")
-    print("A message appears:")
-    print('"Only one of these gives light during the day."')
+    print("=====================================")
 
-    puzzle = input("\nWhich symbol is the answer? (moon/star/sun): ")
 
-    while puzzle != "sun":
-        print("\nWrong answer!")
-        print("The Dark Sun is disappointed.")
-        print("It becomes 1% darker...")
-        print("You probably should try again.")
+def interact_with_sun(room):
+    """Let the player interact with the Dark Sun once."""
+    if room["sun_touched"]:
+        print("\nThe Dark Sun recognizes you.")
+        print("Its purple light pulses gently.")
+        return
 
-        puzzle = input("\nTry again. Which symbol is the answer? (moon/star/sun): ")
+    print("\nThe Dark Sun floats in front of you.")
+    print("Its surface contains three glowing symbols.")
+    print("You can feel energy coming from it.")
 
-    print("\nCorrect!")
-    print("The Dark Sun suddenly becomes extremely bright.")
-    print("You hear a mysterious sound...")
-    print("PFFFFT!")
+    choice = ask_choice(
+        "\n1. Touch the Dark Sun\n"
+        "2. Observe it carefully\n"
+        "Choose: ",
+        ["1", "2"],
+    )
 
-    print("Nothing happens.")
-    print("Apparently, the Dark Sun just sneezed.")
+    if choice == "1":
+        print("\nYou touch the Dark Sun!")
+        print("A wave of purple energy surrounds you.")
+        room["energy"] += 15
+    else:
+        print("\nYou observe the symbols without touching them.")
+        print("You discover a small inscription.")
+        print('"Light reveals what darkness hides."')
+        room["energy"] += 10
 
-    print("\nBONUS UNLOCKED!")
-    print("Dark Sun Buff: +10% extra energy.")
+    room["sun_touched"] = True
+    print(f"\nEnergy gained! Current energy: {room['energy']}/30")
 
-    state["inventory"].append("Dark Sun Buff")
+
+def solve_puzzle(room):
+    """Solve the symbol puzzle and award energy for success."""
+    if room["puzzle_solved"]:
+        print("\nYou have already solved the symbol puzzle.")
+        return True
+
+    symbols = {
+        "1": "moon",
+        "2": "star",
+        "3": "sun",
+    }
+
+    print("\n========== THE SYMBOL PUZZLE ==========")
+    print("Three symbols appear on the floor:")
+    print("1. Moon")
+    print("2. Star")
+    print("3. Sun")
+    print("\nRiddle: Which symbol represents the source")
+    print("of daylight in this puzzle?")
+    print("You have three attempts.")
+
+    for attempt in range(1, 4):
+        answer = ask_choice(
+            f"\nAttempt {attempt}/3 — Choose 1, 2 or 3: ",
+            ["1", "2", "3"],
+        )
+
+        if symbols[answer] == "sun":
+            print("\nCorrect! The Sun symbol shines brightly.")
+            print("The Dark Sun releases a burst of energy.")
+
+            room["puzzle_solved"] = True
+            room["attempts"] += attempt
+            room["energy"] = min(30, room["energy"] + 15)
+
+            print(f"Energy collected: {room['energy']}/30")
+            return True
+
+        print("\nIncorrect. The symbol fades.")
+        room["attempts"] += 1
+
+        if attempt == 1:
+            print("Hint: Think about what gives the world daylight.")
+        elif attempt == 2:
+            print("Final hint: Look at the name of this room's mystery.")
+
+    print("\nThe symbols disappear temporarily.")
+    print("You can return later and try again.")
+    return False
+
+
+def claim_reward(state, room):
+    """Award the item once and record completion."""
+    if not room["puzzle_solved"]:
+        print("\nSolve the puzzle before claiming the reward.")
+        return
+
+    if room["reward_claimed"]:
+        print("\nYou have already collected the Dark Sun Buff.")
+        return
+
+    print("\n========== BONUS UNLOCKED ==========")
+    print("You receive the Dark Sun Buff!")
+    print("Your inventory has been updated.")
+
+    if "Dark Sun Buff" not in state["inventory"]:
+        state["inventory"].append("Dark Sun Buff")
+
+    room["reward_claimed"] = True
     state["completed"]["break_room"] = True
 
-    print("\n-----------------------------------")
-    print("Your inventory:")
-    print(state["inventory"])
-    print("-----------------------------------")
+    print("Reward: Dark Sun Buff")
+    print("====================================")
 
-    leave = input("\nDo you want to leave the Dark Night? (yes/no): ")
 
-    while leave != "yes" and leave != "no":
-        print("\nPlease answer with yes or no.")
-        leave = input("\nDo you want to leave the Dark Night? (yes/no): ")
+def show_inventory(state):
+    """Display the shared game inventory."""
+    print("\n========== INVENTORY ==========")
 
-    if leave == "no":
-        print("\nYou decide to stay for a little longer.")
-        print("You look at the Dark Sun...")
-        print("The Dark Sun looks back.")
-        print("This is getting awkward...")
+    if not state["inventory"]:
+        print("Your inventory is empty.")
+    else:
+        for item in state["inventory"]:
+            print(f"- {item}")
 
-        leave = input("\nNow, do you want to leave the Dark Night? (yes/no): ")
+    print("===============================")
 
-        while leave != "yes":
-            print("\nThe adventure must continue.")
-            print("There is nothing else to do here.")
-            leave = input("\nDo you want to leave the Dark Night? (yes/no): ")
 
-    print("\nYou leave the Dark Night.")
-    print("The Dark Sun slowly disappears.")
+def leave_room(state, room):
+    """Return the player to the corridor."""
+    print("\nThe Dark Sun slowly fades.")
     print("The room becomes dark again.")
 
-    print("\n===================================")
-    print("          ROOM COMPLETED!")
-    print("===================================")
-    print("You completed The Dark Night.")
-    print("You received the Dark Sun Buff.")
-    print("The adventure continues in another room.")
-    print("===================================")
+    if room["reward_claimed"]:
+        print("You leave with the Dark Sun Buff.")
+    elif room["puzzle_solved"]:
+        print("You can collect your reward before leaving next time.")
+    else:
+        print("The mystery remains unsolved.")
+
+    print("\nThe adventure continues...")
     return "corridor"
+
+
+def enterBreakRoom(state):
+    """Main entry point for The Dark Night."""
+    room = get_room_state(state)
+
+    print("\n===================================")
+    print("           THE DARK NIGHT")
+    print("===================================")
+    print("A strange purple light illuminates the room.")
+
+    while True:
+        print("\nWhat would you like to do?")
+        print("1. Interact with the Dark Sun")
+        print("2. Solve the symbol puzzle")
+        print("3. Check the Dark Sun's status")
+        print("4. View inventory")
+        print("5. Claim reward")
+        print("6. Leave the room")
+
+        choice = ask_choice("Choose an option: ", ["1", "2", "3", "4", "5", "6"])
+
+        if choice == "1":
+            interact_with_sun(room)
+
+        elif choice == "2":
+            solve_puzzle(room)
+
+        elif choice == "3":
+            show_status(room)
+
+        elif choice == "4":
+            show_inventory(state)
+
+        elif choice == "5":
+            claim_reward(state, room)
+
+        elif choice == "6":
+            return leave_room(state, room)
