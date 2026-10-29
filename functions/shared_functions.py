@@ -32,6 +32,12 @@ def convert(seconds):
     seconds %= 60
     return "%d:%02d:%02d" % (hour, minutes, seconds)
 
+def show_help_text_start():
+    print("\nAvailable commands:")
+    print("- login       : Log in with an existing account.")
+    print("- register    : Create a new account.")
+    print("- ?           : Show this help message.")
+    print("- quit        : Quit the game.")
 
 def show_universal_help_text():
     print("- look around        : See what's in the room and what you can do.")
@@ -145,3 +151,21 @@ def display_leaderboard():
           sorted(completion_list, key=itemgetter('completion_percent'), reverse=True))
     print("Sorted by play time: ",
           sorted(completion_list, key=itemgetter('total_playtime')))
+
+def schoolMaze():
+    print("\n░██████╗░█████╗░██╗░░██╗░█████╗░░█████╗░██╗░░░░░        ███╗░░░███╗░█████╗░███████╗███████╗")
+    print("██╔════╝██╔══██╗██║░░██║██╔══██╗██╔══██╗██║░░░░░        ████╗░████║██╔══██╗╚════██║██╔════╝")
+    print("╚█████╗░██║░░╚═╝███████║██║░░██║██║░░██║██║░░░░░        ██╔████╔██║███████║░░███╔═╝█████╗░░")
+    print("░╚═══██╗██║░░██╗██╔══██║██║░░██║██║░░██║██║░░░░░        ██║╚██╔╝██║██╔══██║██╔══╝░░██╔══╝░░")
+    print("██████╔╝╚█████╔╝██║░░██║╚█████╔╝╚█████╔╝███████╗        ██║░╚═╝░██║██║░░██║███████╗███████╗")
+    print("╚═════╝░░╚════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░╚══════╝        ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝╚══════╝\n")
+
+def intro():
+    schoolMaze()
+    print("\n****************************************************************************")
+    print("*                                  Welcome                                 *")
+    print("*                Your goal is to explore rooms in the school.              *")
+    print("*    You need to solve challenges to collect key shards and unlock rooms   *")
+    print("*                and defeat the final boss to escape the maze              *")
+    print("****************************************************************************")
+    print("\n - If you are stuck and don't know what to do type: ?")

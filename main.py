@@ -6,6 +6,8 @@
 # Date: September 2026
 # -----------------------------------------------------------------------------
 from functions.shared_functions import read_save_file
+from functions.login_functions import getUser
+from functions import shared_functions as sf
 
 from rooms import (
     enterCorridor,
@@ -24,7 +26,8 @@ from rooms import (
     enterProjectRoom3,
     enterTheExit,
     enterexamroom,
-    enterBreakRoom
+    enterBreakRoom,
+    enterDragonsLeftHand
 )
 
 state = {
@@ -146,23 +149,9 @@ state = {
     "inventory": [],
 }
 
-print("░██████╗░█████╗░██╗░░██╗░█████╗░░█████╗░██╗░░░░░        ███╗░░░███╗░█████╗░███████╗███████╗")
-print("██╔════╝██╔══██╗██║░░██║██╔══██╗██╔══██╗██║░░░░░        ████╗░████║██╔══██╗╚════██║██╔════╝")
-print("╚█████╗░██║░░╚═╝███████║██║░░██║██║░░██║██║░░░░░        ██╔████╔██║███████║░░███╔═╝█████╗░░")
-print("░╚═══██╗██║░░██╗██╔══██║██║░░██║██║░░██║██║░░░░░        ██║╚██╔╝██║██╔══██║██╔══╝░░██╔══╝░░")
-print("██████╔╝╚█████╔╝██║░░██║╚█████╔╝╚█████╔╝███████╗        ██║░╚═╝░██║██║░░██║███████╗███████╗")
-print("╚═════╝░░╚════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░╚══════╝        ╚═╝░░░░░╚═╝╚═╝░░╚═╝╚══════╝╚══════╝")
-
-print("\n****************************************************************************")
-print("*                                  Welcome                                 *")
-print("*                Your goal is to explore rooms in the school.              *")
-print("*    You need to solve challenges to collect key shards and unlock rooms   *")
-print("*                and defeat the final boss to escape the maze              *")
-print("****************************************************************************")
-print("\n - If you are stuck and don't know what to do type: ?")
-
-user_name = input("Please enter your name: ")
+user_name = getUser()
 state["user_name"] = user_name
+sf.intro()
 
 save_state = read_save_file(user_name)
 
@@ -225,6 +214,9 @@ while True:
 
     elif current == "examroom":
         state["current_room"] = enterexamroom(state)
+
+    elif current == "dragons_left_hand":
+        state["current_room"] = enterDragonsLeftHand(state)
 
     else:
         print("Unknown room. Exiting game.")
