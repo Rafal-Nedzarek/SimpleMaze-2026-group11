@@ -159,7 +159,7 @@ def enterTeachersRoom4(state):
             print("M = 1000")
 
         elif command.startswith("check"):
-            item = command[12:].strip()
+            item = command[6:].strip()
             handle_check(item)
 
         elif command == "manifest":
@@ -167,7 +167,7 @@ def enterTeachersRoom4(state):
 
         elif command == "use bandages":
             if "bandages" in state["inventory"]:
-                healing(state)
+                sf.healing(state)
             else:
                 print("You don't have any bandages.")
 
