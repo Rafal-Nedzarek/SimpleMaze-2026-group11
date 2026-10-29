@@ -15,20 +15,15 @@ def enterCorridor(state):
         print("You see a long corridor with many doors and glass walls on both side. Behind these door are rooms, waiting to be explored.")
         state["visited"]["corridor"] = True
 
-    # --- List of accessible rooms from here ---
     available_rooms = ["lobby", "nscorridor","examroom", "enchanted_library", "teacherroom1", "projectroom3", "break_room"]
 
-    # --- Command handlers ---
-
     def handle_look():
-        """Describe the corridor and show where the player can go."""
         print("\nYou take a look around.")
         print("Students and teachers are walking in both directions along the corridor. You see several labeled doors.")
         print(f"- Possible doors: {', '.join(available_rooms)}")
         print("- You current inventory:", state["inventory"])
 
     def handle_help():
-        """List available commands and explain navigation."""
         print("\nAvailable commands:")
         if state["health"]<10 and state["inventory"] == "bandages" :
             print("- use bandages        : Use bandages to heal 4 harts.")
@@ -36,7 +31,6 @@ def enterCorridor(state):
         sf.show_universal_help_text()
 
     def handle_go(room_name):
-        """Move to a listed room."""
         room = room_name.lower()
         if room in available_rooms:
             print(f"You walk toward the door to {room}.")
@@ -46,7 +40,6 @@ def enterCorridor(state):
             print(f"'{room_name}' is not a valid exit. Use 'look around' to see available options.")
             return None
 
-    # --- Main corridor command loop ---
     while True:
         command = input("\n> ").strip().lower()
 
@@ -79,10 +72,6 @@ def enterCorridor(state):
         elif command == "quit":
             print("You leave the school and the adventure comes to an end. Game over.")
             sys.exit()
-
-        # not shown to the player
-        # elif command.startswith("debug add "):
-        #     state["inventory"] += debugMode(command)
 
         elif command == "status":
             sf.show_completion(state["completed"],state)

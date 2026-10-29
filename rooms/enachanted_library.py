@@ -1,7 +1,6 @@
 def enterEnchantedLibrary(state):
     print("======================================")
     print("       THE ENCHANTED LIBRARY")
-    print("          Classroom 2.015")
     print("======================================")
 
     while True:
@@ -17,7 +16,6 @@ def enterEnchantedLibrary(state):
 
         choice = input("Choose an option: ")
 
-        # FIRST CLUE
         if choice == "1":
 
             print("\nYou walk to the left bookshelf.")
@@ -41,7 +39,6 @@ def enterEnchantedLibrary(state):
                     print("\nWrong answer.")
                     print("Think about the first page of a book.")
 
-        # SECOND CLUE
         elif choice == "2":
 
             print("\nYou walk to the middle bookshelf.")
@@ -65,7 +62,6 @@ def enterEnchantedLibrary(state):
                     print("\nWrong answer.")
                     print("Look carefully at the dragon.")
 
-        # THIRD CLUE
         elif choice == "3":
 
             print("\nYou walk to the right bookshelf.")
@@ -90,7 +86,6 @@ def enterEnchantedLibrary(state):
                     print("\nWrong answer.")
                     print("Count the letters in MAGIC carefully.")
 
-        # NOTEBOOK
         elif choice == "4":
 
             print("\nYou walk to the old table.")
@@ -111,7 +106,6 @@ def enterEnchantedLibrary(state):
                 else:
                     print("\nYou leave the Notebook on the table.")
 
-        # INVENTORY
         elif choice == "5":
 
             print("\n========== INVENTORY ==========")
@@ -125,7 +119,6 @@ def enterEnchantedLibrary(state):
 
             print("===============================")
 
-        # SPELLBOOK
         elif choice == "6":
 
             print()
@@ -184,9 +177,8 @@ def enterEnchantedLibrary(state):
                 if not state["room_states"]["enchanted_library"]["clue3_solved"]:
                     print("Third clue is still unsolved.")
 
-        # LEAVE
         elif choice == "7":
-            print("\nYou leave Classroom 2.015.")
+            print("\nYou leave the enchanted_library.")
             print("Your inventory stays with you.")
             print("\nThe adventure continues in another room.")
             return "corridor"
@@ -196,8 +188,3 @@ def enterEnchantedLibrary(state):
         else:
             print("\nInvalid option.")
             print("Please choose a number from 1 to 7.")
-
-    print()
-    print("======================================")
-    print("       THE ADVENTURE CONTINUES")
-    print("======================================")

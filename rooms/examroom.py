@@ -51,11 +51,14 @@ def enterexamroom(state):
 
     def interact_book():
         print('There is a book with title: Exam')
-        respond=input('Would you like to look inside the book?')
-        while respond!=('yes'):
-            break
+        respond = input('Would you like to look inside the book?')
+        while respond!='yes' and respond!='no':
+            print('\nPlease answer with yes or no')
+            respond = input('Would you like to look inside the book?')
         if respond=='yes':
             examroom_texts.questions_answers()
+        else:
+            print("You've put the book back into the bookshelve")
 
 
     def handle_help():

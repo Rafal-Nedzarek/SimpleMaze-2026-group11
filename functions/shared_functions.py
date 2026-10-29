@@ -8,7 +8,6 @@ def show_completion(state_records,state):
     room_completions = 0
     total_rooms = 12
     for completion in state_records:
-        #print(completion)
         if state_records[completion]:
             room_completions += 1
         else:

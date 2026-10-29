@@ -3,8 +3,6 @@ from .utils import chooseNextRoom
 from functions.shared_functions import write_to_leaderboard
 
 def enterTheExit(state):
-    # --- Check if the player has the key to enter ---
-    # TODO: add hints on where to go
     if "exit key" not in state["inventory"]:
         print("\n🚪 The door to the exit  is locked.")
         print("You jiggle the handle. It's no use.")
