@@ -14,8 +14,9 @@ def enterLobby(state):
         "projectroom2",
         "lab2001",
         "lab2003",
-        "the_exit"
-    ]
+        "the_exit",
+        "dragon_knight_room",
+]
 
     def handle_look():
         print("\nYou take a slow look around.")

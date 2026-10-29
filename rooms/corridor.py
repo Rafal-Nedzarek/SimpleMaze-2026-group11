@@ -8,6 +8,8 @@
 
 import sys
 from functions import shared_functions as sf
+from rooms import dragons_left_hand
+
 
 def enterCorridor(state):
     print("\nYou are standing in the school's main corridor.")

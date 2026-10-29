@@ -25,3 +25,6 @@ from .projectroom2 import enterProjectRoom2
 from .projectroom3 import enterProjectRoom3
 from.the_exit import enterTheExit
 from .dragons_left_hand import enterDragonsLeftHand
+from .dragon_knight_room import enterDragonKnightRoom
+
+
