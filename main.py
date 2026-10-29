@@ -58,7 +58,8 @@ state = {
         "projectroom3": False,
         "stairexit" : False,
         "teacherroom1" : False,
-        "teachersroom4" : False
+        "teachersroom4" : False,
+        "examroom" : False
     },
 
     "section_finished":{

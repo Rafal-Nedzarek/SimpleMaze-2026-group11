@@ -38,6 +38,7 @@ def enterexamroom(state):
                         print('congratulation! You passed the exam\n'
                               'Here is the key for teacherroom1')
                         state['inventory'].append('crooked key')
+                        state['completed']['examroom'] = True
                         break
                     else:
                         print('unfortunately you did not passed the test\n'
@@ -106,7 +107,7 @@ def enterexamroom(state):
                 return result
 
         elif command == "status":
-            sf.show_completion(state["completed"])
+            sf.show_completion(state["completed"],state)
 
         elif command == "quit":
             print("You sit back in the softest chair, close your eyes, and exit the adventure. Game over.")
