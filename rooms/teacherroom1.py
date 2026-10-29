@@ -13,7 +13,7 @@ def enterteacherroom1(state):
                     'And some stuff on a table')
 
         def check_table():
-            print('\nThere is a playing card on the table\n'
+            print('\nThere are playing cards on the table\n'
                     'Might be tempted to take it,\n'
                     'but the ghost is staring at you\n'
                     'Maybe you should talk to it')
