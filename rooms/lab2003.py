@@ -4,7 +4,6 @@ from functions import shared_functions as sf
 
 def enterLab2003(state):
     available_rooms = ["lobby"]
-    # --- Check if the player has the key to enter ---
     if not state["room_states"]["lab2003"]["door_unlocked"]:
         if "lab2003 key" not in state["inventory"]:
             print(t.DOOR_LOCKED)
@@ -14,7 +13,6 @@ def enterLab2003(state):
             print(t.ENTER_ROOM)
             state["room_states"]["lab2003"]["door_unlocked"] = True
     else:
-        # door locked for good once lab2003 has been completed
         if state["visited"]["lab2003"]:
             print(t.DOOR_LOCKED_END)
             return "lobby"
@@ -54,8 +52,6 @@ def enterLab2003(state):
             return None
 
     def boss_battle():
-
-        # boss fight functions
         def boss_attack():
             time.sleep(2)
             print(t.BOSS_FIGHT["enemy_attacks"])
@@ -73,7 +69,6 @@ def enterLab2003(state):
                 player_health=state["health"]
             ))
 
-        # solving the puzzle skips the fight
         print(t.BOSS_CONVERSATION["boss_desc"])
         boss_answer = input(t.BOSS_CONVERSATION["boss_question"]).strip().lower()
         if boss_answer == "vriend" or boss_answer == "767269656e64":
@@ -82,24 +77,17 @@ def enterLab2003(state):
             state["visited"]["lab2003"] = True
             return "lobby"
 
-        # assuming wrong answer
         state["room_states"]["lab2003"]["boss_fight_active"] = True
         print(t.BOSS_CONVERSATION["answer_wrong"])
         display_health_bars()
 
-        # boss fight loop
         while state["room_states"]["lab2003"]["boss_health"] > 0:
-            # boss attacks first
             boss_attack()
 
-            # check if player's HP still positive after boss attack
             if state["health"] <= 0:
                 print(t.BOSS_FIGHT["player_lost"])
                 return "lobby"
 
-            # prompt player's action
-            # - only actions: attack, use ...
-            # print that any other action blocked during the fight
             command = input(t.BOSS_FIGHT["available_actions"]).strip().lower()
 
             if command == "punch":
@@ -113,15 +101,12 @@ def enterLab2003(state):
                         state["health"] = state["health"] + heal if state["health"] + heal < 10 else 10
                         print(t.BOSS_FIGHT["player_heal"].format(heal=heal))
                         display_health_bars()
-                    # TODO: replace the placeholders below with actual weapon/item names
                     elif item in ["special weapon 1", "special weapon 2", "special weapon 3"]:
                         special_weapon_dmg = 34
                         state["room_states"]["lab2003"]["boss_health"] -= special_weapon_dmg
                         print(t.BOSS_FIGHT["item_attack"].format(
                             special_weapon_dmg=special_weapon_dmg
                         ))
-                        # NOTE: making those special weapons one use only
-                        # that way you'll need all three instead of reusing just one
                         state["inventory"].remove(item)
                         print(t.BOSS_FIGHT["item_removed"].format(item=item))
                     else:
@@ -144,7 +129,6 @@ def enterLab2003(state):
         time.sleep(2)
         return "lobby"
 
-    # --- Commandoloop ---
     while True:
         command = input("\n> ").strip().lower()
 

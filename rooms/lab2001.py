@@ -39,7 +39,6 @@ def enterLab2001(state):
     def handle_examine(examined_object):
         if examined_object == "workbench":
             print(t.HANDLE_EXAMINE["workbench_desc"])
-            # TODO: the setup params might need to be made global
             voltage = state["room_states"]["lab2001"]["given_voltage"]
             resistance = state["room_states"]["lab2001"]["resistance_setting"]
             print(t.WORKBENCH_SETTINGS["voltage"].format(voltage=voltage))
@@ -71,14 +70,11 @@ def enterLab2001(state):
                 print(t.HANDLE_PLACE_ITEM["key_shard_placed"].format(item=item))
 
     def handle_run_workbench():
-        # check if lab2003 key already forged
         if state["room_states"]["lab2001"]["lab2003_key_forged"]:
             print(t.HANDLE_RUN_WORKBENCH["already_forged"])
-        # check if laser broken
         elif state["room_states"]["lab2001"]["laser_broken"]:
             print(t.HANDLE_RUN_WORKBENCH["laser_broken"])
         else:
-            # check if all four key shards are on the plate
             if not all(value == True for value in state["room_states"]["lab2001"]["key_shards_placed"].values()):
                 print(t.HANDLE_RUN_WORKBENCH["need_four_key_shards"])
             else:
@@ -88,24 +84,20 @@ def enterLab2001(state):
                 print(t.WORKBENCH_SETTINGS["resistance"].format(resistance=resistance))
                 electric_current = voltage / resistance
                 supplied_power = voltage * electric_current
-                # TODO: get max current from state
                 if electric_current > 4.5:
                     state["room_states"]["lab2001"]["laser_broken"] = True
                     print(t.HANDLE_RUN_WORKBENCH["current_too_strong"])
                 else:
-                    #TODO: get min power from state
                     if supplied_power >= 1000:
                         state["inventory"].append("lab2003 key")
                         state["room_states"]["lab2001"]["lab2003_key_forged"] = True
                         state["completed"]["classroom2035"] = True
                         print(t.HANDLE_RUN_WORKBENCH["forging_desc"])
-                        # TODO: decide if we want to display inventory at this moment
                         print(s.CURRENT_INVENTORY.format(inventory=state["inventory"]))
                     else:
                         print(t.HANDLE_RUN_WORKBENCH["power_too_low"])
 
     def handle_replace_laser():
-        # TODO: will need updating if action shown only when laser broken
         if not state["room_states"]["lab2001"]["laser_broken"]:
             print(t.HANDLE_REPLACE_LASER["already_fine"])
             return False
@@ -113,7 +105,6 @@ def enterLab2001(state):
             print(t.HANDLE_REPLACE_LASER["fixing_laser"])
             return False
 
-    # --- Commandoloop ---
     while True:
         command = input("\n> ").strip().lower()
 
