@@ -19,10 +19,7 @@ def enterTeachersRoom4(state):
         print("There is broken glass on the ground")
     state["visited"]["teachersroom4"] = True
 
-    # --- Command handlers ---
-
     def handle_look():
-        """Describe the room and give clues."""
         print("\nYou scan the room.")
         print("There is a table on which is a broken laptop, some office supplies, mug and calendar")
         print("On the wall is a broken clock")
@@ -32,7 +29,6 @@ def enterTeachersRoom4(state):
         state["looked_around"]["teachersroom4"] = True
 
     def handle_help():
-        """List available commands."""
         print("\nAvailable commands:")
         if state["room_states"]["classroom2035"]["manifest"] is True:
             print("- manifest            : Check the manifest")
@@ -56,7 +52,6 @@ def enterTeachersRoom4(state):
         sf.show_universal_help_text()
 
     def handle_go(destination):
-        """Handle movement out of the room."""
         if destination in ["nscorridor", "back"]:
             print("You step away from the eerie room. room and return to the nscorridor.")
             state["previous_room"] = "teachersroom4"
@@ -68,7 +63,6 @@ def enterTeachersRoom4(state):
     def handle_check(item):
         try:
             room = state["room_states"]["teachersroom4"]
-
             if item == "safe":
                 if room["safe"] is True and room["safe_opened"] is True:
                     print("The safe is open, there is nothing else to do.")
@@ -85,7 +79,7 @@ def enterTeachersRoom4(state):
                     try:
                         if len(password) != 4:
                             raise ValueError
-                        int(password)  # raises ValueError if it contains non-digits
+                        int(password)
                     except ValueError:
                         print("The password must be exactly 4 digits.")
                         return
@@ -138,7 +132,6 @@ def enterTeachersRoom4(state):
             print(f"- name: {i}     gender: {MANIFEST[i]["gender"]}     age: {MANIFEST[i]["age"]}     favourite items: {MANIFEST[i]["item1"]}, {MANIFEST[i]["item2"]}, {MANIFEST[i]["item3"]}")
         print("\n To guess the ghost you need to tipe: are you (name)")
 
-    # --- Main command loop ---
     while True:
         command = input("\n> ").strip().lower()
 
@@ -159,7 +152,7 @@ def enterTeachersRoom4(state):
             print("M = 1000")
 
         elif command.startswith("check"):
-            item = command[12:].strip()
+            item = command[6:].strip()
             handle_check(item)
 
         elif command == "manifest":
@@ -167,7 +160,7 @@ def enterTeachersRoom4(state):
 
         elif command == "use bandages":
             if "bandages" in state["inventory"]:
-                healing(state)
+                sf.healing(state)
             else:
                 print("You don't have any bandages.")
 
@@ -186,6 +179,13 @@ def enterTeachersRoom4(state):
 
         elif command == "status":
             sf.show_completion(state["completed"],state)
+
+        elif command == "pause":
+            sf.write_save_file(state["user_name"], state)
+            sys.exit()
+
+        elif command == "scoreboard":
+            sf.display_leaderboard()
 
         else:
             print("Unknown command. Type '?' to see available commands.")

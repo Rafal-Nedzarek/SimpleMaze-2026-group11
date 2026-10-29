@@ -17,10 +17,7 @@ def enterStairExit(state):
         print("The stairwell has collapsed, concrete and twisted railing block the way completely.")
     state["visited"]["stairexit"] = True
 
-    # --- Command handlers ---
-
     def handle_look():
-        """Describe the room and show exits."""
         print("\nYou take a slow look around.")
         print("Chunks of rubble are piled where the stairs used to be")
         print("To your left is a wooden chest")
@@ -28,7 +25,6 @@ def enterStairExit(state):
         state["looked_around"]["stairexit"] = True
 
     def handle_help():
-        """Show help message with available commands."""
         print("\nAvailable commands:")
         if state["room_states"]["classroom2035"]["manifest"] is True:
             print("- manifest            : Check the manifest")
@@ -41,7 +37,6 @@ def enterStairExit(state):
         sf.show_universal_help_text()
 
     def handle_go(destination):
-        """Handle movement to another room."""
         if destination in ["nscorridor", "back"]:
             print("You leave the stair exit and head back into the nscorridor.")
             state["previous_room"] = "stairexit"
@@ -54,8 +49,6 @@ def enterStairExit(state):
         for i in MANIFEST:
             print(f"- name: {i}     gender: {MANIFEST[i]["gender"]}     age: {MANIFEST[i]["age"]}     favourite items: {MANIFEST[i]["item1"]}, {MANIFEST[i]["item2"]}, {MANIFEST[i]["item3"]}")
         print("\n To guess the ghost you need to tipe: are you (name)")
-
-    # --- Main command loop ---
 
     while True:
         command = input("\n> ").strip().lower()
@@ -101,6 +94,13 @@ def enterStairExit(state):
 
         elif command == "status":
             sf.show_completion(state["completed"],state)
+
+        elif command == "pause":
+            sf.write_save_file(state["user_name"], state)
+            sys.exit()
+
+        elif command == "scoreboard":
+            sf.display_leaderboard()
 
         else:
             print("Unknown command. Type '?' to see available commands.")

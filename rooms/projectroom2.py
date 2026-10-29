@@ -7,22 +7,14 @@ def enterProjectRoom2(state):
     print("You find yourself in some sort of base. However, the surroundings outside look alien.")
     print("You are in some sort of artillery station with a chair to control a mounted turret.")
 
-    # --- Helperfuncties voor commandoverwerking ---
-
     def handle_look():
         print("\nYou take a careful look in the viewport.")
-        #print("You see two groups of squid looking aliens. A larger and a smaller group.")
-        #print("Desks with students are arranged in neat rows, though one chair is oddly turned toward the window.")
-        #print("On the teacher's desk, a calculator is lying in a strange position on the table.")
         if not state["visited"]["projectroom2"]:
             print("You see two groups of squid looking aliens. A larger and a smaller group.")
-            #print("\"What is 7 * 6?\"")
             print('Which group do you target?')
             state["looked_around"]["projectroom2"] = True
         else:
-            #print("The teacher sighs: You again? You already solved the challenge.")
             if "key" not in state["inventory"]:
-                #print("On the desk, beneath the calculator, something metallic glints. It looks like a small key.")
                 print("The alien part on the floor writhes. It looks like it might be useful.")
             else:
                 print("There is nothing more you can do here.")
@@ -31,19 +23,14 @@ def enterProjectRoom2(state):
 
     def handle_help():
         print("\nAvailable commands:")
-        # print("- look around         : Examine the room and its contents.")
         if state["looked_around"]["projectroom2"] and not state["visited"]["projectroom2"]:
             print("- target <group>     : Target the 'larger' or 'smaller' group.")
-        if state["visited"]["projectroom2"] and "tentacle" not in state["inventory"]:
-            print("- take tentacle            : Pick up the key once it's revealed.")
-        # print("- go lobby / back  : Leave the room and return to the lobby.")
-        # print("- ?                   : Show this help message.")
-        # print("- quit                : Quit the game entirely.")
+        if state["visited"]["projectroom2"] and "warp key" not in state["inventory"]:
+            print("- take warp key            : Pick up the key once it's revealed.")
         sf.show_universal_help_text()
 
-#Come back here later
     def handle_take(item):
-        if item == "tentacle":
+        if item == "warp key":
             if not state["visited"]["projectroom2"]:
                 print("There's no key visible yet. Maybe solving the puzzle will reveal more.")
             elif item in state["inventory"]:
@@ -66,7 +53,6 @@ def enterProjectRoom2(state):
 
     def handle_answer(answer):
         if state["visited"]["projectroom2"]:
-            #print("✅ You've already solved this challenge.")
             print("Despite the alarm, the battlefield is quiet.")
         elif answer == "smaller":
             print("Correct! You shoot and take down the smaller group.")
@@ -81,8 +67,6 @@ def enterProjectRoom2(state):
         else:
             print("Invalid answer.")
 
-
-    #Main Classroom command loop
     while True:
         command = input("\n> ").strip().lower()
 
@@ -117,6 +101,13 @@ def enterProjectRoom2(state):
 
         elif command == "status":
             sf.show_completion(state["completed"],state)
+
+        elif command == "pause":
+            sf.write_save_file(state["user_name"], state)
+            sys.exit()
+
+        elif command == "scoreboard":
+            sf.display_leaderboard()
 
         else:
             print("Unknown command. Type '?' to see available commands.")

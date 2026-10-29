@@ -17,22 +17,17 @@ def enterProjectRoom3(state):
     print("You find yourself in a large room that is built with hardened clay bricks.")
     print("The top of the room has an open section, seeing the stars.")
 
-    # --- Helperfuncties voor commandoverwerking ---
-
     def handle_look():
         print("\nYou take a careful look around the room.")
         print("It appears to be some kind of observatory.")
         print("Constellation diagrams line the walls of the room.")
-        #print("On the teacher's desk, a calculator is lying in a strange position on the table.")
         if not state["visited"]["projectroom3"]:
             print("There is an instrument in the center of the room.")
-            #print("\"What is 7 * 6?\"")
             print("On a circular face, it contains the names of animals: ")
             print("Rat, Ox, Tiger, Rabbit, <empty>, Snake, Horse, Goat, Monkey, Rooster, Pig.")
             print("It seems one of the inscriptions is missing.")
             state["looked_around"]["projectroom3"] = True
         else:
-            #print("The teacher sighs: You again? You already solved the challenge.")
             print('The incriptions glow.')
             if "astrolabe" not in state["inventory"]:
                 print("On the central table, a smaller instrument popped out.")
@@ -83,7 +78,6 @@ def enterProjectRoom3(state):
         else:
             print("Incorrect. Mysteriously, the inscription you wrote disappears.")
 
-    # --- Commandoloop ---
     while True:
         command = input("\n> ").strip().lower()
 
@@ -118,6 +112,13 @@ def enterProjectRoom3(state):
 
         elif command == "status":
             sf.show_completion(state["completed"],state)
+
+        elif command == "pause":
+            sf.write_save_file(state["user_name"], state)
+            sys.exit()
+
+        elif command == "scoreboard":
+            sf.display_leaderboard()
 
         else:
             print("Unknown command. Type '?' to see available commands.")

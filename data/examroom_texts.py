@@ -13,4 +13,5 @@ def welcome_screen():
     print('Welcome to examroom')
 
 def questions_answers():
-    print('A, B, C, D')
+    print('You found a answer sheet between the two pages\n'
+          'The answers are: A,B,C,D')

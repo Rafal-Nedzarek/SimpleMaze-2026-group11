@@ -13,7 +13,7 @@ def enterteacherroom1(state):
                     'And some stuff on a table')
 
         def check_table():
-            print('\nThere is a playing card on the table\n'
+            print('\nThere are playing cards on the table\n'
                     'Might be tempted to take it,\n'
                     'but the ghost is staring at you\n'
                     'Maybe you should talk to it')
@@ -48,6 +48,9 @@ def enterteacherroom1(state):
                                 print('\nThats the correct answer!\n'
                                   'youre very smart')
                                 break
+                        else:
+                            print("That's not the correct answer\n"
+                                  "Try again\n")
                     except ValueError:
                         print('\nPlease use only numbers')
             else:
@@ -68,10 +71,7 @@ def enterteacherroom1(state):
             print("\nAvailable commands:")
             print("-check table          : Check whats on the table")
             print("-talk with ghost      : Interact with the ghost")
-            print("--------------------------------------------------")
             sf.show_universal_help_text()
-
-        print(f' invetory: {state['inventory']}')
 
         while True:
             command = input("\n> ").strip().lower()
@@ -103,6 +103,13 @@ def enterteacherroom1(state):
 
             elif command == "map":
                 sf.display_map(state)
+
+            elif command == "pause":
+                sf.write_save_file(state["user_name"], state)
+                sys.exit()
+
+            elif command == "scoreboard":
+                sf.display_leaderboard()
 
             else:
                 print("Unknown command. Type '?' to see available commands.")

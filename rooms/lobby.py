@@ -8,7 +8,6 @@ def enterLobby(state):
     print("You hear the hum of the ventilation and the coffee machine.")
     print("A screen flickers above you.")
 
-    # --- List of accessible rooms from here ---
     available_rooms = [
         "corridor",
         "projectroom1",
@@ -20,17 +19,13 @@ def enterLobby(state):
 ]
 
     def handle_look():
-        """Describe the lobby and show exits."""
         print("\nYou take a slow look around.")
         print("There are a few posters on the wall about upcoming student events.")
         print("A group of students is sitting in the corner gazing at a laptop")
-
-        #Decide setting, and decide how exits are done
         print(f"- Possible doors: {', '.join(available_rooms)}")
         print("- Your current inventory:", state["inventory"])
 
     def handle_help():
-        """List available commands and explain navigation."""
         print("\nAvailable commands:")
         if state["health"]<10 and state["inventory"] == "bandages" :
             print("- use bandages        : Use bandages to heal 4 harts.")
@@ -38,7 +33,6 @@ def enterLobby(state):
         sf.show_universal_help_text()
 
     def handle_go(room_name):
-        """Move to a listed room."""
         room = room_name.lower()
         if room in available_rooms:
             print(f"You walk toward the door to {room}.")
@@ -48,7 +42,6 @@ def enterLobby(state):
             print(f"'{room_name}' is not a valid exit. Use 'look around' to see available options.")
             return None
 
-# --- Main lobby command loop ---
     while True:
         command = input("\n> ").strip().lower()
 
@@ -82,7 +75,6 @@ def enterLobby(state):
             print("You leave the school and the adventure comes to an end. Game over.")
             sys.exit()
 
-        # not shown to the player
         elif command.startswith("debug add "):
             state["inventory"] += debugMode(command)
 
@@ -91,6 +83,7 @@ def enterLobby(state):
 
         elif command == "pause":
             sf.write_save_file(state["user_name"], state)
+            sys.exit()
 
         elif command == "scoreboard":
             sf.display_leaderboard()

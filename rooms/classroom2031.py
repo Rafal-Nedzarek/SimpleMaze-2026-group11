@@ -33,8 +33,6 @@ def enterClassroom2031(state):
         state["room_states"]["classroom2031"][MANIFEST[ghost]["item3"]] = True
     state["visited"]["classroom2031"] = True
 
-    # --- Helperfuncties voor commandoverwerking ---
-
     def handle_look():
         print("\nYou take a careful look around the room.")
         print("The classroom is dark, you can barely see anything")
@@ -188,7 +186,6 @@ def enterClassroom2031(state):
         else:
             print("Unknown item")
 
-    # --- Commandoloop ---
     while True:
         command = input("\n> ").strip().lower()
 
@@ -232,6 +229,13 @@ def enterClassroom2031(state):
 
         elif command == "status":
             sf.show_completion(state["completed"],state)
+
+        elif command == "pause":
+            sf.write_save_file(state["user_name"], state)
+            sys.exit()
+
+        elif command == "scoreboard":
+            sf.display_leaderboard()
 
         else:
             print("Unknown command. Type '?' to see available commands.")

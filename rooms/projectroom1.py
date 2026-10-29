@@ -13,30 +13,23 @@ def enterProjectRoom1(state):
         print("You see several cylindrical, spherical, pyramid, and cube shapes.")
         print("You realize you're a computer scientist, not an engineer.")
         if not state["visited"]["projectroom1"]:
-            #print("The teacher says, you are late! And he asks you a question:")
-            #print("\"What is 7 * 6?\"")
             print('You see a compartment open that spherical objects flow out of.')
             print('You also see a cube connected by a cylindrical object. It may be out of place?')
             print('You can: 1. Clean up the spheres.')
             print('2. Replace the cube and cylinder.')
         else:
-            #print("The teacher sighs: You again? You already solved the challenge.")
             print('The engine hums smoothly.')
 
             if "stardust_sphere" not in state["inventory"]:
-                #print("On the desk, beneath the calculator, something metallic glints. It looks like a small key.")
                 print('One of the spherical capsules seems to radiate a lot of heat.')
             else:
-                #print("The desk is empty. You've already taken the key.")
                 print('The compartment is clean and orderly.')
         print("- Possible exits: lobby")
         print("- Your current inventory:", state["inventory"])
 
     def handle_help():
         print("\nAvailable commands:")
-        # print("- look around         : Examine the room and its contents.")
         if not state["visited"]["projectroom1"]:
-            #print("- answer <number>     : Attempt to solve the math question.")
             print("- action <number>     : Take a specific action to repair the engine.")
         if state["visited"]["projectroom1"] and "stardust sphere" not in state["inventory"]:
             print("- take stardust sphere            : Pick up the key once it's revealed.")
@@ -46,10 +39,8 @@ def enterProjectRoom1(state):
         if item == "stardust sphere":
             if not state["visited"]["projectroom1"]:
                 print("There's no key visible yet. Maybe solving the puzzle will reveal more.")
-                #print('unfinished')
             elif "stardust_sphere" in state["inventory"]:
                 print("You already have the sphere in your inventory.")
-                #print('unfinished')
             else:
                 print("You lift the lone sphere.")
                 print("It is suprisingly heavier than it looks. It\'s also quite warm.")
@@ -79,7 +70,6 @@ def enterProjectRoom1(state):
             print(f"You can't go to '{destination}' from here.")
             return None
 
-    #Main Classroom command loop
     while True:
         command = input("\n> ").strip().lower()
 
@@ -114,6 +104,13 @@ def enterProjectRoom1(state):
 
         elif command == "status":
             sf.show_completion(state["completed"],state)
+
+        elif command == "pause":
+            sf.write_save_file(state["user_name"], state)
+            sys.exit()
+
+        elif command == "scoreboard":
+            sf.display_leaderboard()
 
         else:
             print("Unknown command. Type '?' to see available commands.")

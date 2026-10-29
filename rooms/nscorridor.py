@@ -19,13 +19,9 @@ def enterNSCorridor(state):
         print("You step back into the N-S corridor.")
     state["visited"]["nscorridor"] = True
 
-    # --- List of accessible rooms from here ---
     available_rooms = ["stairexit", "teachersroom4", "classroom2031","classroom2035", "corridor"]
 
-    # --- Command handlers ---
-
     def handle_look():
-        """Describe the corridor and show where the player can go."""
         print("\nYou take a look around.")
         print("\nThere are stains of blood on the wall and ground, and the corridor looks abandoned")
         print("You can see some torn off books, papers and some school supplies on the ground")
@@ -34,7 +30,6 @@ def enterNSCorridor(state):
         print(f"- Possible doors: {', '.join(available_rooms)}")
 
     def handle_help():
-        """List available commands and explain navigation."""
         print("\nAvailable commands:")
         if state["room_states"]["classroom2035"]["manifest"] is True:
             print("- manifest            : Check the manifest")
@@ -45,7 +40,6 @@ def enterNSCorridor(state):
         sf.show_universal_help_text()
 
     def handle_go(room_name):
-        """Move to a listed room."""
         room = room_name.lower()
         if room in available_rooms:
             print(f"You walk toward the door to {room}.")
@@ -61,7 +55,6 @@ def enterNSCorridor(state):
             print(f"- name: {i}     gender: {MANIFEST[i]["gender"]}     age: {MANIFEST[i]["age"]}     favourite items: {MANIFEST[i]["item1"]}, {MANIFEST[i]["item2"]}, {MANIFEST[i]["item3"]}")
         print("\n To guess the ghost you need to tipe: are you (name)")
 
-    # --- Main corridor command loop ---
     while True:
         command = input("\n> ").strip().lower()
 
@@ -95,12 +88,18 @@ def enterNSCorridor(state):
             print("You leave the school and the adventure comes to an end. Game over.")
             sys.exit()
 
-        # not shown to the player
         elif command.startswith("debug add "):
             state["inventory"] += debugMode(command)
 
         elif command == "status":
             sf.show_completion(state["completed"],state)
+
+        elif command == "pause":
+            sf.write_save_file(state["user_name"], state)
+            sys.exit()
+
+        elif command == "scoreboard":
+            sf.display_leaderboard()
 
         else:
             print("Unknown command. Type '?' to see available commands.")
