@@ -8,6 +8,8 @@
 
 import sys
 from functions import shared_functions as sf
+from rooms import dragons_left_hand
+
 
 def enterCorridor(state):
     print("\nYou are standing in the school's main corridor.")
@@ -16,7 +18,7 @@ def enterCorridor(state):
         state["visited"]["corridor"] = True
 
     # --- List of accessible rooms from here ---
-    available_rooms = ["lobby", "nscorridor","examroom", "enchanted_library", "teacherroom1", "projectroom3", "break_room"]
+    available_rooms = ["lobby", "nscorridor","examroom", "enchanted_library", "teacherroom1", "projectroom3", "break_room" , "dragons_left_hand"]
 
     # --- Command handlers ---
 
