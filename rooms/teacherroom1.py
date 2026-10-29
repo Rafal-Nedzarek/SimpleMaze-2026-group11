@@ -48,6 +48,9 @@ def enterteacherroom1(state):
                                 print('\nThats the correct answer!\n'
                                   'youre very smart')
                                 break
+                        else:
+                            print("That's not the correct answer\n"
+                                  "Try again\n")
                     except ValueError:
                         print('\nPlease use only numbers')
             else:
@@ -68,10 +71,7 @@ def enterteacherroom1(state):
             print("\nAvailable commands:")
             print("-check table          : Check whats on the table")
             print("-talk with ghost      : Interact with the ghost")
-            print("--------------------------------------------------")
             sf.show_universal_help_text()
-
-        print(f' invetory: {state['inventory']}')
 
         while True:
             command = input("\n> ").strip().lower()
