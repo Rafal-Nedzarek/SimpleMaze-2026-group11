@@ -62,6 +62,7 @@ state = {
         "stairexit" : False,
         "teacherroom1" : False,
         "teachersroom4" : False,
+        "dragons_left_hand" : False
         "examroom" : False
     },
 

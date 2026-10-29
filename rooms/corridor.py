@@ -15,7 +15,8 @@ def enterCorridor(state):
         print("You see a long corridor with many doors and glass walls on both side. Behind these door are rooms, waiting to be explored.")
         state["visited"]["corridor"] = True
 
-    available_rooms = ["lobby", "nscorridor","examroom", "enchanted_library", "teacherroom1", "projectroom3", "break_room"]
+    # --- List of accessible rooms from here ---
+    available_rooms = ["lobby", "nscorridor","examroom", "enchanted_library", "teacherroom1", "projectroom3", "break_room", "dragons_left_hand"]
 
     def handle_look():
         print("\nYou take a look around.")
@@ -79,6 +80,9 @@ def enterCorridor(state):
         elif command == "pause":
             sf.write_save_file(state["user_name"], state)
             sys.exit()
+
+        elif command == "scoreboard":
+            sf.display_leaderboard()
 
         else:
             print("Unknown command. Type '?' to see available commands.")

@@ -233,6 +233,7 @@ def enterDragonsLeftHand(state):
                 print("\nThe knight opens his armored hand.")
                 print("A small golden object appears.")
                 claim_key_shard(state, room)
+                state["completed"]["dragons_left_hand"] = True
             else:
                 print("\nWRONG CODE! The knight looks disappointed.")
 
