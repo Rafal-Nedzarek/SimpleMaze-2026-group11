@@ -157,5 +157,12 @@ def enterLab2001(state):
         elif command == "status":
             sf.show_completion(state["completed"],state)
 
+        elif command == "pause":
+            sf.write_save_file(state["user_name"], state)
+            sys.exit()
+
+        elif command == "scoreboard":
+            sf.display_leaderboard()
+
         else:
             print(s.UNKNOWN_COMMAND)

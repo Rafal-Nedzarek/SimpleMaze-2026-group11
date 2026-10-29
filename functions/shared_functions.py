@@ -6,7 +6,8 @@ previous_duration= 0
 
 def show_completion(state_records,state):
     room_completions = 0
-    total_rooms = 12
+    total_rooms = len(state_records)
+    print(total_rooms)
     for completion in state_records:
         #print(completion)
         if state_records[completion]:
@@ -47,7 +48,9 @@ def show_universal_help_text():
     print("- ?                  : Show this help message.")
     print("- status             : Show how many rooms you've finished and elapsed time.")
     print("- map                : Display map.")
-    print("- quit               : Quit the game.")
+    print("- scoreboard         : Display the leaderboard of game completions by percentage and time.")
+    print("- pause              : Leave the game and keep your progress for later.")
+    print("- quit               : Quit the game without keeping progress.")
 
 def healing(state):
     state["health"] += 4
@@ -107,7 +110,7 @@ def read_save_file(username):
 
 def write_to_leaderboard(states):
     room_completions = 0
-    total_rooms = 12
+    total_rooms = len(states['completed'])
     for completion in states['completed'].values():
         if completion:
             room_completions += 1
@@ -148,10 +151,40 @@ def display_leaderboard():
                 completion_list.append( dict(eval(line)) )
                 pass
 
-    print("Sorted by completion percent: ",
-          sorted(completion_list, key=itemgetter('completion_percent'), reverse=True))
-    print("Sorted by play time: ",
-          sorted(completion_list, key=itemgetter('total_playtime')))
+    print("Sorted by completion percentage: ")
+    completion_list = sorted(completion_list, key=itemgetter('completion_percent'), reverse=True)
+
+    if len(completion_list) < 5:
+        for completion in completion_list:
+            print(f'Username: {completion["username"]}')
+            print(f'Completion Percentage: {completion["completion_percent"]}')
+            print(f'Time Played: {convert(completion["total_playtime"])}\n')
+
+    else:
+        count = 0
+        while count < 5:
+            print(f'Username: {completion_list[count]["username"]}')
+            print(f'Completion Percentage: {completion_list[count]["completion_percent"]}')
+            print(f'Time Played: {convert(completion_list[count]["total_playtime"])}\n')
+            count+=1
+
+
+    print("Sorted by fastest play time: ")
+    completion_list = sorted(completion_list, key=itemgetter('total_playtime'))
+
+    if len(completion_list) < 5:
+        for completion in completion_list:
+            print(f'Username: {completion["username"]}')
+            print(f'Time Played: {convert(completion["total_playtime"])}\n')
+            print(f'Completion Percentage: {completion["completion_percent"]}')
+
+    else:
+        count = 0
+        while count < 5:
+            print(f'Username: {completion_list[count]["username"]}')
+            print(f'Time Played: {convert(completion_list[count]["total_playtime"])}\n')
+            print(f'Completion Percentage: {completion_list[count]["completion_percent"]}')
+            count+=1
 
 def schoolMaze():
     print("\n░██████╗░█████╗░██╗░░██╗░█████╗░░█████╗░██╗░░░░░        ███╗░░░███╗░█████╗░███████╗███████╗")
