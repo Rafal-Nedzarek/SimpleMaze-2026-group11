@@ -13,7 +13,6 @@ from rooms import (
     enterCorridor,
     enterNSCorridor,
     enterStairExit,
-    enterLab2001,
     enterLab2003,
     enterEnchantedLibrary,
     enterteacherroom1,
@@ -183,9 +182,6 @@ while True:
 
     elif current == "teachersroom4":
         state["current_room"] = enterTeachersRoom4(state)
-
-    elif current == "lab2001":
-        state["current_room"] = enterLab2001(state)
 
     # Jason room functionality changes
     elif current == "lobby":
