@@ -63,9 +63,9 @@ def healing(state):
 def display_map(state):
     print('\nSchool Maze map\n'
         '┌─────────────┬────────────────┬───────┬────────┬─────────────────┬──────────┬──────────┬─────┐\n'                                            
-        '│ LAB2001     │  LAB2003       │ Lobby │examroom│Enchanted library│Break room│Stair exit│Class│\n'                                            
-        '│             ├─────────────x──┘       └──────x─┴─────────────x───┴x─────────┴──x───────┤room │\n'                                            
-        '│             x                                     Corridor                            x2031 │\n'                                             
+        '│ Dragons     │  LAB2003       │ Lobby │examroom│Enchanted library│Break room│Stair exit│Class│\n'                                            
+        '│ Left        ├─────────────x──┘       └──────x─┴─────────────x───┴x─────────┴──x───────┤room │\n'                                            
+        '│ Hand            x                                     Corridor                            x2031 │\n'                                             
         '│             ├───────┬─x───────┬────x────┐    ┌────x──┬────x──┐                        ├─────┤\n'                                             
         '└─────────────┘       │Project  │Project  │    │Teacher│project├───────┐                xClass│\n'                                     
         '                      │room 1   │room 2   │    │room 1 │room 3 │Teacher│   nscorridor   │room │\n'                                             

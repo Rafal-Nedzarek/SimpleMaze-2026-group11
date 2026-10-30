@@ -785,6 +785,8 @@ def enterDragonKnightRoom(state):
             room_state["completed"] = True
             state.setdefault("completed", {})
             state["completed"]["dragon_knight_room"] = True
+            state["inventory"].append("exit key")
+            state["inventory"].append("lab2003 key")
 
             game["exit"] = "lobby"
             game["running"] = False
